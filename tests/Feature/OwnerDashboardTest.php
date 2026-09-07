@@ -92,3 +92,19 @@ test('owner report page paginates transactions', function () {
     expect($transactions->perPage())->toBe(15);
     $response->assertSee('Menampilkan 1 - 15 dari 20 transaksi');
 });
+
+test('footer displays copyright from services config', function () {
+    $expectedCopyright = 'Copyright (c) 2026 Yanuar Ardhika Rahmadhani Ubaidillah';
+
+    expect(config('services.copyright'))->toBe($expectedCopyright);
+
+    $loginResponse = $this->get(route('login'));
+    $loginResponse->assertStatus(200);
+    $loginResponse->assertSee($expectedCopyright);
+
+    $response = $this->actingAs($this->owner)
+        ->get(route('owner.dashboard'));
+
+    $response->assertStatus(200);
+    $response->assertSee($expectedCopyright);
+});

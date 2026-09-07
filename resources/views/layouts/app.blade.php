@@ -194,6 +194,8 @@
             margin-left: var(--sidebar-width);
             min-height: 100vh;
             transition: margin-left 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Navbar */
@@ -297,6 +299,18 @@
         /* Content area */
         .content-area {
             padding: 1.5rem;
+            flex: 1 0 auto;
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.8125rem;
+            margin-top: auto;
         }
 
         /* Mobile offcanvas */
@@ -628,6 +642,11 @@
         <div class="content-area">
             @yield('content')
         </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p class="mb-0">{{ config('services.copyright') }}</p>
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

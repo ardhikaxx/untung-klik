@@ -35,4 +35,6 @@ return [
         ],
     ],
 
+    'copyright' => env('APP_COPYRIGHT', 'Copyright (c) 2026 Yanuar Ardhika Rahmadhani Ubaidillah'),
+
 ];

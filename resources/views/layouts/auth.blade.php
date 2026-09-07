@@ -206,6 +206,9 @@
 <body>
     <div class="auth-wrapper">
         @yield('content')
+        <footer class="text-center mt-3 text-muted" style="font-size: 0.8125rem;">
+            <p class="mb-0">{{ config('services.copyright') }}</p>
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
