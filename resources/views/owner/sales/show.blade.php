@@ -158,6 +158,14 @@
 @push('styles')
 <style>
     @media print {
+        @page {
+            margin: 4mm;
+            size: auto;
+        }
+        body {
+            background: #fff !important;
+            color: #000 !important;
+        }
         body * {
             visibility: hidden;
         }
@@ -168,10 +176,15 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 100%;
+            width: 100% !important;
+            max-width: 480px;
+            margin: 0 auto;
             border: none !important;
             box-shadow: none !important;
             padding: 0 !important;
+        }
+        .d-print-none {
+            display: none !important;
         }
     }
 </style>

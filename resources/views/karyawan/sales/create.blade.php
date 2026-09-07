@@ -277,17 +277,61 @@
     });
 
     function filterQuickProducts() {
-        const query = document.getElementById('quickSearchInput').value.toLowerCase();
+        const query = document.getElementById('quickSearchInput').value.toLowerCase().trim();
         document.querySelectorAll('.quick-product-card').forEach(card => {
             const name = card.getAttribute('data-name');
             const sku = card.getAttribute('data-sku');
-            if (name.includes(query) || sku.includes(query)) {
+            if (!query || name.includes(query) || (sku && sku.includes(query))) {
                 card.style.display = '';
             } else {
                 card.style.display = 'none';
             }
         });
     }
+
+    // Barcode scanner & quick search Enter key support
+    document.getElementById('quickSearchInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const query = this.value.trim().toLowerCase();
+            if (!query) return;
+
+            // Check exact SKU or Name match
+            let matchedProduct = productsData.find(p => (p.sku && p.sku.toLowerCase() === query) || p.name.toLowerCase() === query);
+
+            // If no exact match, check single visible product in grid
+            if (!matchedProduct) {
+                const visibleCards = Array.from(document.querySelectorAll('.quick-product-card')).filter(c => c.style.display !== 'none');
+                if (visibleCards.length === 1) {
+                    const id = parseInt(visibleCards[0].getAttribute('data-id'));
+                    matchedProduct = productsData.find(p => p.id === id);
+                }
+            }
+
+            if (matchedProduct) {
+                if (matchedProduct.stock > 0) {
+                    addFromQuickGrid(matchedProduct.id);
+                    this.value = '';
+                    filterQuickProducts();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Stok Habis',
+                        text: `Produk ${matchedProduct.name} sedang habis (0 ${matchedProduct.unit}).`,
+                        confirmButtonColor: '#22c55e'
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Produk Tidak Ditemukan',
+                    text: `Tidak ada produk yang cocok dengan "${this.value}".`,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        }
+    });
 
     function filterByCategory(catId, btn) {
         document.querySelectorAll('.category-filter-btn').forEach(b => {
@@ -578,6 +622,23 @@
                 confirmButtonColor: '#22c55e'
             });
             return false;
+        }
+
+        const paymentMethod = document.getElementById('payment_method').value;
+        const cashInput = document.getElementById('cash_received');
+        if (paymentMethod === 'Tunai' && cashInput.value) {
+            const received = parseFloat(cashInput.value) || 0;
+            if (received < rawGrandTotal) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Uang Diterima Kurang',
+                    text: `Total belanja adalah ${formatRp(rawGrandTotal)}, sedangkan uang yang dimasukkan hanya ${formatRp(received)}.`,
+                    confirmButtonColor: '#22c55e'
+                });
+                cashInput.focus();
+                return false;
+            }
         }
     });
 </script>

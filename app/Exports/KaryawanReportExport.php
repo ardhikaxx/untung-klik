@@ -39,8 +39,10 @@ class KaryawanReportExport implements FromCollection, WithHeadings, WithMapping,
     {
         return [
             'Tanggal',
+            'No. Invoice',
             'Kategori',
-            'Sumber/Keterangan',
+            'Pelanggan / Sumber',
+            'Rincian Produk / Deskripsi',
             'Nominal',
             'Metode Bayar',
         ];
@@ -48,12 +50,18 @@ class KaryawanReportExport implements FromCollection, WithHeadings, WithMapping,
 
     public function map($transaction): array
     {
+        $itemsText = $transaction->is_sale && $transaction->items->isNotEmpty()
+            ? $transaction->items->map(fn ($i) => $i->product_name.' ('.$i->quantity.'x)')->implode(', ')
+            : ($transaction->description ?? '-');
+
         return [
             $transaction->transaction_date->format('d/m/Y'),
+            $transaction->invoice_number ?? '-',
             $transaction->category?->name ?? '-',
-            $transaction->source ?? $transaction->description ?? '-',
+            $transaction->customer_name ?: ($transaction->source ?? '-'),
+            $itemsText,
             (float) $transaction->amount,
-            $transaction->payment_method ?? '-',
+            ucfirst($transaction->payment_method ?? 'Tunai'),
         ];
     }
 

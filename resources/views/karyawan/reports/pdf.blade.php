@@ -176,20 +176,38 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 40px;">No</th>
-                <th>Kategori</th>
-                <th>Sumber</th>
-                <th>Deskripsi</th>
-                <th>Jumlah</th>
+                <th style="width: 35px;">No</th>
+                <th>Kategori & Invoice</th>
+                <th>Pelanggan / Sumber</th>
+                <th>Rincian Produk / Deskripsi</th>
+                <th style="text-align: right;">Jumlah</th>
             </tr>
         </thead>
         <tbody>
             @foreach($transactions as $transaction)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $transaction->category->name ?? '-' }}</td>
-                <td>{{ $transaction->source ?? '-' }}</td>
-                <td>{{ $transaction->description ?? '-' }}</td>
+                <td>
+                    {{ $transaction->category->name ?? '-' }}
+                    @if($transaction->invoice_number)
+                        <br><span style="font-size: 10px; color: #15803d; font-weight: bold;">#{{ $transaction->invoice_number }}</span>
+                    @endif
+                </td>
+                <td>
+                    {{ $transaction->customer_name ?: ($transaction->source ?? '-') }}
+                    @if($transaction->customer_name && $transaction->source)
+                        <br><span style="font-size: 10px; color: #6b7280;">({{ $transaction->source }})</span>
+                    @endif
+                </td>
+                <td>
+                    @if($transaction->is_sale && $transaction->items->isNotEmpty())
+                        @foreach($transaction->items as $item)
+                            <div style="font-size: 11px;">{{ $item->product_name }} <span style="color: #6b7280;">({{ $item->quantity }}x)</span></div>
+                        @endforeach
+                    @else
+                        {{ $transaction->description ?? '-' }}
+                    @endif
+                </td>
                 <td>Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
             </tr>
             @endforeach

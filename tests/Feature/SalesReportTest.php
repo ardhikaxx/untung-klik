@@ -234,3 +234,22 @@ test('accessing general edit on a sales transaction redirects to sales show', fu
     $response = $this->actingAs($this->owner)->get(route('owner.transactions.edit', $sale));
     $response->assertRedirect(route('owner.sales.show', $sale));
 });
+
+test('karyawan can export daily report with sales items as pdf and excel', function () {
+    $this->actingAs($this->karyawan)->post(route('karyawan.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Mas Dani',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productA->id, 'quantity' => 1],
+        ],
+    ]);
+
+    $pdfResponse = $this->actingAs($this->karyawan)->get(route('karyawan.export.pdf', ['date' => now()->toDateString()]));
+    $pdfResponse->assertStatus(200);
+    expect($pdfResponse->headers->get('content-type'))->toContain('application/pdf');
+
+    $excelResponse = $this->actingAs($this->karyawan)->get(route('karyawan.export.excel', ['date' => now()->toDateString()]));
+    $excelResponse->assertStatus(200);
+    expect($excelResponse->headers->get('content-disposition'))->toContain('.xlsx');
+});
