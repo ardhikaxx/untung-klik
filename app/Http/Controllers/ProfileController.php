@@ -50,7 +50,9 @@ class ProfileController extends Controller
 
     public function karyawanProfile()
     {
-        return $this->index();
+        $user = auth()->user();
+
+        return view('karyawan.profile.index', compact('user'));
     }
 
     public function karyawanUpdate(Request $request)
