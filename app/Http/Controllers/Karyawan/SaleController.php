@@ -129,9 +129,19 @@ class SaleController extends Controller
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
         ], [
-            'items.required' => 'Pilih minimal satu produk untuk dicatat.',
-            'items.min' => 'Pilih minimal satu produk untuk dicatat.',
-            'items.*.quantity.min' => 'Jumlah produk minimal 1.',
+            'transaction_date.required' => 'Tanggal transaksi wajib diisi.',
+            'payment_method.required' => 'Metode pembayaran wajib dipilih.',
+            'items.required' => 'Keranjang penjualan masih kosong. Pilih minimal satu produk.',
+            'items.min' => 'Pilih minimal satu produk untuk transaksi penjualan.',
+            'items.*.product_id.required' => 'Pilihan produk tidak valid.',
+            'items.*.product_id.exists' => 'Produk yang dipilih tidak ditemukan dalam katalog.',
+            'items.*.quantity.required' => 'Jumlah barang wajib diisi.',
+            'items.*.quantity.integer' => 'Jumlah barang harus berupa bilangan bulat.',
+            'items.*.quantity.min' => 'Jumlah produk minimal 1 unit.',
+            'discount.numeric' => 'Potongan diskon harus berupa angka.',
+            'discount.min' => 'Potongan diskon tidak boleh bernilai negatif.',
+            'cash_received.numeric' => 'Nominal uang tunai diterima harus berupa angka.',
+            'cash_received.min' => 'Nominal uang tunai diterima tidak boleh negatif.',
         ]);
 
         $createdTransaction = null;
@@ -150,11 +160,11 @@ class SaleController extends Controller
                     $qty = (int) $item['quantity'];
 
                     if (! $product->is_active) {
-                        throw new \Exception("Produk {$product->name} sedang dinonaktifkan dan tidak dapat dijual.");
+                        throw new \Exception("Produk \"{$product->name}\" saat ini sedang dinonaktifkan sehingga tidak dapat dijual.");
                     }
 
                     if ($product->stock < $qty) {
-                        throw new \Exception("Stok {$product->name} tidak mencukupi (Tersedia: {$product->stock} {$product->unit}, Permintaan: {$qty} {$product->unit}).");
+                        throw new \Exception("Stok produk \"{$product->name}\" tidak mencukupi. Sisa stok tersedia: {$product->stock} {$product->unit}, permintaan: {$qty} {$product->unit}.");
                     }
 
                     $unitPrice = (float) $product->selling_price;
@@ -177,6 +187,10 @@ class SaleController extends Controller
                 $cashReceived = $request->filled('cash_received') ? (float) $request->cash_received : null;
                 $cashChange = null;
                 if ($cashReceived !== null) {
+                    if (in_array(strtolower($request->payment_method), ['cash', 'tunai']) && $cashReceived < $finalAmount) {
+                        $shortage = $finalAmount - $cashReceived;
+                        throw new \Exception('Uang tunai yang diterima (Rp '.number_format($cashReceived, 0, ',', '.').') kurang dari total tagihan (Rp '.number_format($finalAmount, 0, ',', '.').'). Kekurangan: Rp '.number_format($shortage, 0, ',', '.').'.');
+                    }
                     $cashChange = max(0, $cashReceived - $finalAmount);
                 }
 
@@ -258,11 +272,11 @@ class SaleController extends Controller
                 $createdTransaction = $transaction;
             });
         } catch (\Exception $e) {
-            return back()->withInput()->with('warning', $e->getMessage());
+            return back()->withInput()->with('error', $e->getMessage())->with('warning', $e->getMessage());
         }
 
         return redirect()->route('karyawan.sales.show', $createdTransaction)
-            ->with('success', 'Penjualan berhasil dicatat! Struk nota siap dicetak.');
+            ->with('success', "Transaksi penjualan #{$createdTransaction->invoice_number} berhasil dicatat dan stok barang telah diperbarui! Struk nota siap dicetak.");
     }
 
     public function show(Transaction $sale): View

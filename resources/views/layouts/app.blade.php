@@ -480,11 +480,11 @@
                 </a>
                 <a href="{{ route('karyawan.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.sales.*') ? 'active' : '' }}">
                     <i class="fas fa-cash-register"></i>
-                    <span>Penjualan Produk</span>
+                    <span>Kasir & Penjualan</span>
                 </a>
                 <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
                     <i class="fas fa-arrow-down"></i>
-                    <span>Uang Masuk Lainnya</span>
+                    <span>Catat Kas Masuk</span>
                 </a>
 
                 <div class="sidebar-section-label">Laporan</div>
@@ -609,11 +609,11 @@
                     </a>
                     <a href="{{ route('karyawan.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.sales.*') ? 'active' : '' }}">
                         <i class="fas fa-cash-register"></i>
-                        <span>Penjualan Produk</span>
+                        <span>Kasir & Penjualan</span>
                     </a>
                     <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
                         <i class="fas fa-arrow-down"></i>
-                        <span>Uang Masuk Lainnya</span>
+                        <span>Catat Kas Masuk</span>
                     </a>
 
                     <div class="sidebar-section-label">Laporan</div>
@@ -690,6 +690,66 @@
 
         <!-- Content -->
         <div class="content-area">
+            {{-- Alert Notifikasi Status Operasi --}}
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4 shadow-sm border-0" role="alert" style="background-color: #ecfdf5; color: #065f46; border-left: 5px solid #10b981 !important; border-radius: 8px;">
+                    <i class="fas fa-check-circle fs-5 me-3 text-success"></i>
+                    <div class="flex-grow-1">
+                        <strong class="d-block mb-1">Berhasil!</strong>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4 shadow-sm border-0" role="alert" style="background-color: #fef2f2; color: #991b1b; border-left: 5px solid #ef4444 !important; border-radius: 8px;">
+                    <i class="fas fa-exclamation-circle fs-5 me-3 text-danger"></i>
+                    <div class="flex-grow-1">
+                        <strong class="d-block mb-1">Gagal Memproses Permintaan:</strong>
+                        <span>{{ session('error') }}</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if(session('warning'))
+                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center mb-4 shadow-sm border-0" role="alert" style="background-color: #fffbeb; color: #92400e; border-left: 5px solid #f59e0b !important; border-radius: 8px;">
+                    <i class="fas fa-exclamation-triangle fs-5 me-3 text-warning"></i>
+                    <div class="flex-grow-1">
+                        <strong class="d-block mb-1">Perhatian:</strong>
+                        <span>{{ session('warning') }}</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if(session('info'))
+                <div class="alert alert-info alert-dismissible fade show d-flex align-items-center mb-4 shadow-sm border-0" role="alert" style="background-color: #eff6ff; color: #1e40af; border-left: 5px solid #3b82f6 !important; border-radius: 8px;">
+                    <i class="fas fa-info-circle fs-5 me-3 text-primary"></i>
+                    <div class="flex-grow-1">
+                        <strong class="d-block mb-1">Informasi:</strong>
+                        <span>{{ session('info') }}</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show mb-4 shadow-sm border-0" role="alert" style="background-color: #fef2f2; color: #991b1b; border-left: 5px solid #ef4444 !important; border-radius: 8px;">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-times-circle fs-5 me-2 text-danger"></i>
+                        <strong class="fs-6">Terdapat beberapa data yang belum lengkap atau perlu diperbaiki:</strong>
+                    </div>
+                    <ul class="mb-0 ps-4">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             @yield('content')
         </div>
 
@@ -764,10 +824,12 @@
     <script>
         Swal.fire({
             icon: 'success',
-            title: 'Berhasil',
-            text: '{!! session('success') !!}',
-            timer: 3000,
-            showConfirmButton: false
+            title: 'Berhasil!',
+            text: {!! json_encode(session('success')) !!},
+            timer: 3500,
+            timerProgressBar: true,
+            confirmButtonColor: '#22c55e',
+            confirmButtonText: 'Tutup'
         });
     </script>
     @endif
@@ -776,8 +838,10 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: 'Gagal',
-            text: '{!! session('error') !!}'
+            title: 'Gagal Memproses Permintaan',
+            text: {!! json_encode(session('error')) !!},
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Mengerti'
         });
     </script>
     @endif
@@ -786,8 +850,34 @@
     <script>
         Swal.fire({
             icon: 'warning',
-            title: 'Peringatan',
-            text: '{!! session('warning') !!}'
+            title: 'Perhatian',
+            text: {!! json_encode(session('warning')) !!},
+            confirmButtonColor: '#f59e0b',
+            confirmButtonText: 'Mengerti'
+        });
+    </script>
+    @endif
+
+    @if(session('info'))
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: 'Informasi',
+            text: {!! json_encode(session('info')) !!},
+            confirmButtonColor: '#3b82f6',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+    @if($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Data Belum Lengkap / Tidak Sesuai',
+            html: '<div class="text-start small mt-2"><ul class="mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul></div>',
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Periksa Kembali'
         });
     </script>
     @endif

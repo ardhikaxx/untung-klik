@@ -10,6 +10,20 @@
         <p>Masukkan nomor telepon yang terdaftar untuk mereset PIN Anda</p>
     </div>
 
+    @if (session('success'))
+        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #ecfdf5; color: #065f46; border-left: 4px solid #10b981 !important; border-radius: 8px;">
+            <i class="fas fa-check-circle me-2 text-success"></i>
+            <div>{{ session('success') }}</div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #fef2f2; color: #991b1b; border-left: 4px solid #ef4444 !important; border-radius: 8px;">
+            <i class="fas fa-exclamation-circle me-2 text-danger"></i>
+            <div>{{ session('error') }}</div>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('forgot-pin.post') }}" class="auth-form">
         @csrf
 
@@ -52,30 +66,10 @@
     @if ($errors->any())
         Swal.fire({
             icon: 'error',
-            title: 'Gagal Mengirim',
-            text: '{{ $errors->first() }}',
-            confirmButtonColor: '#22c55e',
-            confirmButtonText: 'OK'
-        });
-    @endif
-
-    @if (session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal Mengirim',
-            text: '{{ session('error') }}',
-            confirmButtonColor: '#22c55e',
-            confirmButtonText: 'OK'
-        });
-    @endif
-
-    @if (session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: '{{ session('success') }}',
-            confirmButtonColor: '#22c55e',
-            confirmButtonText: 'OK'
+            title: 'Gagal Memproses',
+            html: '<ul class="text-start mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>',
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Periksa Kembali'
         });
     @endif
 </script>

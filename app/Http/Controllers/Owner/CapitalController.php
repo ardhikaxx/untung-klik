@@ -39,19 +39,27 @@ class CapitalController extends Controller
             'entry_date' => 'required|date',
             'source' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
+        ], [
+            'amount.required' => 'Nominal modal usaha wajib diisi.',
+            'amount.numeric' => 'Nominal modal usaha harus berupa angka.',
+            'amount.min' => 'Nominal modal usaha minimal Rp 1.',
+            'entry_date.required' => 'Tanggal pencatatan modal usaha wajib diisi.',
+            'entry_date.date' => 'Format tanggal pencatatan modal tidak valid.',
         ]);
+
+        $cleanedAmount = clean_number($request->amount);
 
         CapitalEntry::create([
             'business_id' => $user->business_id,
             'user_id' => $user->id,
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'entry_date' => $request->entry_date,
             'source' => $request->source,
             'description' => $request->description,
         ]);
 
         return redirect()->route('owner.capital.index')
-            ->with('success', 'Modal berhasil dicatat.');
+            ->with('success', 'Penyertaan modal usaha sebesar Rp '.number_format($cleanedAmount, 0, ',', '.').' berhasil ditambahkan ke buku kas.');
     }
 
     public function edit(CapitalEntry $capital)
@@ -74,17 +82,25 @@ class CapitalController extends Controller
             'entry_date' => 'required|date',
             'source' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
+        ], [
+            'amount.required' => 'Nominal modal usaha wajib diisi.',
+            'amount.numeric' => 'Nominal modal usaha harus berupa angka.',
+            'amount.min' => 'Nominal modal usaha minimal Rp 1.',
+            'entry_date.required' => 'Tanggal pencatatan modal usaha wajib diisi.',
+            'entry_date.date' => 'Format tanggal pencatatan modal tidak valid.',
         ]);
 
+        $cleanedAmount = clean_number($request->amount);
+
         $capital->update([
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'entry_date' => $request->entry_date,
             'source' => $request->source,
             'description' => $request->description,
         ]);
 
         return redirect()->route('owner.capital.index')
-            ->with('success', 'Modal berhasil diperbarui.');
+            ->with('success', 'Data pencatatan modal usaha berhasil diperbarui.');
     }
 
     public function destroy(CapitalEntry $capital)
@@ -96,6 +112,6 @@ class CapitalController extends Controller
         $capital->delete();
 
         return redirect()->route('owner.capital.index')
-            ->with('success', 'Modal berhasil dihapus.');
+            ->with('success', 'Data penyertaan modal berhasil dihapus dari pembukuan.');
     }
 }

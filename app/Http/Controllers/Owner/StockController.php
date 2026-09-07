@@ -81,6 +81,16 @@ class StockController extends Controller
             'type' => 'required|in:in,out,damaged,lost,correction,adjustment',
             'amount' => 'required|integer|min:0',
             'notes' => 'required|string|max:500',
+        ], [
+            'product_id.required' => 'Pilih produk yang ingin disesuaikan stoknya.',
+            'product_id.exists' => 'Produk yang dipilih tidak valid atau tidak ditemukan.',
+            'type.required' => 'Jenis penyesuaian stok wajib dipilih.',
+            'type.in' => 'Jenis penyesuaian stok yang dipilih tidak valid.',
+            'amount.required' => 'Jumlah barang penyesuaian wajib diisi.',
+            'amount.integer' => 'Jumlah penyesuaian harus berupa angka bulat.',
+            'amount.min' => 'Jumlah penyesuaian tidak boleh bernilai negatif.',
+            'notes.required' => 'Catatan atau alasan penyesuaian stok wajib diisi.',
+            'notes.max' => 'Catatan penyesuaian maksimal 500 karakter.',
         ]);
 
         $product = Product::where('id', $request->product_id)
@@ -98,7 +108,7 @@ class StockController extends Controller
             $after = $before + $diff;
         } elseif (in_array($type, ['out', 'damaged', 'lost', 'adjustment'])) {
             if ($amount > $before) {
-                return back()->withInput()->with('error', "Jumlah pengurangan ({$amount}) melebihi stok yang ada ({$before} {$product->unit}).");
+                return back()->withInput()->with('error', "Gagal menyesuaikan stok: Jumlah pengurangan ({$amount} {$product->unit}) melebihi sisa stok yang ada saat ini ({$before} {$product->unit}).");
             }
             $diff = -$amount;
             $after = $before + $diff;
@@ -107,22 +117,26 @@ class StockController extends Controller
             $diff = $after - $before;
         }
 
-        DB::transaction(function () use ($businessId, $user, $product, $type, $diff, $before, $after, $request) {
-            $product->update(['stock' => $after]);
+        try {
+            DB::transaction(function () use ($businessId, $user, $product, $type, $diff, $before, $after, $request) {
+                $product->update(['stock' => $after]);
 
-            StockMovement::create([
-                'business_id' => $businessId,
-                'product_id' => $product->id,
-                'user_id' => $user->id,
-                'type' => $type,
-                'quantity' => $diff,
-                'stock_before' => $before,
-                'stock_after' => $after,
-                'notes' => $request->notes,
-            ]);
-        });
+                StockMovement::create([
+                    'business_id' => $businessId,
+                    'product_id' => $product->id,
+                    'user_id' => $user->id,
+                    'type' => $type,
+                    'quantity' => $diff,
+                    'stock_before' => $before,
+                    'stock_after' => $after,
+                    'notes' => $request->notes,
+                ]);
+            });
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Gagal memproses penyesuaian stok: '.$e->getMessage());
+        }
 
         return redirect()->route('owner.stock.index')
-            ->with('success', "Stok {$product->name} berhasil diperbarui (Stok saat ini: {$after} {$product->unit}).");
+            ->with('success', "Stok \"{$product->name}\" berhasil disesuaikan dari {$before} {$product->unit} menjadi {$after} {$product->unit}.");
     }
 }

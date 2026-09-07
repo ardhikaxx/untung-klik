@@ -14,6 +14,7 @@ class TransactionController extends Controller
         $user = auth()->user();
         $query = Transaction::where('business_id', $user->business_id)
             ->where('user_id', $user->id)
+            ->where('is_sale', false)
             ->with('category');
 
         if ($request->filled('start_date')) {
@@ -49,13 +50,23 @@ class TransactionController extends Controller
             'source' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
             'payment_method' => 'nullable|string|max:100',
+        ], [
+            'amount.required' => 'Nominal kas masuk wajib diisi.',
+            'amount.numeric' => 'Nominal kas masuk harus berupa angka.',
+            'amount.min' => 'Nominal kas masuk minimal Rp 1.',
+            'transaction_date.required' => 'Tanggal kas masuk wajib diisi.',
+            'transaction_date.date' => 'Format tanggal tidak valid.',
+            'category_id.exists' => 'Kategori kas yang dipilih tidak valid atau tidak ditemukan.',
         ]);
+
+        $cleanedAmount = clean_number($request->amount);
 
         Transaction::create([
             'business_id' => $user->business_id,
             'user_id' => $user->id,
             'type' => 'masuk',
-            'amount' => clean_number($request->amount),
+            'is_sale' => false,
+            'amount' => $cleanedAmount,
             'transaction_date' => $request->transaction_date,
             'category_id' => $request->category_id,
             'source' => $request->source,
@@ -64,7 +75,7 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('karyawan.transactions.index')
-            ->with('success', 'Penjualan berhasil dicatat.');
+            ->with('success', 'Kas masuk berhasil dicatat.');
     }
 
     public function show(Transaction $transaction)

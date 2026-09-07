@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Catat Penjualan')
+@section('title', 'Catat Kas Masuk')
 
 @section('content')
 <div class="row justify-content-center">
@@ -10,8 +10,8 @@
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div>
-                <h5 class="fw-bold mb-1">Catat Penjualan</h5>
-                <p class="text-muted mb-0 small">Isi data penjualan yang ingin dicatat</p>
+                <h5 class="fw-bold mb-1">Catat Kas Masuk</h5>
+                <p class="text-muted mb-0 small">Isi data penerimaan kas masuk non-produk (misal: jasa, tip, pendapatan lain)</p>
             </div>
         </div>
 
@@ -21,7 +21,7 @@
                     @csrf
 
                     <div class="mb-4">
-                        <label for="amount" class="form-label fw-semibold">Jumlah Penjualan</label>
+                        <label for="amount" class="form-label fw-semibold">Jumlah Kas Masuk</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-text fw-bold" style="background-color: #f0fdf4; border-color: #86efac; color: #16a34a;">Rp</span>
                             <input
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="category_id" class="form-label fw-semibold">Kategori</label>
+                        <label for="category_id" class="form-label fw-semibold">Kategori Kas</label>
                         <select
                             class="form-select @error('category_id') is-invalid @enderror"
                             id="category_id"
@@ -78,14 +78,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="source" class="form-label fw-semibold">Sumber</label>
+                        <label for="source" class="form-label fw-semibold">Sumber / Keterangan Pembayar</label>
                         <input
                             type="text"
                             class="form-control @error('source') is-invalid @enderror"
                             id="source"
                             name="source"
                             value="{{ old('source') }}"
-                            placeholder="Contoh: Penjualan online, Kasir utama"
+                            placeholder="Contoh: Jasa servis, Pendapatan sewa, Tip pelanggan"
                         >
                         @error('source')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -99,7 +99,7 @@
                             id="description"
                             name="description"
                             rows="3"
-                            placeholder="Catatan tambahan (opsional)"
+                            placeholder="Catatan tambahan kas masuk (opsional)"
                         >{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -125,7 +125,7 @@
 
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-save me-2"></i>Simpan Penjualan
+                            <i class="fas fa-save me-2"></i>Simpan Kas Masuk
                         </button>
                     </div>
                 </form>

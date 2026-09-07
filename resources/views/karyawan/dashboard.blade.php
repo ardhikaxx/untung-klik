@@ -60,10 +60,10 @@
 <div class="row g-3 mb-4">
     <div class="col-12 d-flex flex-wrap gap-2">
         <a href="{{ route('karyawan.sales.create') }}" class="btn btn-primary btn-lg px-4 shadow-sm">
-            <i class="fas fa-cart-plus me-2"></i>Catat Penjualan Produk
+            <i class="fas fa-cash-register me-2"></i>Buka Kasir Penjualan
         </a>
         <a href="{{ route('karyawan.transactions.create') }}" class="btn btn-outline-secondary btn-lg px-4">
-            <i class="fas fa-plus me-2"></i>Catat Kas Masuk Manual
+            <i class="fas fa-plus-circle me-2"></i>Catat Kas Masuk Manual
         </a>
     </div>
 </div>
@@ -89,8 +89,8 @@
     <div class="card-header bg-white border-bottom d-flex align-items-center justify-content-between py-3">
         <h6 class="mb-0 fw-semibold">Transaksi Terakhir Saya</h6>
         <div class="d-flex gap-2">
-            <a href="{{ route('karyawan.sales.index') }}" class="btn btn-sm btn-outline-primary">Riwayat Penjualan</a>
-            <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-sm btn-outline-secondary">Buku Kas</a>
+            <a href="{{ route('karyawan.sales.index') }}" class="btn btn-sm btn-outline-primary">Riwayat Kasir</a>
+            <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-sm btn-outline-secondary">Riwayat Kas Masuk</a>
         </div>
     </div>
     <div class="card-body p-0">

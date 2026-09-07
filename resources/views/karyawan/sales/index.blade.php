@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Penjualan Saya')
+@section('title', 'Riwayat Penjualan Kasir')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-        <h4 class="fw-bold mb-1">Riwayat Penjualan Saya</h4>
-        <p class="text-muted mb-0">Daftar transaksi penjualan yang telah Anda catat hari ini dan sebelumnya.</p>
+        <h4 class="fw-bold mb-1">Riwayat Penjualan Kasir</h4>
+        <p class="text-muted mb-0">Daftar transaksi kasir penjualan produk yang telah Anda layani.</p>
     </div>
     <a href="{{ route('karyawan.sales.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus-circle me-1"></i>Catat Penjualan Baru
+        <i class="fas fa-plus-circle me-1"></i>Buka Kasir Baru
     </a>
 </div>
 
@@ -151,7 +151,7 @@
                 <h6 class="text-muted fw-bold">Belum Ada Riwayat Penjualan</h6>
                 <p class="text-muted small mb-3">Mulai catat transaksi penjualan barang untuk pelanggan toko.</p>
                 <a href="{{ route('karyawan.sales.create') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus me-1"></i>Catat Penjualan Sekarang
+                    <i class="fas fa-cash-register me-1"></i>Buka Kasir Sekarang
                 </a>
             </div>
         @else

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Penjualan')
+@section('title', 'Detail Kas Masuk')
 
 @section('content')
 <div class="row justify-content-center">
@@ -10,8 +10,8 @@
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div>
-                <h5 class="fw-bold mb-1">Detail Penjualan</h5>
-                <p class="text-muted mb-0 small">Informasi lengkap transaksi penjualan</p>
+                <h5 class="fw-bold mb-1">Detail Kas Masuk</h5>
+                <p class="text-muted mb-0 small">Informasi lengkap catatan penerimaan kas masuk manual</p>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
                         <i class="fas fa-arrow-down" style="color: #16a34a; font-size: 1.5rem;"></i>
                     </div>
                     <h3 class="fw-bold mb-1" style="color: #16a34a;">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</h3>
-                    <span class="badge" style="background-color: #dcfce7; color: #16a34a;">Penjualan Masuk</span>
+                    <span class="badge" style="background-color: #dcfce7; color: #16a34a;">Kas Masuk</span>
                 </div>
 
                 <hr class="my-4">
@@ -77,7 +77,7 @@
 
         <div class="mt-3">
             <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-outline-secondary w-100">
-                <i class="fas fa-arrow-left me-2"></i>Kembali ke Riwayat
+                <i class="fas fa-arrow-left me-2"></i>Kembali ke Riwayat Kas Masuk
             </a>
         </div>
     </div>

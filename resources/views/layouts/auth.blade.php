@@ -213,6 +213,44 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: {!! json_encode(session('success')) !!},
+            timer: 3500,
+            timerProgressBar: true,
+            confirmButtonColor: '#22c55e',
+            confirmButtonText: 'Tutup'
+        });
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: {!! json_encode(session('error')) !!},
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Mengerti'
+        });
+    </script>
+    @endif
+
+    @if(session('warning'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Perhatian',
+            text: {!! json_encode(session('warning')) !!},
+            confirmButtonColor: '#f59e0b',
+            confirmButtonText: 'Mengerti'
+        });
+    </script>
+    @endif
+
     @stack('scripts')
 </body>
 </html>

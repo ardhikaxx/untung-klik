@@ -29,6 +29,11 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:masuk,keluar,operasional',
+        ], [
+            'name.required' => 'Nama kategori transaksi wajib diisi.',
+            'name.max' => 'Nama kategori transaksi maksimal 255 karakter.',
+            'type.required' => 'Jenis transaksi wajib dipilih.',
+            'type.in' => 'Pilihan jenis transaksi harus berupa kas masuk, kas keluar, atau biaya operasional.',
         ]);
 
         TransactionCategory::create([
@@ -39,7 +44,7 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->route('owner.categories.index')
-            ->with('success', 'Kategori berhasil ditambahkan.');
+            ->with('success', "Kategori transaksi \"{$request->name}\" berhasil ditambahkan.");
     }
 
     public function edit(TransactionCategory $category)
@@ -61,12 +66,18 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|in:masuk,keluar,operasional',
             'is_active' => 'required|boolean',
+        ], [
+            'name.required' => 'Nama kategori transaksi wajib diisi.',
+            'name.max' => 'Nama kategori transaksi maksimal 255 karakter.',
+            'type.required' => 'Jenis transaksi wajib dipilih.',
+            'type.in' => 'Pilihan jenis transaksi harus berupa kas masuk, kas keluar, atau biaya operasional.',
+            'is_active.required' => 'Status keaktifan kategori wajib ditentukan.',
         ]);
 
         $category->update($request->only(['name', 'type', 'is_active']));
 
         return redirect()->route('owner.categories.index')
-            ->with('success', 'Kategori berhasil diperbarui.');
+            ->with('success', "Kategori transaksi \"{$category->name}\" berhasil diperbarui.");
     }
 
     public function destroy(TransactionCategory $category)
@@ -75,9 +86,10 @@ class CategoryController extends Controller
             abort(403);
         }
 
+        $categoryName = $category->name;
         $category->update(['is_active' => false]);
 
         return redirect()->route('owner.categories.index')
-            ->with('success', 'Kategori berhasil dinonaktifkan.');
+            ->with('success', "Kategori transaksi \"{$categoryName}\" berhasil dinonaktifkan.");
     }
 }

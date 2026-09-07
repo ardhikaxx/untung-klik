@@ -253,3 +253,82 @@ test('karyawan can export daily report with sales items as pdf and excel', funct
     $excelResponse->assertStatus(200);
     expect($excelResponse->headers->get('content-disposition'))->toContain('.xlsx');
 });
+
+test('karyawan can record manual cash in with clear labels and it does not mix with pos sales list', function () {
+    // 1. Visit create form and check labels
+    $createView = $this->actingAs($this->karyawan)->get(route('karyawan.transactions.create'));
+    $createView->assertStatus(200);
+    $createView->assertSee('Catat Kas Masuk');
+    $createView->assertSee('Simpan Kas Masuk');
+    $createView->assertSee('Jumlah Kas Masuk');
+
+    // 2. Post manual cash in
+    $response = $this->actingAs($this->karyawan)->post(route('karyawan.transactions.store'), [
+        'amount' => 25000,
+        'transaction_date' => now()->toDateString(),
+        'source' => 'Jasa Titip Ongkir',
+        'description' => 'Ongkos kirim tambahan pelanggan',
+        'payment_method' => 'tunai',
+    ]);
+
+    $response->assertRedirect(route('karyawan.transactions.index'));
+    $response->assertSessionHas('success', 'Kas masuk berhasil dicatat.');
+
+    // 3. Post a POS sale
+    $this->actingAs($this->karyawan)->post(route('karyawan.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Pelanggan POS',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productA->id, 'quantity' => 1], // 75.000
+        ],
+    ]);
+
+    // 4. In manual cash in index, only manual cash appears (is_sale = false)
+    $trxIndex = $this->actingAs($this->karyawan)->get(route('karyawan.transactions.index'));
+    $trxIndex->assertStatus(200);
+    $trxIndex->assertSee('Riwayat Kas Masuk Manual');
+    $trxIndex->assertSee('Catat Kas Masuk Baru');
+    $trxIndex->assertSee('Jasa Titip Ongkir');
+    $trxIndex->assertSee('25.000');
+    $trxIndex->assertDontSee('Pelanggan POS');
+
+    // 5. In POS sales index, only POS sale appears
+    $salesIndex = $this->actingAs($this->karyawan)->get(route('karyawan.sales.index'));
+    $salesIndex->assertStatus(200);
+    $salesIndex->assertSee('Riwayat Penjualan Kasir');
+    $salesIndex->assertSee('Pelanggan POS');
+    $salesIndex->assertDontSee('Jasa Titip Ongkir');
+});
+
+test('karyawan report dashboard displays segregated statistics for cashier sales and manual cash', function () {
+    // 1. Record manual cash in (15.000)
+    $this->actingAs($this->karyawan)->post(route('karyawan.transactions.store'), [
+        'amount' => 15000,
+        'transaction_date' => now()->toDateString(),
+        'source' => 'Tip Pembeli',
+        'payment_method' => 'tunai',
+    ]);
+
+    // 2. Record POS sale (36.000)
+    $this->actingAs($this->karyawan)->post(route('karyawan.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Pelanggan Kasir',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productB->id, 'quantity' => 1],
+        ],
+    ]);
+
+    $response = $this->actingAs($this->karyawan)->get(route('karyawan.reports.index', ['date' => now()->toDateString()]));
+    $response->assertStatus(200);
+    $response->assertViewHas('posSalesTotal', 36000.0);
+    $response->assertViewHas('manualCashTotal', 15000.0);
+    $response->assertViewHas('totalAmount', 51000.0);
+    $response->assertViewHas('totalItemsSold', 1);
+
+    $response->assertSee('Penjualan Kasir');
+    $response->assertSee('Kas Masuk Manual');
+    $response->assertSee('Minyak Goreng 2L');
+    $response->assertSee('Tip Pembeli');
+});

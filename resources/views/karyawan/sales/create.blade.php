@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Kasir & Catat Penjualan Toko')
+@section('title', 'Kasir & Penjualan Toko')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-        <h4 class="fw-bold mb-1">Kasir & Catat Penjualan Toko</h4>
+        <h4 class="fw-bold mb-1">Kasir & Penjualan Toko</h4>
         <p class="text-muted mb-0">Pilih barang belanjaan pembeli dengan cepat, stok terpotong otomatis dan bukti nota siap dicetak.</p>
     </div>
     <a href="{{ route('karyawan.sales.index') }}" class="btn btn-outline-secondary">
-        <i class="fas fa-history me-1"></i>Riwayat Penjualan Saya
+        <i class="fas fa-history me-1"></i>Riwayat Kasir Saya
     </a>
 </div>
 

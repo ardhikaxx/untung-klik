@@ -28,6 +28,10 @@ class ProductCategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
+        ], [
+            'name.required' => 'Nama kategori produk wajib diisi.',
+            'name.max' => 'Nama kategori tidak boleh lebih dari 255 karakter.',
+            'description.max' => 'Keterangan kategori maksimal 500 karakter.',
         ]);
 
         ProductCategory::create([
@@ -38,7 +42,7 @@ class ProductCategoryController extends Controller
         ]);
 
         return redirect()->route('owner.product-categories.index')
-            ->with('success', 'Kategori produk berhasil ditambahkan.');
+            ->with('success', "Kategori produk \"{$request->name}\" berhasil ditambahkan.");
     }
 
     public function update(Request $request, ProductCategory $productCategory): RedirectResponse
@@ -49,6 +53,10 @@ class ProductCategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
             'is_active' => 'nullable|boolean',
+        ], [
+            'name.required' => 'Nama kategori produk wajib diisi.',
+            'name.max' => 'Nama kategori tidak boleh lebih dari 255 karakter.',
+            'description.max' => 'Keterangan kategori maksimal 500 karakter.',
         ]);
 
         $productCategory->update([
@@ -58,21 +66,23 @@ class ProductCategoryController extends Controller
         ]);
 
         return redirect()->route('owner.product-categories.index')
-            ->with('success', 'Kategori produk berhasil diperbarui.');
+            ->with('success', "Kategori produk \"{$productCategory->name}\" berhasil diperbarui.");
     }
 
     public function destroy(ProductCategory $productCategory): RedirectResponse
     {
         $this->authorizeCategory($productCategory);
+        $count = $productCategory->products()->count();
 
-        if ($productCategory->products()->count() > 0) {
-            return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan oleh produk.');
+        if ($count > 0) {
+            return back()->with('error', "Kategori \"{$productCategory->name}\" tidak dapat dihapus karena masih digunakan oleh {$count} produk. Silakan ubah kategori produk-produk tersebut terlebih dahulu.");
         }
 
+        $categoryName = $productCategory->name;
         $productCategory->delete();
 
         return redirect()->route('owner.product-categories.index')
-            ->with('success', 'Kategori produk berhasil dihapus.');
+            ->with('success', "Kategori produk \"{$categoryName}\" berhasil dihapus.");
     }
 
     private function authorizeCategory(ProductCategory $productCategory): void

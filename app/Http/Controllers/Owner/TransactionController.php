@@ -68,13 +68,25 @@ class TransactionController extends Controller
             'source' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
             'payment_method' => 'nullable|string|max:100',
+        ], [
+            'type.required' => 'Jenis transaksi wajib dipilih (kas masuk atau kas keluar).',
+            'type.in' => 'Pilihan jenis transaksi harus berupa kas masuk atau kas keluar.',
+            'amount.required' => 'Nominal transaksi wajib diisi.',
+            'amount.numeric' => 'Nominal transaksi harus berupa angka.',
+            'amount.min' => 'Nominal transaksi minimal Rp 1.',
+            'transaction_date.required' => 'Tanggal transaksi wajib diisi.',
+            'transaction_date.date' => 'Format tanggal tidak valid.',
+            'category_id.exists' => 'Kategori transaksi tidak ditemukan.',
         ]);
+
+        $cleanedAmount = clean_number($request->amount);
+        $typeLabel = $request->type === 'masuk' ? 'Kas masuk' : 'Kas keluar';
 
         Transaction::create([
             'business_id' => $user->business_id,
             'user_id' => $user->id,
             'type' => $request->type,
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'transaction_date' => $request->transaction_date,
             'category_id' => $request->category_id,
             'source' => $request->source,
@@ -83,7 +95,7 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('owner.transactions.index')
-            ->with('success', 'Transaksi berhasil dicatat.');
+            ->with('success', "{$typeLabel} sebesar Rp ".number_format($cleanedAmount, 0, ',', '.').' berhasil dicatat.');
     }
 
     public function show(Transaction $transaction)
@@ -123,11 +135,22 @@ class TransactionController extends Controller
             'source' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
             'payment_method' => 'nullable|string|max:100',
+        ], [
+            'type.required' => 'Jenis transaksi wajib dipilih (kas masuk atau kas keluar).',
+            'type.in' => 'Pilihan jenis transaksi harus berupa kas masuk atau kas keluar.',
+            'amount.required' => 'Nominal transaksi wajib diisi.',
+            'amount.numeric' => 'Nominal transaksi harus berupa angka.',
+            'amount.min' => 'Nominal transaksi minimal Rp 1.',
+            'transaction_date.required' => 'Tanggal transaksi wajib diisi.',
+            'transaction_date.date' => 'Format tanggal tidak valid.',
+            'category_id.exists' => 'Kategori transaksi tidak ditemukan.',
         ]);
+
+        $cleanedAmount = clean_number($request->amount);
 
         $transaction->update([
             'type' => $request->type,
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'transaction_date' => $request->transaction_date,
             'category_id' => $request->category_id,
             'source' => $request->source,
@@ -136,7 +159,7 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('owner.transactions.index')
-            ->with('success', 'Transaksi berhasil diperbarui.');
+            ->with('success', 'Data transaksi berhasil diperbarui.');
     }
 
     public function destroy(Transaction $transaction)
@@ -145,37 +168,41 @@ class TransactionController extends Controller
         $user = auth()->user();
         $businessId = $user->business_id;
 
-        DB::transaction(function () use ($transaction, $businessId, $user) {
-            if ($transaction->is_sale) {
-                foreach ($transaction->items as $item) {
-                    if ($item->product_id) {
-                        $product = Product::where('id', $item->product_id)->where('business_id', $businessId)->first();
-                        if ($product) {
-                            $before = $product->stock;
-                            $after = $before + $item->quantity;
-                            $product->update(['stock' => $after]);
+        try {
+            DB::transaction(function () use ($transaction, $businessId, $user) {
+                if ($transaction->is_sale) {
+                    foreach ($transaction->items as $item) {
+                        if ($item->product_id) {
+                            $product = Product::where('id', $item->product_id)->where('business_id', $businessId)->first();
+                            if ($product) {
+                                $before = $product->stock;
+                                $after = $before + $item->quantity;
+                                $product->update(['stock' => $after]);
 
-                            StockMovement::create([
-                                'business_id' => $businessId,
-                                'product_id' => $product->id,
-                                'user_id' => $user->id,
-                                'type' => 'correction',
-                                'quantity' => $item->quantity,
-                                'stock_before' => $before,
-                                'stock_after' => $after,
-                                'notes' => 'Pengembalian stok pembatalan penjualan #'.($transaction->invoice_number ?? $transaction->id),
-                                'reference_id' => $transaction->id,
-                            ]);
+                                StockMovement::create([
+                                    'business_id' => $businessId,
+                                    'product_id' => $product->id,
+                                    'user_id' => $user->id,
+                                    'type' => 'correction',
+                                    'quantity' => $item->quantity,
+                                    'stock_before' => $before,
+                                    'stock_after' => $after,
+                                    'notes' => 'Pengembalian stok pembatalan penjualan #'.($transaction->invoice_number ?? $transaction->id),
+                                    'reference_id' => $transaction->id,
+                                ]);
+                            }
                         }
                     }
                 }
-            }
 
-            $transaction->delete();
-        });
+                $transaction->delete();
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menghapus transaksi: '.$e->getMessage());
+        }
 
         return redirect()->route('owner.transactions.index')
-            ->with('success', 'Transaksi berhasil dihapus'.($transaction->is_sale ? ' dan stok produk dikembalikan.' : '.'));
+            ->with('success', 'Data transaksi berhasil dihapus dari pembukuan'.($transaction->is_sale ? ' dan stok produk telah dikembalikan.' : '.'));
     }
 
     private function authorizeTransaction(Transaction $transaction): void

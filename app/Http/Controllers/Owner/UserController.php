@@ -33,6 +33,14 @@ class UserController extends Controller
             'phone' => 'nullable|string|max:20',
             'role' => 'required|in:admin,karyawan',
             'is_active' => 'required|boolean',
+        ], [
+            'name.required' => 'Nama lengkap pengguna wajib diisi.',
+            'username.required' => 'Username akun wajib diisi.',
+            'username.unique' => 'Username tersebut sudah digunakan oleh pengguna lain.',
+            'phone.max' => 'Nomor WhatsApp / telepon maksimal 20 karakter.',
+            'role.required' => 'Peran pengguna (admin atau karyawan) wajib dipilih.',
+            'role.in' => 'Pilihan peran pengguna tidak valid.',
+            'is_active.required' => 'Status keaktifan pengguna wajib ditentukan.',
         ]);
 
         $defaultPin = '1234';
@@ -47,7 +55,7 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('owner.users.index')
-            ->with('success', "Akun berhasil dibuat. PIN default: {$defaultPin}");
+            ->with('success', "Akun pengguna \"{$createdUser->name}\" ({$createdUser->username}) berhasil didaftarkan. PIN awal login: {$defaultPin}");
     }
 
     public function edit(User $user)
@@ -71,12 +79,20 @@ class UserController extends Controller
             'phone' => 'nullable|string|max:20',
             'role' => 'required|in:owner,admin,karyawan',
             'is_active' => 'required|boolean',
+        ], [
+            'name.required' => 'Nama lengkap pengguna wajib diisi.',
+            'username.required' => 'Username akun wajib diisi.',
+            'username.unique' => 'Username tersebut sudah digunakan oleh pengguna lain.',
+            'phone.max' => 'Nomor WhatsApp / telepon maksimal 20 karakter.',
+            'role.required' => 'Peran pengguna wajib dipilih.',
+            'role.in' => 'Pilihan peran pengguna tidak valid.',
+            'is_active.required' => 'Status keaktifan pengguna wajib ditentukan.',
         ]);
 
         $user->update($request->only(['name', 'username', 'phone', 'role', 'is_active']));
 
         return redirect()->route('owner.users.index')
-            ->with('success', 'Data pengguna berhasil diperbarui.');
+            ->with('success', "Data pengguna \"{$user->name}\" berhasil diperbarui.");
     }
 
     public function destroy(User $user)
@@ -86,12 +102,13 @@ class UserController extends Controller
         }
 
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'Anda tidak dapat menghapus akun sendiri.');
+            return back()->with('error', 'Gagal memproses: Anda tidak dapat menonaktifkan akun Anda sendiri yang sedang aktif digunakan.');
         }
 
+        $userName = $user->name;
         $user->update(['is_active' => false]);
 
         return redirect()->route('owner.users.index')
-            ->with('success', 'Pengguna berhasil dinonaktifkan.');
+            ->with('success', "Akun pengguna \"{$userName}\" berhasil dinonaktifkan.");
     }
 }

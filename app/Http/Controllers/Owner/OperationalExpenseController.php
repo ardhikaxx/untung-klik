@@ -53,19 +53,28 @@ class OperationalExpenseController extends Controller
             'expense_date' => 'required|date',
             'category_id' => 'nullable|exists:transaction_categories,id',
             'description' => 'nullable|string|max:1000',
+        ], [
+            'amount.required' => 'Nominal biaya operasional wajib diisi.',
+            'amount.numeric' => 'Nominal biaya operasional harus berupa angka.',
+            'amount.min' => 'Nominal biaya operasional minimal Rp 1.',
+            'expense_date.required' => 'Tanggal pengeluaran biaya operasional wajib diisi.',
+            'expense_date.date' => 'Format tanggal pengeluaran tidak valid.',
+            'category_id.exists' => 'Kategori operasional yang dipilih tidak valid.',
         ]);
+
+        $cleanedAmount = clean_number($request->amount);
 
         OperationalExpense::create([
             'business_id' => $user->business_id,
             'user_id' => $user->id,
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'expense_date' => $request->expense_date,
             'category_id' => $request->category_id,
             'description' => $request->description,
         ]);
 
         return redirect()->route('owner.expenses.index')
-            ->with('success', 'Pengeluaran operasional berhasil dicatat.');
+            ->with('success', 'Biaya operasional sebesar Rp '.number_format($cleanedAmount, 0, ',', '.').' berhasil dicatat ke pembukuan.');
     }
 
     public function edit(OperationalExpense $expense)
@@ -94,17 +103,26 @@ class OperationalExpenseController extends Controller
             'expense_date' => 'required|date',
             'category_id' => 'nullable|exists:transaction_categories,id',
             'description' => 'nullable|string|max:1000',
+        ], [
+            'amount.required' => 'Nominal biaya operasional wajib diisi.',
+            'amount.numeric' => 'Nominal biaya operasional harus berupa angka.',
+            'amount.min' => 'Nominal biaya operasional minimal Rp 1.',
+            'expense_date.required' => 'Tanggal pengeluaran biaya operasional wajib diisi.',
+            'expense_date.date' => 'Format tanggal pengeluaran tidak valid.',
+            'category_id.exists' => 'Kategori operasional yang dipilih tidak valid.',
         ]);
 
+        $cleanedAmount = clean_number($request->amount);
+
         $expense->update([
-            'amount' => clean_number($request->amount),
+            'amount' => $cleanedAmount,
             'expense_date' => $request->expense_date,
             'category_id' => $request->category_id,
             'description' => $request->description,
         ]);
 
         return redirect()->route('owner.expenses.index')
-            ->with('success', 'Pengeluaran operasional berhasil diperbarui.');
+            ->with('success', 'Data biaya operasional berhasil diperbarui.');
     }
 
     public function destroy(OperationalExpense $expense)
@@ -116,6 +134,6 @@ class OperationalExpenseController extends Controller
         $expense->delete();
 
         return redirect()->route('owner.expenses.index')
-            ->with('success', 'Pengeluaran operasional berhasil dihapus.');
+            ->with('success', 'Catatan biaya operasional berhasil dihapus dari pembukuan.');
     }
 }

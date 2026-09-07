@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Penjualan Saya')
+@section('title', 'Riwayat Kas Masuk Manual')
 
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
     <div>
-        <h5 class="fw-bold mb-1">Riwayat Penjualan Saya</h5>
-        <p class="text-muted mb-0 small">Kelola dan lihat semua penjualan yang telah dicatat</p>
+        <h5 class="fw-bold mb-1">Riwayat Kas Masuk Manual</h5>
+        <p class="text-muted mb-0 small">Kelola dan lihat semua catatan penerimaan kas masuk non-produk Anda</p>
     </div>
     <a href="{{ route('karyawan.transactions.create') }}" class="btn btn-success">
-        <i class="fas fa-plus me-2"></i>Catat Penjualan Baru
+        <i class="fas fa-plus me-2"></i>Catat Kas Masuk Baru
     </a>
 </div>
 
@@ -90,8 +90,8 @@
                     <tr>
                         <td colspan="6" class="text-center py-5">
                             <i class="fas fa-inbox d-block mb-2" style="font-size: 2.5rem; color: #d1d5db;"></i>
-                            <p class="text-muted mb-1">Belum ada data transaksi</p>
-                            <a href="{{ route('karyawan.transactions.create') }}" class="text-decoration-none">Catat penjualan pertama Anda</a>
+                            <p class="text-muted mb-1">Belum ada catatan kas masuk manual</p>
+                            <a href="{{ route('karyawan.transactions.create') }}" class="text-decoration-none">Catat kas masuk pertama Anda</a>
                         </td>
                     </tr>
                     @endforelse

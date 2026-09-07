@@ -19,6 +19,10 @@ class AuthController extends Controller
         $request->validate([
             'username' => 'required|string',
             'pin' => 'required|string|size:4',
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'pin.required' => 'PIN wajib diisi.',
+            'pin.size' => 'PIN harus terdiri dari 4 digit angka.',
         ]);
 
         $user = User::where('username', $request->username)->first();
@@ -39,10 +43,10 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         if ($user->isOwner()) {
-            return redirect()->route('owner.dashboard');
+            return redirect()->route('owner.dashboard')->with('success', "Selamat datang kembali, {$user->name}!");
         }
 
-        return redirect()->route('karyawan.dashboard');
+        return redirect()->route('karyawan.dashboard')->with('success', "Selamat datang kembali, {$user->name}!");
     }
 
     public function logout(Request $request)
@@ -51,7 +55,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari sistem.');
     }
 
     public function showForgotPin()
@@ -63,13 +67,15 @@ class AuthController extends Controller
     {
         $request->validate([
             'phone' => 'required|string',
+        ], [
+            'phone.required' => 'Nomor WhatsApp / telepon wajib diisi.',
         ]);
 
         $user = User::where('phone', $request->phone)->where('is_active', true)->first();
 
         if (! $user) {
             return back()->withErrors([
-                'phone' => 'Nomor telepon tidak ditemukan atau akun tidak terdaftar.',
+                'phone' => 'Nomor telepon tidak ditemukan atau akun tidak terdaftar dalam sistem.',
             ])->withInput();
         }
 
@@ -79,19 +85,21 @@ class AuthController extends Controller
             ['token' => Hash::make($token), 'created_at' => now()]
         );
 
-        return redirect()->route('reset-pin', ['token' => $token])->with('phone', $request->phone);
+        return redirect()->route('reset-pin', ['token' => $token])
+            ->with('phone', $request->phone)
+            ->with('success', 'Nomor telepon terverifikasi. Silakan masukkan PIN baru Anda.');
     }
 
     public function showResetPin($token)
     {
         $phone = session('phone');
         if (! $phone) {
-            return redirect()->route('forgot-pin');
+            return redirect()->route('forgot-pin')->with('error', 'Sesi verifikasi telah berakhir. Silakan masukkan nomor Anda kembali.');
         }
 
         $record = \DB::table('password_reset_tokens')->where('phone', $phone)->first();
         if (! $record || ! $record->token) {
-            return redirect()->route('forgot-pin')->with('error', 'Session expired. Silakan mulai ulang.');
+            return redirect()->route('forgot-pin')->with('error', 'Sesi reset PIN telah kedaluwarsa. Silakan mulai ulang permohonan.');
         }
 
         return view('auth.reset-pin', ['token' => $token, 'phone' => $phone]);
@@ -103,6 +111,13 @@ class AuthController extends Controller
             'phone' => 'required|string',
             'pin' => ['required', 'string', 'size:4', 'digits:4'],
             'pin_confirmation' => 'required|same:pin',
+        ], [
+            'phone.required' => 'Nomor telepon/WhatsApp wajib diisi.',
+            'pin.required' => 'PIN baru wajib diisi.',
+            'pin.size' => 'PIN baru harus terdiri dari 4 digit angka.',
+            'pin.digits' => 'PIN baru harus berupa 4 digit angka.',
+            'pin_confirmation.required' => 'Konfirmasi PIN wajib diisi.',
+            'pin_confirmation.same' => 'Konfirmasi PIN tidak cocok dengan PIN baru.',
         ]);
 
         $user = User::where('phone', $request->phone)->where('is_active', true)->first();

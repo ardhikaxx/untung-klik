@@ -95,12 +95,30 @@ class ProductController extends Controller
             'min_stock' => 'required|integer|min:0',
             'description' => 'nullable|string|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'name.required' => 'Nama produk wajib diisi.',
+            'category_id.exists' => 'Kategori produk yang dipilih tidak ditemukan.',
+            'selling_price.required' => 'Harga jual produk wajib diisi.',
+            'selling_price.numeric' => 'Harga jual harus berupa nominal angka.',
+            'selling_price.min' => 'Harga jual tidak boleh kurang dari 0.',
+            'purchase_price.numeric' => 'Harga beli (HPP) harus berupa nominal angka.',
+            'purchase_price.min' => 'Harga beli (HPP) tidak boleh kurang dari 0.',
+            'unit.required' => 'Satuan produk (misal: Unit, Pcs, Set) wajib diisi.',
+            'stock.required' => 'Stok awal produk wajib diisi.',
+            'stock.integer' => 'Stok awal harus berupa angka bulat.',
+            'stock.min' => 'Stok awal tidak boleh bernilai negatif.',
+            'min_stock.required' => 'Batas minimum stok peringatan wajib diisi.',
+            'min_stock.integer' => 'Batas minimum stok harus berupa angka bulat.',
+            'min_stock.min' => 'Batas minimum stok tidak boleh negatif.',
+            'image.image' => 'Berkas yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar yang didukung hanya: JPEG, PNG, JPG, atau WEBP.',
+            'image.max' => 'Ukuran berkas gambar maksimal adalah 2 MB.',
         ]);
 
         if ($request->filled('category_id')) {
             $cat = ProductCategory::where('id', $request->category_id)->where('business_id', $businessId)->first();
             if (! $cat) {
-                return back()->withInput()->with('error', 'Kategori produk tidak valid.');
+                return back()->withInput()->with('error', 'Kategori produk yang dipilih tidak valid atau bukan milik usaha Anda.');
             }
         }
 
@@ -142,7 +160,7 @@ class ProductController extends Controller
         });
 
         return redirect()->route('owner.products.index')
-            ->with('success', 'Produk berhasil ditambahkan.');
+            ->with('success', "Produk \"{$request->name}\" berhasil ditambahkan ke katalog toko.");
     }
 
     public function show(Product $product): View
@@ -178,12 +196,28 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'is_active' => 'required|boolean',
+        ], [
+            'name.required' => 'Nama produk wajib diisi.',
+            'category_id.exists' => 'Kategori produk yang dipilih tidak ditemukan.',
+            'selling_price.required' => 'Harga jual produk wajib diisi.',
+            'selling_price.numeric' => 'Harga jual harus berupa nominal angka.',
+            'selling_price.min' => 'Harga jual tidak boleh kurang dari 0.',
+            'purchase_price.numeric' => 'Harga beli (HPP) harus berupa nominal angka.',
+            'purchase_price.min' => 'Harga beli (HPP) tidak boleh kurang dari 0.',
+            'unit.required' => 'Satuan produk (misal: Unit, Pcs, Set) wajib diisi.',
+            'min_stock.required' => 'Batas minimum stok peringatan wajib diisi.',
+            'min_stock.integer' => 'Batas minimum stok harus berupa angka bulat.',
+            'min_stock.min' => 'Batas minimum stok tidak boleh negatif.',
+            'image.image' => 'Berkas yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Format gambar yang didukung hanya: JPEG, PNG, JPG, atau WEBP.',
+            'image.max' => 'Ukuran berkas gambar maksimal adalah 2 MB.',
+            'is_active.required' => 'Status keaktifan produk wajib ditentukan.',
         ]);
 
         if ($request->filled('category_id')) {
             $cat = ProductCategory::where('id', $request->category_id)->where('business_id', $businessId)->first();
             if (! $cat) {
-                return back()->withInput()->with('error', 'Kategori produk tidak valid.');
+                return back()->withInput()->with('error', 'Kategori produk yang dipilih tidak valid atau bukan milik usaha Anda.');
             }
         }
 
@@ -209,18 +243,19 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('owner.products.index')
-            ->with('success', 'Produk berhasil diperbarui.');
+            ->with('success', "Data produk \"{$product->name}\" berhasil diperbarui.");
     }
 
     public function destroy(Product $product): RedirectResponse
     {
         $this->authorizeProduct($product);
+        $productName = $product->name;
 
         if ($product->transactionItems()->exists()) {
             $product->update(['is_active' => false]);
 
             return redirect()->route('owner.products.index')
-                ->with('success', 'Produk telah memiliki riwayat penjualan, status diubah menjadi nonaktif.');
+                ->with('warning', "Produk \"{$productName}\" memiliki riwayat transaksi penjualan sehingga tidak dapat dihapus permanen. Status produk berhasil dinonaktifkan.");
         }
 
         if ($product->image) {
@@ -230,7 +265,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('owner.products.index')
-            ->with('success', 'Produk berhasil dihapus.');
+            ->with('success', "Produk \"{$productName}\" berhasil dihapus dari inventaris.");
     }
 
     public function toggleStatus(Product $product): RedirectResponse
@@ -238,10 +273,10 @@ class ProductController extends Controller
         $this->authorizeProduct($product);
         $product->update(['is_active' => ! $product->is_active]);
 
-        $statusText = $product->is_active ? 'diaktifkan' : 'dinonaktifkan';
+        $statusText = $product->is_active ? 'diaktifkan kembali dan dapat dijual di kasir' : 'dinonaktifkan dari transaksi kasir';
 
         return redirect()->route('owner.products.index')
-            ->with('success', "Status produk berhasil {$statusText}.");
+            ->with('success', "Produk \"{$product->name}\" berhasil {$statusText}.");
     }
 
     private function authorizeProduct(Product $product): void
