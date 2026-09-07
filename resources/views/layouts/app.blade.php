@@ -37,10 +37,11 @@
             left: 0;
             width: var(--sidebar-width);
             height: 100vh;
+            height: 100dvh;
             background-color: var(--sidebar-bg);
             z-index: 1000;
             transition: transform 0.3s ease;
-            overflow-y: auto;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -51,6 +52,7 @@
             align-items: center;
             gap: 0.75rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
         }
 
         .sidebar-brand i {
@@ -68,6 +70,7 @@
         .sidebar-user {
             padding: 1rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
         }
 
         .sidebar-user-name {
@@ -84,8 +87,37 @@
         }
 
         .sidebar-nav {
-            flex: 1;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
             padding: 0.75rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.25) rgba(0, 0, 0, 0.25);
+        }
+
+        .sidebar-nav::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            margin: 6px 3px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb:hover {
+            background-color: var(--sidebar-active);
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb:active {
+            background-color: #16a34a;
         }
 
         .sidebar-nav-item {
@@ -134,6 +166,9 @@
         .sidebar-footer {
             padding: 1rem 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: var(--sidebar-bg);
+            flex-shrink: 0;
+            margin-top: auto;
         }
 
         .sidebar-footer .btn-logout {
@@ -265,21 +300,29 @@
         }
 
         /* Mobile offcanvas */
-        .sidebar-offcanvas .offcanvas {
+        .sidebar-offcanvas.offcanvas,
+        .offcanvas.sidebar-offcanvas {
             background-color: var(--sidebar-bg);
             width: var(--sidebar-width);
             border: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-offcanvas .offcanvas-header {
             padding: 1.25rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
         }
 
         .sidebar-offcanvas .offcanvas-body {
             padding: 0;
             display: flex;
             flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: hidden;
         }
 
         .btn-close-sidebar {
