@@ -65,6 +65,7 @@ Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner,admin'])
 
     // Reports
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/sales', [ReportController::class, 'sales'])->name('reports.sales');
     Route::get('/reports/custom', [ReportController::class, 'custom'])->name('reports.custom');
 
     // Charts

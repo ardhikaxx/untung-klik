@@ -19,7 +19,7 @@ class ReportController extends Controller
         $transactions = Transaction::where('business_id', $user->business_id)
             ->where('user_id', $user->id)
             ->whereDate('transaction_date', $date)
-            ->with('category')
+            ->with(['category', 'items.product'])
             ->latest()
             ->get();
 
@@ -37,7 +37,7 @@ class ReportController extends Controller
         $transactions = Transaction::where('business_id', $user->business_id)
             ->where('user_id', $user->id)
             ->whereDate('transaction_date', $date)
-            ->with('category')
+            ->with(['category', 'items.product'])
             ->latest()
             ->get();
 
@@ -57,7 +57,7 @@ class ReportController extends Controller
         $transactions = Transaction::where('business_id', $user->business_id)
             ->where('user_id', $user->id)
             ->whereDate('transaction_date', $date)
-            ->with('category')
+            ->with(['category', 'items.product'])
             ->latest()
             ->get();
 

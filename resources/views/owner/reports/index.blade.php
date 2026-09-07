@@ -20,6 +20,20 @@
     </div>
 </div>
 
+<!-- Navigasi Tab Laporan: Kas vs Penjualan -->
+<ul class="nav nav-pills mb-4 border-bottom pb-2">
+    <li class="nav-item">
+        <a class="nav-link active bg-success fw-semibold py-2 px-3" href="{{ route('owner.reports.index', ['period' => $period]) }}">
+            <i class="fas fa-book me-1"></i>Buku Kas & Laba Bersih
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-secondary fw-semibold py-2 px-3" href="{{ route('owner.reports.sales', ['period' => $period]) }}">
+            <i class="fas fa-shopping-bag me-1"></i>Penjualan & Produk Terlaris
+        </a>
+    </li>
+</ul>
+
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
         <form method="GET" action="{{ route('owner.reports.index') }}" id="periodForm">

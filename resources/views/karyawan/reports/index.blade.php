@@ -81,9 +81,10 @@
                 <thead class="table-light">
                     <tr>
                         <th class="ps-3" style="font-size: 0.8125rem;">No</th>
-                        <th style="font-size: 0.8125rem;">Kategori</th>
-                        <th style="font-size: 0.8125rem;">Sumber / Deskripsi</th>
+                        <th style="font-size: 0.8125rem;">Tipe & Item</th>
+                        <th style="font-size: 0.8125rem;">Pelanggan / Keterangan</th>
                         <th class="text-end" style="font-size: 0.8125rem;">Jumlah</th>
+                        <th class="text-center" style="font-size: 0.8125rem;">Nota</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,14 +92,48 @@
                     <tr>
                         <td class="ps-3">{{ $loop->iteration }}</td>
                         <td>
-                            <span class="badge" style="background-color: #dcfce7; color: #16a34a;">{{ $transaction->category->name ?? '-' }}</span>
+                            @if($transaction->is_sale)
+                                <span class="badge bg-success mb-1">
+                                    <i class="fas fa-shopping-bag me-1"></i>Penjualan Produk
+                                </span>
+                                @if($transaction->items->isNotEmpty())
+                                    <div class="small text-muted">
+                                        {{ $transaction->items->pluck('product_name')->take(2)->join(', ') }}
+                                        @if($transaction->items->count() > 2)
+                                            <span class="badge bg-light text-secondary">+{{ $transaction->items->count() - 2 }} item</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            @else
+                                <span class="badge" style="background-color: #dcfce7; color: #16a34a;">
+                                    {{ $transaction->category->name ?? 'Kas Masuk' }}
+                                </span>
+                            @endif
                         </td>
-                        <td>{{ $transaction->source ?? '-' }}</td>
-                        <td class="text-end fw-semibold" style="color: #16a34a;">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
+                        <td>
+                            <div class="small fw-semibold text-dark">
+                                {{ $transaction->customer_name ?: ($transaction->source ?: '-') }}
+                            </div>
+                            @if($transaction->description && $transaction->description !== $transaction->source)
+                                <div class="text-muted" style="font-size: 0.75rem;">{{ $transaction->description }}</div>
+                            @endif
+                        </td>
+                        <td class="text-end fw-bold text-success">
+                            Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                        </td>
+                        <td class="text-center">
+                            @if($transaction->is_sale)
+                                <a href="{{ route('karyawan.sales.show', $transaction) }}" class="btn btn-sm btn-outline-primary" title="Lihat Nota">
+                                    <i class="fas fa-receipt"></i>
+                                </a>
+                            @else
+                                <span class="text-muted small">-</span>
+                            @endif
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center py-5">
+                        <td colspan="5" class="text-center py-5">
                             <i class="fas fa-inbox d-block mb-2" style="font-size: 2.5rem; color: #d1d5db;"></i>
                             <p class="text-muted mb-0">Tidak ada transaksi pada tanggal ini</p>
                         </td>

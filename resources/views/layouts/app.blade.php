@@ -450,7 +450,11 @@
                 </a>
 
                 <div class="sidebar-section-label">Laporan & Analisis</div>
-                <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.*') ? 'active' : '' }}">
+                <a href="{{ route('owner.reports.sales') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.sales') ? 'active' : '' }}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Laporan Penjualan</span>
+                </a>
+                <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.index') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i>
                     <span>Laporan Keuangan</span>
                 </a>
@@ -575,7 +579,11 @@
                     </a>
 
                     <div class="sidebar-section-label">Laporan & Analisis</div>
-                    <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.*') ? 'active' : '' }}">
+                    <a href="{{ route('owner.reports.sales') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.sales') ? 'active' : '' }}">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Laporan Penjualan</span>
+                    </a>
+                    <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.index') ? 'active' : '' }}">
                         <i class="fas fa-file-alt"></i>
                         <span>Laporan Keuangan</span>
                     </a>

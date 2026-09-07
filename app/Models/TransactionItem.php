@@ -17,14 +17,21 @@ class TransactionItem extends Model
         'product_name',
         'quantity',
         'unit_price',
+        'purchase_price',
         'subtotal',
     ];
 
     protected $casts = [
         'quantity' => 'integer',
         'unit_price' => 'decimal:2',
+        'purchase_price' => 'decimal:2',
         'subtotal' => 'decimal:2',
     ];
+
+    public function getGrossProfitAttribute(): float
+    {
+        return (float) $this->subtotal - ($this->quantity * (float) ($this->purchase_price ?: 0));
+    }
 
     public function business(): BelongsTo
     {

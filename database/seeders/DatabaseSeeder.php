@@ -358,7 +358,7 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($sampleSales as $saleData) {
+        foreach ($sampleSales as $idx => $saleData) {
             $totalAmount = 0;
             $itemsToCreate = [];
 
@@ -370,11 +370,13 @@ class DatabaseSeeder extends Seeder
                     'product_name' => $item['product']->name,
                     'quantity' => $item['qty'],
                     'unit_price' => $item['product']->selling_price,
+                    'purchase_price' => $item['product']->purchase_price,
                     'subtotal' => $subtotal,
                 ];
             }
 
             $date = Carbon::now()->subDays($saleData['days_ago']);
+            $invNum = 'PJ-'.$date->format('Ymd').'-'.str_pad($idx + 1, 4, '0', STR_PAD_LEFT);
 
             $saleTrx = Transaction::create([
                 'business_id' => $business->id,
@@ -382,6 +384,12 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $catPenjualan->id,
                 'type' => 'masuk',
                 'amount' => $totalAmount,
+                'invoice_number' => $invNum,
+                'customer_name' => 'Pelanggan '.$saleData['source'],
+                'customer_phone' => '0812'.rand(10000000, 99999999),
+                'discount' => 0,
+                'cash_received' => $saleData['payment_method'] === 'Tunai' ? ($totalAmount + 10000) : null,
+                'cash_change' => $saleData['payment_method'] === 'Tunai' ? 10000 : null,
                 'transaction_date' => $date,
                 'source' => $saleData['source'],
                 'description' => 'Penjualan Produk: '.count($itemsToCreate).' item',
@@ -403,7 +411,7 @@ class DatabaseSeeder extends Seeder
                     'quantity' => -$itemRow['quantity'],
                     'stock_before' => 20,
                     'stock_after' => 20 - $itemRow['quantity'],
-                    'notes' => 'Penjualan #'.$saleTrx->id,
+                    'notes' => 'Penjualan #'.$invNum,
                     'reference_id' => $saleTrx->id,
                 ]);
             }

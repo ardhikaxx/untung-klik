@@ -183,11 +183,6 @@ test('owner can record sale with atomic stock deduction and cash book integratio
         ],
     ]);
 
-    $response->assertRedirect(route('owner.sales.index'));
-
-    $this->product->refresh();
-    expect($this->product->stock)->toBe($initialStock - 2); // 8
-
     // Assert transaction created
     $trx = Transaction::where('business_id', $this->business->id)
         ->where('is_sale', true)
@@ -195,6 +190,11 @@ test('owner can record sale with atomic stock deduction and cash book integratio
         ->first();
 
     expect($trx)->not->toBeNull();
+    $response->assertRedirect(route('owner.sales.show', $trx));
+
+    $this->product->refresh();
+    expect($this->product->stock)->toBe($initialStock - 2); // 8
+
     expect((float) $trx->amount)->toBe(140000.0);
     expect($trx->type)->toBe('masuk');
 
@@ -228,8 +228,6 @@ test('karyawan can record sale successfully', function () {
         ],
     ]);
 
-    $response->assertRedirect(route('karyawan.sales.index'));
-
     $this->product->refresh();
     expect($this->product->stock)->toBe(9);
 
@@ -239,6 +237,7 @@ test('karyawan can record sale successfully', function () {
         ->first();
 
     expect($trx)->not->toBeNull();
+    $response->assertRedirect(route('karyawan.sales.show', $trx));
 });
 
 test('sale fails when requested quantity exceeds product stock', function () {
