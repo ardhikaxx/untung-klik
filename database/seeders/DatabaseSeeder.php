@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
         $capitalData = [
             ['amount' => 5000000, 'source' => 'Tabungan Pribadi', 'description' => 'Modal awal warung', 'days_ago' => 90],
             ['amount' => 2000000, 'source' => 'Pinjaman Bank', 'description' => 'Tambahan modal untuk stok', 'days_ago' => 60],
-            ['amount' => 1500000, 'source' => 'Tabungan Pribadi', 'description' => 'Tambahan modal bulanan', 'days_ago' => 30],
+            ['amount' => 1500000, 'source' => 'Tabungan Pribadi', 'description' => 'Tambahan modal bulanan', 'days_ago' => 5],
         ];
 
         foreach ($capitalData as $cap) {

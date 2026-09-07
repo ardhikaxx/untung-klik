@@ -19,7 +19,6 @@ class ReportController extends Controller
         $endDate = $request->get('end_date');
 
         $query = Transaction::where('business_id', $user->business_id)->with('user', 'category');
-        $capitalQuery = CapitalEntry::where('business_id', $user->business_id);
         $expenseQuery = OperationalExpense::where('business_id', $user->business_id)->with('category');
 
         $now = Carbon::now();
@@ -28,33 +27,28 @@ class ReportController extends Controller
         switch ($period) {
             case 'today':
                 $query->whereDate('transaction_date', $now->toDateString());
-                $capitalQuery->whereDate('entry_date', $now->toDateString());
                 $expenseQuery->whereDate('expense_date', $now->toDateString());
                 $periodLabel = 'Hari Ini ('.format_date_id($now).')';
                 break;
             case 'week':
                 $start = $now->copy()->startOfWeek();
                 $query->whereBetween('transaction_date', [$start, $now]);
-                $capitalQuery->whereBetween('entry_date', [$start, $now]);
                 $expenseQuery->whereBetween('expense_date', [$start, $now]);
                 $periodLabel = 'Minggu Ini ('.format_date_id($start).' - '.format_date_id($now).')';
                 break;
             case 'month':
                 $query->whereMonth('transaction_date', $now->month)->whereYear('transaction_date', $now->year);
-                $capitalQuery->whereMonth('entry_date', $now->month)->whereYear('entry_date', $now->year);
                 $expenseQuery->whereMonth('expense_date', $now->month)->whereYear('expense_date', $now->year);
                 $periodLabel = 'Bulan '.$now->translatedFormat('F Y');
                 break;
             case 'year':
                 $query->whereYear('transaction_date', $now->year);
-                $capitalQuery->whereYear('entry_date', $now->year);
                 $expenseQuery->whereYear('expense_date', $now->year);
                 $periodLabel = 'Tahun '.$now->year;
                 break;
             case 'custom':
                 if ($startDate && $endDate) {
                     $query->whereBetween('transaction_date', [$startDate, $endDate]);
-                    $capitalQuery->whereBetween('entry_date', [$startDate, $endDate]);
                     $expenseQuery->whereBetween('expense_date', [$startDate, $endDate]);
                     $periodLabel = format_date_id($startDate).' - '.format_date_id($endDate);
                 }
@@ -64,7 +58,7 @@ class ReportController extends Controller
         $transactions = $query->latest('transaction_date')->get();
         $totalIncome = $transactions->where('type', 'masuk')->sum('amount');
         $totalExpense = $transactions->where('type', 'keluar')->sum('amount');
-        $totalCapital = $capitalQuery->sum('amount');
+        $totalCapital = CapitalEntry::where('business_id', $user->business_id)->sum('amount');
         $totalOperational = $expenseQuery->sum('amount');
         $netProfit = $totalIncome - $totalExpense - $totalOperational;
         $transactionCount = $transactions->count();
