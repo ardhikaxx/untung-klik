@@ -167,7 +167,7 @@
                 <tbody>
                     @forelse ($transactions as $index => $transaction)
                         <tr>
-                            <td class="ps-3">{{ $index + 1 }}</td>
+                            <td class="ps-3">{{ ($transactions->firstItem() ?? 1) + $index }}</td>
                             <td>{{ $transaction->transaction_date->format('d/m/Y') }}</td>
                             <td>
                                 @if ($transaction->type === 'masuk')
@@ -201,6 +201,18 @@
             </table>
         </div>
     </div>
+    @if ($transactions->hasPages())
+        <div class="card-footer bg-white border-top">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <small class="text-muted">
+                    Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }} dari {{ $transactions->total() }} transaksi
+                </small>
+                <div>
+                    {{ $transactions->withQueryString()->links() }}
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
 

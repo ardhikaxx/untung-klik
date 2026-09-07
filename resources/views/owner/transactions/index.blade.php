@@ -142,7 +142,7 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center px-3 py-3 border-top">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 px-3 py-3 border-top">
                 <small class="text-muted">
                     Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }}
                     dari {{ $transactions->total() }} transaksi

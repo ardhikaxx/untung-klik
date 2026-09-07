@@ -609,3 +609,63 @@ body {
     border-radius: var(--radius) !important;
     font-family: 'Inter', sans-serif !important;
 }
+
+/* Pagination Styling - Senada dengan Warna Sistem (Emerald/Green) */
+.pagination {
+    margin-bottom: 0;
+    gap: 5px;
+    align-items: center;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    border-radius: var(--radius-sm, 6px) !important;
+}
+
+.pagination .page-link {
+    color: var(--text-dark, #1a1d23);
+    background-color: #ffffff;
+    border: 1px solid var(--border-color, #e9ecef);
+    border-radius: var(--radius-sm, 6px) !important;
+    padding: 0 10px;
+    min-width: 32px;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+    box-shadow: none;
+    line-height: 1;
+}
+
+.pagination .page-link:hover {
+    color: var(--primary-hover, #16a34a);
+    background-color: var(--primary-light, #dcfce7);
+    border-color: var(--primary, #22c55e);
+    z-index: 2;
+}
+
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.2);
+    border-color: var(--primary, #22c55e);
+}
+
+.pagination .page-item.active .page-link {
+    color: #ffffff !important;
+    background-color: var(--primary, #22c55e) !important;
+    border-color: var(--primary, #22c55e) !important;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(34, 197, 94, 0.25);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: var(--text-light, #adb5bd);
+    background-color: #f8f9fa;
+    border-color: var(--border-color, #e9ecef);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+

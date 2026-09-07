@@ -83,13 +83,13 @@
     </div>
 
     @if($transactions->hasPages())
-    <div class="card-footer bg-white border-top d-flex justify-content-between align-items-center">
+    <div class="card-footer bg-white border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
         <small class="text-muted">
             Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }} dari {{ $transactions->total() }} data
         </small>
-        <nav>
-            {{ $transactions->withQueryString()->links('pagination::bootstrap-5') }}
-        </nav>
+        <div>
+            {{ $transactions->withQueryString()->links() }}
+        </div>
     </div>
     @endif
 </div>

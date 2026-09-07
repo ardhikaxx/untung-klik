@@ -83,11 +83,13 @@
     </div>
     @if ($users->hasPages())
         <div class="card-footer bg-white border-top">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <small class="text-muted">
                     Menampilkan {{ $users->firstItem() }} - {{ $users->lastItem() }} dari {{ $users->total() }} pengguna
                 </small>
-                {{ $users->links() }}
+                <div>
+                    {{ $users->links() }}
+                </div>
             </div>
         </div>
     @endif

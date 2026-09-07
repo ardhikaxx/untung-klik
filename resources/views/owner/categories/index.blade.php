@@ -76,11 +76,13 @@
     </div>
     @if($categories->hasPages())
     <div class="card-footer bg-white border-top-0">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <small class="text-muted">
                 Menampilkan {{ $categories->firstItem() }} - {{ $categories->lastItem() }} dari {{ $categories->total() }} data
             </small>
-            {{ $categories->withQueryString()->links() }}
+            <div>
+                {{ $categories->withQueryString()->links() }}
+            </div>
         </div>
     </div>
     @endif

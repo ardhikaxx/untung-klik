@@ -55,13 +55,14 @@ class ReportController extends Controller
                 break;
         }
 
-        $transactions = $query->latest('transaction_date')->get();
-        $totalIncome = $transactions->where('type', 'masuk')->sum('amount');
-        $totalExpense = $transactions->where('type', 'keluar')->sum('amount');
+        $totalIncome = (clone $query)->where('type', 'masuk')->sum('amount');
+        $totalExpense = (clone $query)->where('type', 'keluar')->sum('amount');
+        $transactionCount = (clone $query)->count();
         $totalCapital = CapitalEntry::where('business_id', $user->business_id)->sum('amount');
         $totalOperational = $expenseQuery->sum('amount');
         $netProfit = $totalIncome - $totalExpense - $totalOperational;
-        $transactionCount = $transactions->count();
+
+        $transactions = $query->latest('transaction_date')->latest('id')->paginate(15);
 
         return view('owner.reports.index', compact(
             'transactions', 'totalIncome', 'totalExpense', 'totalCapital',

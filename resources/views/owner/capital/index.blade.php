@@ -109,11 +109,13 @@
     </div>
     @if($capitalEntries->hasPages())
     <div class="card-footer bg-white border-top-0">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <small class="text-muted">
                 Menampilkan {{ $capitalEntries->firstItem() }} - {{ $capitalEntries->lastItem() }} dari {{ $capitalEntries->total() }} data
             </small>
-            {{ $capitalEntries->withQueryString()->links() }}
+            <div>
+                {{ $capitalEntries->withQueryString()->links() }}
+            </div>
         </div>
     </div>
     @endif

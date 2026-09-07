@@ -2,8 +2,10 @@
 
 use App\Models\Business;
 use App\Models\CapitalEntry;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
 uses(RefreshDatabase::class);
@@ -65,4 +67,28 @@ test('owner report page displays total modal stat correctly', function () {
     $response->assertStatus(200);
     $response->assertViewHas('totalCapital', 8500000.0);
     $response->assertSee('8.500.000');
+});
+
+test('owner report page paginates transactions', function () {
+    for ($i = 0; $i < 20; $i++) {
+        Transaction::create([
+            'business_id' => $this->business->id,
+            'user_id' => $this->owner->id,
+            'type' => 'masuk',
+            'amount' => 10000,
+            'transaction_date' => now(),
+            'source' => 'Penjualan '.$i,
+        ]);
+    }
+
+    $response = $this->actingAs($this->owner)
+        ->get(route('owner.reports.index', ['period' => 'month']));
+
+    $response->assertStatus(200);
+    $response->assertViewHas('transactions');
+    $transactions = $response->viewData('transactions');
+    expect($transactions)->toBeInstanceOf(LengthAwarePaginator::class);
+    expect($transactions->total())->toBe(20);
+    expect($transactions->perPage())->toBe(15);
+    $response->assertSee('Menampilkan 1 - 15 dari 20 transaksi');
 });

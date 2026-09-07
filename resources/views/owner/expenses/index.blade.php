@@ -120,11 +120,13 @@
     </div>
     @if($expenses->hasPages())
     <div class="card-footer bg-white border-top-0">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <small class="text-muted">
                 Menampilkan {{ $expenses->firstItem() }} - {{ $expenses->lastItem() }} dari {{ $expenses->total() }} data
             </small>
-            {{ $expenses->withQueryString()->links() }}
+            <div>
+                {{ $expenses->withQueryString()->links() }}
+            </div>
         </div>
     </div>
     @endif
