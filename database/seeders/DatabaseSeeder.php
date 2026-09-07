@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Business;
 use App\Models\CapitalEntry;
-use App\Models\OperationalExpense;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\StockMovement;
 use App\Models\Transaction;
 use App\Models\TransactionCategory;
 use App\Models\User;
@@ -177,15 +179,234 @@ class DatabaseSeeder extends Seeder
             ['category' => $catInternet, 'amount' => 150000, 'desc' => 'Paket internet bulan lalu'],
         ];
 
-        foreach ($expenseData as $idx => $exp) {
-            OperationalExpense::create([
+        // Create Product Categories
+        $catSembako = ProductCategory::create([
+            'business_id' => $business->id,
+            'name' => 'Sembako',
+            'description' => 'Bahan pokok kebutuhan sehari-hari',
+            'is_active' => true,
+        ]);
+
+        $catMinuman = ProductCategory::create([
+            'business_id' => $business->id,
+            'name' => 'Minuman Kemasan',
+            'description' => 'Aneka minuman dingin dan seduh',
+            'is_active' => true,
+        ]);
+
+        $catSnack = ProductCategory::create([
+            'business_id' => $business->id,
+            'name' => 'Makanan Ringan',
+            'description' => 'Camilan, kerupuk, dan biskuit',
+            'is_active' => true,
+        ]);
+
+        $catBumbu = ProductCategory::create([
+            'business_id' => $business->id,
+            'name' => 'Bumbu Dapur',
+            'description' => 'Penyedap rasa, kecap, dan saus',
+            'is_active' => true,
+        ]);
+
+        // Products definitions (safe stock, low stock, out of stock)
+        $productsData = [
+            [
+                'category_id' => $catSembako->id,
+                'name' => 'Beras Pandan Wangi 5kg',
+                'sku' => 'BRS-PW-05',
+                'selling_price' => 78000,
+                'purchase_price' => 68000,
+                'unit' => 'karung',
+                'stock' => 15,
+                'min_stock' => 5,
+                'description' => 'Beras pulen kualitas super 5 kg',
+            ],
+            [
+                'category_id' => $catSembako->id,
+                'name' => 'Minyak Goreng SunCo 2L',
+                'sku' => 'MYK-SC-02',
+                'selling_price' => 38000,
+                'purchase_price' => 33500,
+                'unit' => 'pouch',
+                'stock' => 24,
+                'min_stock' => 6,
+                'description' => 'Minyak goreng bening 2 liter',
+            ],
+            [
+                'category_id' => $catSembako->id,
+                'name' => 'Gula Pasir Gulaku 1kg',
+                'sku' => 'GLA-GL-01',
+                'selling_price' => 17500,
+                'purchase_price' => 15000,
+                'unit' => 'kg',
+                'stock' => 3, // Low stock!
+                'min_stock' => 5,
+                'description' => 'Gula pasir premium 1 kg',
+            ],
+            [
+                'category_id' => $catSembako->id,
+                'name' => 'Telur Ayam Ras 1kg',
+                'sku' => 'TLR-AY-01',
+                'selling_price' => 28000,
+                'purchase_price' => 25000,
+                'unit' => 'kg',
+                'stock' => 0, // Out of stock!
+                'min_stock' => 8,
+                'description' => 'Telur ayam negeri segar pilihan',
+            ],
+            [
+                'category_id' => $catMinuman->id,
+                'name' => 'Teh Botol Sosro 350ml',
+                'sku' => 'THB-SS-35',
+                'selling_price' => 4500,
+                'purchase_price' => 3500,
+                'unit' => 'botol',
+                'stock' => 36,
+                'min_stock' => 12,
+                'description' => 'Teh botol rasa original',
+            ],
+            [
+                'category_id' => $catMinuman->id,
+                'name' => 'Aqua Air Mineral 600ml',
+                'sku' => 'AQU-BT-60',
+                'selling_price' => 3500,
+                'purchase_price' => 2500,
+                'unit' => 'botol',
+                'stock' => 4, // Low stock!
+                'min_stock' => 10,
+                'description' => 'Air minum dalam kemasan botol sedang',
+            ],
+            [
+                'category_id' => $catSnack->id,
+                'name' => 'Indomie Goreng Original',
+                'sku' => 'MIE-ID-GO',
+                'selling_price' => 3500,
+                'purchase_price' => 2800,
+                'unit' => 'bungkus',
+                'stock' => 80,
+                'min_stock' => 20,
+                'description' => 'Mi instan kuah/goreng legendaris',
+            ],
+            [
+                'category_id' => $catBumbu->id,
+                'name' => 'Kecap Bango Manis 520ml',
+                'sku' => 'KCP-BG-52',
+                'selling_price' => 24000,
+                'purchase_price' => 20500,
+                'unit' => 'pouch',
+                'stock' => 10,
+                'min_stock' => 4,
+                'description' => 'Kecap kedelai hitam pilihan',
+            ],
+        ];
+
+        $seededProducts = [];
+        foreach ($productsData as $prod) {
+            $createdProd = Product::create(array_merge($prod, [
                 'business_id' => $business->id,
-                'user_id' => $owner->id,
-                'category_id' => $exp['category']->id,
-                'amount' => $exp['amount'],
-                'expense_date' => Carbon::now()->subDays($idx * 10),
-                'description' => $exp['desc'],
+                'is_active' => true,
+            ]));
+
+            // Log initial stock movement
+            if ($createdProd->stock > 0) {
+                StockMovement::create([
+                    'business_id' => $business->id,
+                    'product_id' => $createdProd->id,
+                    'user_id' => $owner->id,
+                    'type' => 'initial',
+                    'quantity' => $createdProd->stock,
+                    'stock_before' => 0,
+                    'stock_after' => $createdProd->stock,
+                    'notes' => 'Stok awal sistem',
+                ]);
+            }
+
+            $seededProducts[] = $createdProd;
+        }
+
+        // Seed some sales transactions with transaction_items
+        $sampleSales = [
+            [
+                'user' => $karyawan1,
+                'days_ago' => 0, // today
+                'items' => [
+                    ['product' => $seededProducts[0], 'qty' => 1], // Beras 1
+                    ['product' => $seededProducts[4], 'qty' => 2], // Teh Botol 2
+                ],
+                'source' => 'Pelanggan Toko',
+                'payment_method' => 'Tunai',
+            ],
+            [
+                'user' => $karyawan2,
+                'days_ago' => 0, // today
+                'items' => [
+                    ['product' => $seededProducts[6], 'qty' => 5], // Indomie 5
+                    ['product' => $seededProducts[1], 'qty' => 1], // Minyak 1
+                ],
+                'source' => 'Order WhatsApp',
+                'payment_method' => 'QRIS/Transfer',
+            ],
+            [
+                'user' => $owner,
+                'days_ago' => 1, // yesterday
+                'items' => [
+                    ['product' => $seededProducts[7], 'qty' => 2], // Kecap 2
+                    ['product' => $seededProducts[4], 'qty' => 4], // Teh Botol 4
+                ],
+                'source' => 'Pembeli Langsung',
+                'payment_method' => 'Tunai',
+            ],
+        ];
+
+        foreach ($sampleSales as $saleData) {
+            $totalAmount = 0;
+            $itemsToCreate = [];
+
+            foreach ($saleData['items'] as $item) {
+                $subtotal = $item['product']->selling_price * $item['qty'];
+                $totalAmount += $subtotal;
+                $itemsToCreate[] = [
+                    'product_id' => $item['product']->id,
+                    'product_name' => $item['product']->name,
+                    'quantity' => $item['qty'],
+                    'unit_price' => $item['product']->selling_price,
+                    'subtotal' => $subtotal,
+                ];
+            }
+
+            $date = Carbon::now()->subDays($saleData['days_ago']);
+
+            $saleTrx = Transaction::create([
+                'business_id' => $business->id,
+                'user_id' => $saleData['user']->id,
+                'category_id' => $catPenjualan->id,
+                'type' => 'masuk',
+                'amount' => $totalAmount,
+                'transaction_date' => $date,
+                'source' => $saleData['source'],
+                'description' => 'Penjualan Produk: '.count($itemsToCreate).' item',
+                'payment_method' => $saleData['payment_method'],
+                'is_sale' => true,
             ]);
+
+            foreach ($itemsToCreate as $itemRow) {
+                $saleTrx->items()->create(array_merge($itemRow, [
+                    'business_id' => $business->id,
+                ]));
+
+                // Create stock movement for each item
+                StockMovement::create([
+                    'business_id' => $business->id,
+                    'product_id' => $itemRow['product_id'],
+                    'user_id' => $saleData['user']->id,
+                    'type' => 'sale',
+                    'quantity' => -$itemRow['quantity'],
+                    'stock_before' => 20,
+                    'stock_after' => 20 - $itemRow['quantity'],
+                    'notes' => 'Penjualan #'.$saleTrx->id,
+                    'reference_id' => $saleTrx->id,
+                ]);
+            }
         }
     }
 }

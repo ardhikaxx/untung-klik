@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Transaction extends Model
 {
@@ -15,6 +16,7 @@ class Transaction extends Model
         'user_id',
         'category_id',
         'type',
+        'is_sale',
         'amount',
         'transaction_date',
         'source',
@@ -24,6 +26,7 @@ class Transaction extends Model
 
     protected $casts = [
         'amount' => 'decimal:2',
+        'is_sale' => 'boolean',
         'transaction_date' => 'date',
     ];
 
@@ -40,5 +43,10 @@ class Transaction extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(TransactionCategory::class, 'category_id');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(TransactionItem::class);
     }
 }

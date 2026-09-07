@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Transaction;
 use Carbon\Carbon;
 
@@ -30,14 +31,25 @@ class DashboardController extends Controller
 
         $recentTransactions = Transaction::where('business_id', $user->business_id)
             ->where('user_id', $user->id)
-            ->with('category')
+            ->with(['category', 'items.product'])
             ->latest('transaction_date')
             ->latest('id')
             ->limit(5)
             ->get();
 
+        $lowStockProducts = Product::where('business_id', $user->business_id)
+            ->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereColumn('stock', '<=', 'min_stock')
+                    ->orWhere('stock', '<=', 0);
+            })
+            ->with('category')
+            ->orderBy('stock')
+            ->limit(5)
+            ->get();
+
         return view('karyawan.dashboard', compact(
-            'todaySales', 'todayCount', 'totalMyTransactions', 'recentTransactions'
+            'todaySales', 'todayCount', 'totalMyTransactions', 'recentTransactions', 'lowStockProducts'
         ));
     }
 }

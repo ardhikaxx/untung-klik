@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\CapitalEntry;
 use App\Models\OperationalExpense;
+use App\Models\Product;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -66,10 +67,44 @@ class DashboardController extends Controller
 
         $transactionCount = (clone $query)->count();
 
+        // Product & Stock stats
+        $totalProducts = Product::where('business_id', $user->business_id)->count();
+        $lowStockCount = Product::where('business_id', $user->business_id)
+            ->where('is_active', true)
+            ->where('stock', '>', 0)
+            ->whereColumn('stock', '<=', 'min_stock')
+            ->count();
+        $outOfStockCount = Product::where('business_id', $user->business_id)
+            ->where('is_active', true)
+            ->where('stock', '<=', 0)
+            ->count();
+
+        $todaySalesTotal = Transaction::where('business_id', $user->business_id)
+            ->where('is_sale', true)
+            ->whereDate('transaction_date', $now->toDateString())
+            ->sum('amount');
+        $todaySalesCount = Transaction::where('business_id', $user->business_id)
+            ->where('is_sale', true)
+            ->whereDate('transaction_date', $now->toDateString())
+            ->count();
+
+        $attentionProducts = Product::where('business_id', $user->business_id)
+            ->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereColumn('stock', '<=', 'min_stock')
+                    ->orWhere('stock', '<=', 0);
+            })
+            ->with('category')
+            ->orderBy('stock')
+            ->limit(5)
+            ->get();
+
         return view('owner.dashboard', compact(
             'business', 'totalIncome', 'totalExpense', 'totalCapital',
             'totalOperational', 'netProfit', 'recentTransactions',
-            'transactionCount', 'period'
+            'transactionCount', 'period',
+            'totalProducts', 'lowStockCount', 'outOfStockCount',
+            'todaySalesTotal', 'todaySalesCount', 'attentionProducts'
         ));
     }
 }

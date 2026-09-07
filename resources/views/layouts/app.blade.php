@@ -412,13 +412,33 @@
                     <i class="fas fa-th-large"></i>
                     <span>Dashboard</span>
                 </a>
+                <a href="{{ route('owner.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.sales.*') ? 'active' : '' }}">
+                    <i class="fas fa-cash-register"></i>
+                    <span>Penjualan Harian</span>
+                </a>
+
+                <div class="sidebar-section-label">Produk & Stok</div>
+                <a href="{{ route('owner.products.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.products.*') ? 'active' : '' }}">
+                    <i class="fas fa-box"></i>
+                    <span>Daftar Produk</span>
+                </a>
+                <a href="{{ route('owner.stock.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.stock.*') ? 'active' : '' }}">
+                    <i class="fas fa-cubes"></i>
+                    <span>Stok & Mutasi</span>
+                </a>
+                <a href="{{ route('owner.product-categories.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.product-categories.*') ? 'active' : '' }}">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Kategori Produk</span>
+                </a>
+
+                <div class="sidebar-section-label">Buku Kas Digital</div>
                 <a href="{{ route('owner.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.transactions.*') ? 'active' : '' }}">
                     <i class="fas fa-arrow-down"></i>
                     <span>Uang Masuk</span>
                 </a>
                 <a href="{{ route('owner.capital.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.capital.*') ? 'active' : '' }}">
                     <i class="fas fa-coins"></i>
-                    <span>Modal</span>
+                    <span>Modal Usaha</span>
                 </a>
                 <a href="{{ route('owner.expenses.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.expenses.*') ? 'active' : '' }}">
                     <i class="fas fa-arrow-up"></i>
@@ -426,17 +446,17 @@
                 </a>
                 <a href="{{ route('owner.categories.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.categories.*') ? 'active' : '' }}">
                     <i class="fas fa-tags"></i>
-                    <span>Kategori</span>
+                    <span>Kategori Kas</span>
                 </a>
 
                 <div class="sidebar-section-label">Laporan & Analisis</div>
                 <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.*') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i>
-                    <span>Laporan</span>
+                    <span>Laporan Keuangan</span>
                 </a>
                 <a href="{{ route('owner.charts.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.charts.*') ? 'active' : '' }}">
                     <i class="fas fa-chart-bar"></i>
-                    <span>Grafik</span>
+                    <span>Grafik Arus Kas</span>
                 </a>
 
                 <div class="sidebar-section-label">Pengaturan</div>
@@ -446,21 +466,21 @@
                 </a>
                 <a href="{{ route('owner.profile') }}" class="sidebar-nav-item {{ request()->routeIs('owner.profile') ? 'active' : '' }}">
                     <i class="fas fa-user-circle"></i>
-                    <span>Profile</span>
+                    <span>Profil Usaha</span>
                 </a>
             @else
-                <div class="sidebar-section-label">Menu</div>
+                <div class="sidebar-section-label">Menu Utama</div>
                 <a href="{{ route('karyawan.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.dashboard') ? 'active' : '' }}">
                     <i class="fas fa-th-large"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
+                <a href="{{ route('karyawan.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.sales.*') ? 'active' : '' }}">
                     <i class="fas fa-cash-register"></i>
-                    <span>Penjualan</span>
+                    <span>Penjualan Produk</span>
                 </a>
                 <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
-                    <i class="fas fa-history"></i>
-                    <span>Riwayat Transaksi</span>
+                    <i class="fas fa-arrow-down"></i>
+                    <span>Uang Masuk Lainnya</span>
                 </a>
 
                 <div class="sidebar-section-label">Laporan</div>
@@ -472,7 +492,7 @@
                 <div class="sidebar-section-label">Pengaturan</div>
                 <a href="{{ route('karyawan.profile') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.profile') ? 'active' : '' }}">
                     <i class="fas fa-user-circle"></i>
-                    <span>Profile</span>
+                    <span>Profil</span>
                 </a>
             @endif
         </nav>
@@ -480,7 +500,7 @@
         <div class="sidebar-footer">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn-logout">
+                <button type="button" class="btn-logout" onclick="confirmLogout(event)">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Keluar</span>
                 </button>
@@ -517,13 +537,33 @@
                         <i class="fas fa-th-large"></i>
                         <span>Dashboard</span>
                     </a>
+                    <a href="{{ route('owner.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.sales.*') ? 'active' : '' }}">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Penjualan Harian</span>
+                    </a>
+
+                    <div class="sidebar-section-label">Produk & Stok</div>
+                    <a href="{{ route('owner.products.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.products.*') ? 'active' : '' }}">
+                        <i class="fas fa-box"></i>
+                        <span>Daftar Produk</span>
+                    </a>
+                    <a href="{{ route('owner.stock.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.stock.*') ? 'active' : '' }}">
+                        <i class="fas fa-cubes"></i>
+                        <span>Stok & Mutasi</span>
+                    </a>
+                    <a href="{{ route('owner.product-categories.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.product-categories.*') ? 'active' : '' }}">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Kategori Produk</span>
+                    </a>
+
+                    <div class="sidebar-section-label">Buku Kas Digital</div>
                     <a href="{{ route('owner.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.transactions.*') ? 'active' : '' }}">
                         <i class="fas fa-arrow-down"></i>
                         <span>Uang Masuk</span>
                     </a>
                     <a href="{{ route('owner.capital.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.capital.*') ? 'active' : '' }}">
                         <i class="fas fa-coins"></i>
-                        <span>Modal</span>
+                        <span>Modal Usaha</span>
                     </a>
                     <a href="{{ route('owner.expenses.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.expenses.*') ? 'active' : '' }}">
                         <i class="fas fa-arrow-up"></i>
@@ -531,17 +571,17 @@
                     </a>
                     <a href="{{ route('owner.categories.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.categories.*') ? 'active' : '' }}">
                         <i class="fas fa-tags"></i>
-                        <span>Kategori</span>
+                        <span>Kategori Kas</span>
                     </a>
 
                     <div class="sidebar-section-label">Laporan & Analisis</div>
                     <a href="{{ route('owner.reports.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.reports.*') ? 'active' : '' }}">
                         <i class="fas fa-file-alt"></i>
-                        <span>Laporan</span>
+                        <span>Laporan Keuangan</span>
                     </a>
                     <a href="{{ route('owner.charts.index') }}" class="sidebar-nav-item {{ request()->routeIs('owner.charts.*') ? 'active' : '' }}">
                         <i class="fas fa-chart-bar"></i>
-                        <span>Grafik</span>
+                        <span>Grafik Arus Kas</span>
                     </a>
 
                     <div class="sidebar-section-label">Pengaturan</div>
@@ -551,21 +591,21 @@
                     </a>
                     <a href="{{ route('owner.profile') }}" class="sidebar-nav-item {{ request()->routeIs('owner.profile') ? 'active' : '' }}">
                         <i class="fas fa-user-circle"></i>
-                        <span>Profile</span>
+                        <span>Profil Usaha</span>
                     </a>
                 @else
-                    <div class="sidebar-section-label">Menu</div>
+                    <div class="sidebar-section-label">Menu Utama</div>
                     <a href="{{ route('karyawan.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.dashboard') ? 'active' : '' }}">
                         <i class="fas fa-th-large"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
+                    <a href="{{ route('karyawan.sales.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.sales.*') ? 'active' : '' }}">
                         <i class="fas fa-cash-register"></i>
-                        <span>Penjualan</span>
+                        <span>Penjualan Produk</span>
                     </a>
                     <a href="{{ route('karyawan.transactions.index') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.transactions.*') ? 'active' : '' }}">
-                        <i class="fas fa-history"></i>
-                        <span>Riwayat Transaksi</span>
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Uang Masuk Lainnya</span>
                     </a>
 
                     <div class="sidebar-section-label">Laporan</div>
@@ -577,7 +617,7 @@
                     <div class="sidebar-section-label">Pengaturan</div>
                     <a href="{{ route('karyawan.profile') }}" class="sidebar-nav-item {{ request()->routeIs('karyawan.profile') ? 'active' : '' }}">
                         <i class="fas fa-user-circle"></i>
-                        <span>Profile</span>
+                        <span>Profil</span>
                     </a>
                 @endif
             </nav>
@@ -585,7 +625,7 @@
             <div class="sidebar-footer">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn-logout">
+                    <button type="button" class="btn-logout" onclick="confirmLogout(event)">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Keluar</span>
                     </button>
@@ -629,7 +669,9 @@
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-2"></i>Keluar</button>
+                                <button type="button" class="dropdown-item text-danger" onclick="confirmLogout(event)">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Keluar
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -667,6 +709,46 @@
                     newOffcanvas.show();
                 }
             }
+        }
+
+        function confirmLogout(event) {
+            if (event) event.preventDefault();
+            const form = event.target.closest('form');
+            Swal.fire({
+                title: 'Konfirmasi Keluar',
+                text: 'Apakah Anda yakin ingin keluar dari sistem?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Keluar',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+
+        function confirmDelete(event, message = 'Data yang dihapus tidak dapat dikembalikan!') {
+            if (event) event.preventDefault();
+            const form = event.target.closest('form');
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Hapus Data',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         }
     </script>
 

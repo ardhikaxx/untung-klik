@@ -54,4 +54,24 @@ class Business extends Model
     {
         return $this->hasMany(OperationalExpense::class);
     }
+
+    public function productCategories(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function stockMovements(): HasMany
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
+    public function transactionItems(): HasMany
+    {
+        return $this->hasMany(TransactionItem::class);
+    }
 }
