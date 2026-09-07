@@ -17,6 +17,20 @@
 
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
+                @if($transaction->is_sale)
+                <div class="alert alert-success border-0 shadow-sm mb-4 text-start">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <span class="fw-bold text-success"><i class="fas fa-receipt me-1"></i>Struk Invoice #{{ $transaction->invoice_number ?? $transaction->id }}</span>
+                            <div class="small text-muted">Cetak nota thermal atau kirim bukti bayar ke WhatsApp pelanggan</div>
+                        </div>
+                        <a href="{{ route('karyawan.sales.show', $transaction->id) }}" class="btn btn-sm btn-success">
+                            <i class="fas fa-print me-1"></i>Buka Struk
+                        </a>
+                    </div>
+                </div>
+                @endif
+
                 <div class="text-center mb-4">
                     <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px; background-color: #dcfce7;">
                         <i class="fas fa-arrow-down" style="color: #16a34a; font-size: 1.5rem;"></i>

@@ -168,3 +168,69 @@ test('karyawan daily report displays recorded product sales with item breakdown'
     $response->assertSee('36.000');
     $response->assertSee('Penjualan Produk');
 });
+
+test('owner can export sales report as pdf and excel', function () {
+    $this->actingAs($this->owner)->post(route('owner.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Pak Budi',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productA->id, 'quantity' => 2],
+        ],
+    ]);
+
+    $pdfResponse = $this->actingAs($this->owner)->get(route('owner.export.sales.pdf', ['period' => 'today']));
+    $pdfResponse->assertStatus(200);
+    expect($pdfResponse->headers->get('content-type'))->toContain('application/pdf');
+
+    $excelResponse = $this->actingAs($this->owner)->get(route('owner.export.sales.excel', ['period' => 'today']));
+    $excelResponse->assertStatus(200);
+    expect($excelResponse->headers->get('content-disposition'))->toContain('.xlsx');
+});
+
+test('deleting a sales transaction restores product stock and logs movement', function () {
+    $initialStock = $this->productA->stock; // 50
+
+    $this->actingAs($this->owner)->post(route('owner.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Pak Rudi',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productA->id, 'quantity' => 5],
+        ],
+    ]);
+
+    expect($this->productA->fresh()->stock)->toBe($initialStock - 5);
+
+    $sale = Transaction::where('business_id', $this->business->id)
+        ->where('is_sale', true)
+        ->latest('id')
+        ->first();
+
+    // Delete sale via owner transactions destroy
+    $response = $this->actingAs($this->owner)->delete(route('owner.transactions.destroy', $sale));
+    $response->assertRedirect(route('owner.transactions.index'));
+
+    // Stock should be restored
+    expect($this->productA->fresh()->stock)->toBe($initialStock);
+    $this->assertDatabaseMissing('transactions', ['id' => $sale->id]);
+});
+
+test('accessing general edit on a sales transaction redirects to sales show', function () {
+    $this->actingAs($this->owner)->post(route('owner.sales.store'), [
+        'transaction_date' => now()->toDateString(),
+        'customer_name' => 'Bu Joko',
+        'payment_method' => 'Tunai',
+        'items' => [
+            ['product_id' => $this->productB->id, 'quantity' => 1],
+        ],
+    ]);
+
+    $sale = Transaction::where('business_id', $this->business->id)
+        ->where('is_sale', true)
+        ->latest('id')
+        ->first();
+
+    $response = $this->actingAs($this->owner)->get(route('owner.transactions.edit', $sale));
+    $response->assertRedirect(route('owner.sales.show', $sale));
+});

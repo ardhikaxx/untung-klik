@@ -13,6 +13,19 @@
     </a>
 </div>
 
+@if($transaction->is_sale)
+<div class="alert alert-success border-0 shadow-sm mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+        <i class="fas fa-check-circle me-2"></i>
+        <strong>Transaksi Penjualan Kasir (Invoice: {{ $transaction->invoice_number ?? ('PJ-'.$transaction->id) }})</strong>
+        <div class="small text-muted">Transaksi ini tercatat dari kasir dan memiliki rincian produk, stok, diskon, dan nota belanja.</div>
+    </div>
+    <a href="{{ route('owner.sales.show', $transaction) }}" class="btn btn-success btn-sm">
+        <i class="fas fa-receipt me-1"></i>Buka Struk Penjualan
+    </a>
+</div>
+@endif
+
 <div class="row">
     <div class="col-lg-8">
         <div class="card border shadow-sm">

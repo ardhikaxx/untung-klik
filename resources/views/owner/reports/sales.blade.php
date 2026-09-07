@@ -10,12 +10,18 @@
         <p class="text-muted mb-0">{{ $periodLabel }}</p>
     </div>
     <div class="d-flex gap-2 flex-wrap">
-        <a href="{{ route('owner.sales.create') }}" class="btn btn-success btn-sm">
-            <i class="fas fa-plus me-1"></i>Catat Penjualan
+        <a href="{{ route('owner.export.sales.pdf', request()->query()) }}" class="btn btn-danger btn-sm">
+            <i class="fas fa-file-pdf me-1"></i>Export PDF
         </a>
-        <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.print()">
-            <i class="fas fa-print me-1"></i>Cetak Laporan
+        <a href="{{ route('owner.export.sales.excel', request()->query()) }}" class="btn btn-success btn-sm">
+            <i class="fas fa-file-excel me-1"></i>Export Excel
+        </a>
+        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.print()">
+            <i class="fas fa-print me-1"></i>Cetak
         </button>
+        <a href="{{ route('owner.sales.create') }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-cash-register me-1"></i>Catat Penjualan
+        </a>
     </div>
 </div>
 

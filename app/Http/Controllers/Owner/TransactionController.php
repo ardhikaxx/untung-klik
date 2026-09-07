@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\StockMovement;
 use App\Models\Transaction;
 use App\Models\TransactionCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -94,6 +97,12 @@ class TransactionController extends Controller
     public function edit(Transaction $transaction)
     {
         $this->authorizeTransaction($transaction);
+
+        if ($transaction->is_sale) {
+            return redirect()->route('owner.sales.show', $transaction)
+                ->with('info', 'Transaksi penjualan kasir terhubung dengan rincian produk dan stok. Silakan tinjau struk transaksi di sini.');
+        }
+
         $user = auth()->user();
         $categories = TransactionCategory::where('business_id', $user->business_id)
             ->where('is_active', true)
@@ -133,10 +142,40 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         $this->authorizeTransaction($transaction);
-        $transaction->delete();
+        $user = auth()->user();
+        $businessId = $user->business_id;
+
+        DB::transaction(function () use ($transaction, $businessId, $user) {
+            if ($transaction->is_sale) {
+                foreach ($transaction->items as $item) {
+                    if ($item->product_id) {
+                        $product = Product::where('id', $item->product_id)->where('business_id', $businessId)->first();
+                        if ($product) {
+                            $before = $product->stock;
+                            $after = $before + $item->quantity;
+                            $product->update(['stock' => $after]);
+
+                            StockMovement::create([
+                                'business_id' => $businessId,
+                                'product_id' => $product->id,
+                                'user_id' => $user->id,
+                                'type' => 'correction',
+                                'quantity' => $item->quantity,
+                                'stock_before' => $before,
+                                'stock_after' => $after,
+                                'notes' => 'Pengembalian stok pembatalan penjualan #'.($transaction->invoice_number ?? $transaction->id),
+                                'reference_id' => $transaction->id,
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            $transaction->delete();
+        });
 
         return redirect()->route('owner.transactions.index')
-            ->with('success', 'Transaksi berhasil dihapus.');
+            ->with('success', 'Transaksi berhasil dihapus'.($transaction->is_sale ? ' dan stok produk dikembalikan.' : '.'));
     }
 
     private function authorizeTransaction(Transaction $transaction): void

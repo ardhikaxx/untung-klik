@@ -60,12 +60,30 @@
                         <td>
                             <span class="badge" style="background-color: #dcfce7; color: #16a34a;">{{ $transaction->category->name ?? '-' }}</span>
                         </td>
-                        <td>{{ $transaction->source ?? '-' }}</td>
+                        <td>
+                            @if($transaction->is_sale)
+                                <div class="mb-1">
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                        <i class="fas fa-receipt me-1"></i>{{ $transaction->invoice_number ?? 'Penjualan' }}
+                                    </span>
+                                </div>
+                            @endif
+                            <div>{{ $transaction->source ?? '-' }}</div>
+                            @if($transaction->description)
+                                <small class="text-muted">{{ Str::limit($transaction->description, 35) }}</small>
+                            @endif
+                        </td>
                         <td class="text-end fw-semibold" style="color: #16a34a;">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
                         <td class="text-center pe-3">
-                            <a href="{{ route('karyawan.transactions.show', $transaction->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                            @if($transaction->is_sale)
+                                <a href="{{ route('karyawan.sales.show', $transaction->id) }}" class="btn btn-sm btn-outline-success" title="Lihat Struk Penjualan">
+                                    <i class="fas fa-receipt"></i>
+                                </a>
+                            @else
+                                <a href="{{ route('karyawan.transactions.show', $transaction->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                     @empty

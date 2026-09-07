@@ -80,9 +80,13 @@ Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner,admin'])
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/pin', [ProfileController::class, 'changePin'])->name('profile.pin');
 
-    // Export
+    // Export Keuangan
     Route::get('/export/pdf', [ExportController::class, 'exportPdf'])->name('export.pdf');
     Route::get('/export/excel', [ExportController::class, 'exportExcel'])->name('export.excel');
+
+    // Export Penjualan & Produk
+    Route::get('/export/sales/pdf', [ExportController::class, 'exportSalesPdf'])->name('export.sales.pdf');
+    Route::get('/export/sales/excel', [ExportController::class, 'exportSalesExcel'])->name('export.sales.excel');
 });
 
 // Karyawan routes

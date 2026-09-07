@@ -106,6 +106,16 @@
                                 </td>
                                 <td>{{ $transaction->category->name ?? '-' }}</td>
                                 <td>
+                                    @if($transaction->is_sale)
+                                        <div class="mb-1">
+                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                                <i class="fas fa-receipt me-1"></i>{{ $transaction->invoice_number ?? 'Penjualan' }}
+                                            </span>
+                                            @if($transaction->customer_name)
+                                                <span class="small text-muted">({{ $transaction->customer_name }})</span>
+                                            @endif
+                                        </div>
+                                    @endif
                                     <div>{{ $transaction->source ?: '-' }}</div>
                                     @if($transaction->description)
                                         <small class="text-muted">{{ Str::limit($transaction->description, 40) }}</small>
@@ -117,14 +127,21 @@
                                 <td class="text-muted small">{{ $transaction->user->name }}</td>
                                 <td class="text-center pe-3">
                                     <div class="d-flex gap-1 justify-content-center">
-                                        <a href="{{ route('owner.transactions.show', $transaction) }}"
-                                           class="btn btn-sm btn-outline-info" title="Lihat">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('owner.transactions.edit', $transaction) }}"
-                                           class="btn btn-sm btn-outline-warning" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                        @if($transaction->is_sale)
+                                            <a href="{{ route('owner.sales.show', $transaction) }}"
+                                               class="btn btn-sm btn-outline-success" title="Lihat Struk Penjualan">
+                                                <i class="fas fa-receipt"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('owner.transactions.show', $transaction) }}"
+                                               class="btn btn-sm btn-outline-info" title="Lihat">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('owner.transactions.edit', $transaction) }}"
+                                               class="btn btn-sm btn-outline-warning" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endif
                                         <form action="{{ route('owner.transactions.destroy', $transaction) }}"
                                               method="POST" class="d-inline delete-form">
                                             @csrf
