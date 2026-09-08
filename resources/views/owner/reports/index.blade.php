@@ -85,76 +85,82 @@
 
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-arrow-down text-success"></i>
+        <div class="card modern-stat-card accent-success h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-green mx-auto mb-2">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total Pemasukan</div>
+                    <h5 class="stat-value-text text-success" style="font-size: 1.15rem;">Rp {{ number_format($totalIncome, 0, ',', '.') }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Total Pemasukan</h6>
-                <h5 class="fw-bold text-success mb-0">Rp {{ number_format($totalIncome, 0, ',', '.') }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-arrow-up text-danger"></i>
+        <div class="card modern-stat-card accent-danger h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-red mx-auto mb-2">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total Pengeluaran</div>
+                    <h5 class="stat-value-text text-danger" style="font-size: 1.15rem;">Rp {{ number_format($totalExpense, 0, ',', '.') }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Total Pengeluaran</h6>
-                <h5 class="fw-bold text-danger mb-0">Rp {{ number_format($totalExpense, 0, ',', '.') }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-coins text-primary"></i>
+        <div class="card modern-stat-card accent-primary h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-blue mx-auto mb-2">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total Modal</div>
+                    <h5 class="stat-value-text text-primary" style="font-size: 1.15rem;">Rp {{ number_format($totalCapital, 0, ',', '.') }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Total Modal</h6>
-                <h5 class="fw-bold text-primary mb-0">Rp {{ number_format($totalCapital, 0, ',', '.') }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-receipt text-warning"></i>
+        <div class="card modern-stat-card accent-warning h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-amber mx-auto mb-2">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Beban Operasional</div>
+                    <h5 class="stat-value-text text-warning" style="font-size: 1.15rem;">Rp {{ number_format($totalOperational, 0, ',', '.') }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Pengeluaran Operasional</h6>
-                <h5 class="fw-bold text-warning mb-0">Rp {{ number_format($totalOperational, 0, ',', '.') }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-chart-line text-info"></i>
+        <div class="card modern-stat-card {{ $netProfit >= 0 ? 'accent-success' : 'accent-danger' }} h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod {{ $netProfit >= 0 ? 'pod-green' : 'pod-red' }} mx-auto mb-2">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Laba Bersih</div>
+                    <h5 class="stat-value-text {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}" style="font-size: 1.15rem;">
+                        Rp {{ number_format($netProfit, 0, ',', '.') }}
+                    </h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Laba Bersih</h6>
-                <h5 class="fw-bold {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }} mb-0">
-                    Rp {{ number_format($netProfit, 0, ',', '.') }}
-                </h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <div class="rounded-circle bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-list-ol text-secondary"></i>
+        <div class="card modern-stat-card accent-dark h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-slate mx-auto mb-2">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Jumlah Transaksi</div>
+                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ $transactionCount }} <span class="fs-6 fw-normal text-muted">Data</span></h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Jumlah Transaksi</h6>
-                <h5 class="fw-bold text-secondary mb-0">{{ $transactionCount }}</h5>
             </div>
         </div>
     </div>

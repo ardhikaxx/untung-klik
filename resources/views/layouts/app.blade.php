@@ -407,7 +407,192 @@
         .badge-warning { background-color: #d97706 !important; color: #ffffff !important; }
         .badge-secondary { background-color: #64748b !important; color: #ffffff !important; }
         .badge-primary { background-color: #2563eb !important; color: #ffffff !important; }
-        .badge-dark { background-color: #1e293b !important; color: #ffffff !important; }
+        /* Modern Stat Cards Design System */
+        .modern-stat-card {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.09), 0 6px 10px -4px rgba(15, 23, 42, 0.04);
+            border-color: rgba(203, 213, 225, 1);
+        }
+
+        .modern-stat-card.accent-success::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+
+        .modern-stat-card.accent-danger::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+
+        .modern-stat-card.accent-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+        }
+
+        .modern-stat-card.accent-warning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+        }
+
+        .modern-stat-card.accent-purple::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+        }
+
+        .modern-stat-card.accent-teal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #14b8a6, #0d9488);
+        }
+
+        .modern-stat-card.accent-dark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #475569, #1e293b);
+        }
+
+        .stat-icon-pod {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+        }
+
+        .modern-stat-card:hover .stat-icon-pod {
+            transform: scale(1.08);
+        }
+
+        .stat-icon-pod.pod-green {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.16) 0%, rgba(22, 163, 74, 0.08) 100%);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .stat-icon-pod.pod-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.16) 0%, rgba(220, 38, 38, 0.08) 100%);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        .stat-icon-pod.pod-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.16) 0%, rgba(37, 99, 235, 0.08) 100%);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .stat-icon-pod.pod-amber {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 119, 6, 0.08) 100%);
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .stat-icon-pod.pod-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.16) 0%, rgba(124, 58, 237, 0.08) 100%);
+            color: #7c3aed;
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .stat-icon-pod.pod-teal {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.16) 0%, rgba(13, 148, 136, 0.08) 100%);
+            color: #0d9488;
+            border: 1px solid rgba(20, 184, 166, 0.25);
+        }
+
+        .stat-icon-pod.pod-slate {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.16) 0%, rgba(71, 85, 105, 0.08) 100%);
+            color: #475569;
+            border: 1px solid rgba(100, 116, 139, 0.25);
+        }
+
+        .stat-label-text {
+            font-size: 0.785rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0;
+        }
+
+        .stat-value-text {
+            font-size: clamp(1.25rem, 1.5vw, 1.55rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .stat-card-footer {
+            border-top: 1px solid rgba(241, 245, 249, 1);
+            padding-top: 0.65rem;
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: #64748b;
+        }
+
+        .stat-card-footer a {
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card-footer a:hover {
+            transform: translateX(3px);
+        }
     </style>
 </head>
 <body>

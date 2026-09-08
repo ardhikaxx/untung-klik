@@ -114,75 +114,81 @@
 <!-- Kartu Ringkasan Metrik Utama Penjualan -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-cash-register text-success fs-5"></i>
+        <div class="card modern-stat-card accent-success h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-green mx-auto mb-2">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total Omset</div>
+                    <h5 class="stat-value-text text-success" style="font-size: 1.15rem;">{{ format_rupiah($totalSales) }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Total Omset Penjualan</h6>
-                <h5 class="fw-bold text-success mb-0">{{ format_rupiah($totalSales) }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-tags text-secondary fs-5"></i>
+        <div class="card modern-stat-card accent-dark h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-slate mx-auto mb-2">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total HPP (Modal)</div>
+                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ format_rupiah($totalHpp) }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Total HPP (Modal Barang)</h6>
-                <h5 class="fw-bold text-dark mb-0">{{ format_rupiah($totalHpp) }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-coins text-primary fs-5"></i>
+        <div class="card modern-stat-card accent-primary h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-blue mx-auto mb-2">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Laba Kotor (Gross)</div>
+                    <h5 class="stat-value-text text-primary mb-1" style="font-size: 1.15rem;">{{ format_rupiah($grossProfit) }}</h5>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-0" style="font-size: 0.65rem;">Margin: {{ $profitMargin }}%</span>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Laba Kotor (Gross)</h6>
-                <h5 class="fw-bold text-primary mb-0">{{ format_rupiah($grossProfit) }}</h5>
-                <span class="badge bg-primary-subtle text-primary mt-1" style="font-size: 0.65rem;">Margin: {{ $profitMargin }}%</span>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-receipt text-warning fs-5"></i>
+        <div class="card modern-stat-card accent-warning h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-amber mx-auto mb-2">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Transaksi Selesai</div>
+                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ number_format($totalTransactions) }} <span class="fs-6 fw-normal text-muted">Nota</span></h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Jumlah Transaksi</h6>
-                <h5 class="fw-bold text-dark mb-0">{{ number_format($totalTransactions) }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-boxes text-info fs-5"></i>
+        <div class="card modern-stat-card accent-teal h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-teal mx-auto mb-2">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Barang Terjual</div>
+                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ number_format($totalItemsSold) }} <span class="fs-6 fw-normal text-muted">Unit</span></h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Kuantitas Barang Terjual</h6>
-                <h5 class="fw-bold text-info mb-0">{{ number_format($totalItemsSold) }}</h5>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-3">
-                <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-2"
-                     style="width: 44px; height: 44px;">
-                    <i class="fas fa-chart-line text-danger fs-5"></i>
+        <div class="card modern-stat-card accent-purple h-100">
+            <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon-pod pod-purple mx-auto mb-2">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Rata-rata/Nota (AOV)</div>
+                    <h5 class="stat-value-text text-purple" style="font-size: 1.15rem;">{{ format_rupiah($averageOrderValue) }}</h5>
                 </div>
-                <h6 class="text-muted mb-1" style="font-size: 0.75rem;">Rata-rata/Nota (AOV)</h6>
-                <h5 class="fw-bold text-danger mb-0">{{ format_rupiah($averageOrderValue) }}</h5>
             </div>
         </div>
     </div>

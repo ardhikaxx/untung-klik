@@ -4,53 +4,70 @@
 
 @section('content')
 <div class="row g-3 mb-4">
+    <!-- Penjualan Hari Ini -->
     <div class="col-md-4">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #dcfce7;">
-                            <i class="fas fa-cash-register" style="color: #16a34a; font-size: 1.25rem;"></i>
+        <div class="card modern-stat-card accent-success h-100">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="stat-label-text">Penjualan Hari Ini</span>
+                        <div class="stat-icon-pod pod-green">
+                            <i class="fas fa-cash-register"></i>
                         </div>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <p class="text-muted mb-1 small">Penjualan Hari Ini</p>
-                        <h4 class="mb-0 fw-bold">Rp {{ number_format($todaySales, 0, ',', '.') }}</h4>
-                    </div>
+                    <h4 class="stat-value-text text-success">
+                        {{ format_rupiah($todaySales) }}
+                    </h4>
+                </div>
+                <div class="stat-card-footer">
+                    <span><i class="fas fa-calendar-day text-success me-1 opacity-75"></i>Shift aktif hari ini</span>
+                    <a href="{{ route('karyawan.sales.create') }}" class="text-success">Kasir &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Transaksi Hari Ini -->
     <div class="col-md-4">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #dbeafe;">
-                            <i class="fas fa-receipt" style="color: #2563eb; font-size: 1.25rem;"></i>
+        <div class="card modern-stat-card accent-primary h-100">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="stat-label-text">Transaksi Hari Ini</span>
+                        <div class="stat-icon-pod pod-blue">
+                            <i class="fas fa-receipt"></i>
                         </div>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <p class="text-muted mb-1 small">Transaksi Hari Ini</p>
-                        <h4 class="mb-0 fw-bold">{{ $todayCount }}</h4>
-                    </div>
+                    <h4 class="stat-value-text text-primary">
+                        {{ number_format($todayCount) }} <span class="fs-6 fw-normal text-muted">Nota</span>
+                    </h4>
+                </div>
+                <div class="stat-card-footer">
+                    <span><i class="fas fa-receipt text-primary me-1 opacity-75"></i>Struk tercetak hari ini</span>
+                    <a href="{{ route('karyawan.sales.index') }}" class="text-primary">Lihat Nota &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Total Transaksi Saya -->
     <div class="col-md-4">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                        <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: #fef3c7;">
-                            <i class="fas fa-history" style="color: #d97706; font-size: 1.25rem;"></i>
+        <div class="card modern-stat-card accent-purple h-100">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="stat-label-text">Total Transaksi Saya</span>
+                        <div class="stat-icon-pod pod-purple">
+                            <i class="fas fa-clock-rotate-left"></i>
                         </div>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                        <p class="text-muted mb-1 small">Total Transaksi Saya</p>
-                        <h4 class="mb-0 fw-bold">{{ $totalMyTransactions }}</h4>
-                    </div>
+                    <h4 class="stat-value-text text-dark">
+                        {{ number_format($totalMyTransactions) }} <span class="fs-6 fw-normal text-muted">Aktivitas</span>
+                    </h4>
+                </div>
+                <div class="stat-card-footer">
+                    <span><i class="fas fa-user-check text-purple me-1 opacity-75"></i>Akumulasi transaksi Anda</span>
+                    <a href="{{ route('karyawan.reports.index') }}" class="text-primary">Riwayat &rarr;</a>
                 </div>
             </div>
         </div>

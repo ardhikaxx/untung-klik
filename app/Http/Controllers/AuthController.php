@@ -43,10 +43,10 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         if ($user->isOwner()) {
-            return redirect()->route('owner.dashboard')->with('success', "Selamat datang kembali, {$user->name}!");
+            return redirect()->route('owner.dashboard');
         }
 
-        return redirect()->route('karyawan.dashboard')->with('success', "Selamat datang kembali, {$user->name}!");
+        return redirect()->route('karyawan.dashboard');
     }
 
     public function logout(Request $request)
