@@ -1,413 +1,427 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Owner')
+@section('title', 'Dashboard Usaha')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+<!-- Page Header & Period Filters -->
+<div class="uk-page-header">
     <div>
-        <h4 class="fw-bold mb-1">Dashboard Usaha</h4>
-        <p class="text-muted mb-0">Ringkasan keuangan, penjualan produk, dan peringatan ketersediaan stok</p>
+        <h2 class="uk-page-title">Dashboard Usaha</h2>
+        <p class="uk-page-subtitle">Ringkasan kondisi keuangan, mutasi kas, dan ketersediaan stok produk Anda</p>
     </div>
-    <div class="d-flex gap-2 flex-wrap">
-        <a href="{{ route('owner.dashboard', ['period' => 'today']) }}"
-           class="btn btn-sm {{ $period === 'today' ? 'btn-success' : 'btn-outline-secondary' }}">
-            Hari Ini
-        </a>
-        <a href="{{ route('owner.dashboard', ['period' => 'week']) }}"
-           class="btn btn-sm {{ $period === 'week' ? 'btn-success' : 'btn-outline-secondary' }}">
-            Minggu Ini
-        </a>
-        <a href="{{ route('owner.dashboard', ['period' => 'month']) }}"
-           class="btn btn-sm {{ $period === 'month' ? 'btn-success' : 'btn-outline-secondary' }}">
-            Bulan Ini
-        </a>
-        <a href="{{ route('owner.dashboard', ['period' => 'year']) }}"
-           class="btn btn-sm {{ $period === 'year' ? 'btn-success' : 'btn-outline-secondary' }}">
-            Tahun Ini
-        </a>
-        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#customDateRange">
-            <i class="fas fa-calendar-alt me-1"></i>Custom
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="btn-group p-1 bg-white border rounded-pill shadow-xs" role="group">
+            <a href="{{ route('owner.dashboard', ['period' => 'today']) }}"
+               class="btn btn-sm rounded-pill px-3 fw-semibold {{ $period === 'today' ? 'btn-uk-primary' : 'text-muted border-0 bg-transparent' }}">
+                Hari Ini
+            </a>
+            <a href="{{ route('owner.dashboard', ['period' => 'week']) }}"
+               class="btn btn-sm rounded-pill px-3 fw-semibold {{ $period === 'week' ? 'btn-uk-primary' : 'text-muted border-0 bg-transparent' }}">
+                Minggu Ini
+            </a>
+            <a href="{{ route('owner.dashboard', ['period' => 'month']) }}"
+               class="btn btn-sm rounded-pill px-3 fw-semibold {{ $period === 'month' ? 'btn-uk-primary' : 'text-muted border-0 bg-transparent' }}">
+                Bulan Ini
+            </a>
+            <a href="{{ route('owner.dashboard', ['period' => 'year']) }}"
+               class="btn btn-sm rounded-pill px-3 fw-semibold {{ $period === 'year' ? 'btn-uk-primary' : 'text-muted border-0 bg-transparent' }}">
+                Tahun Ini
+            </a>
+        </div>
+        <button class="btn btn-sm btn-uk-outline rounded-pill px-3" type="button" data-bs-toggle="collapse" data-bs-target="#customDateRange">
+            <i class="fas fa-calendar-alt me-1.5"></i>Custom
         </button>
-        <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-success">
-            <i class="fas fa-cash-register me-1"></i>+ Catat Penjualan
+        <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs">
+            <i class="fas fa-cash-register me-1.5"></i>+ Catat Penjualan
         </a>
     </div>
 </div>
 
-<div class="collapse mb-4" id="customDateRange">
-    <div class="card border shadow-sm">
-        <div class="card-body">
-            <form method="GET" action="{{ route('owner.dashboard') }}" class="row g-3 align-items-end">
-                <input type="hidden" name="period" value="custom">
-                <div class="col-md-4">
-                    <label for="start_date" class="form-label fw-semibold small">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="start_date" name="start_date"
-                           value="{{ request('start_date') }}">
-                </div>
-                <div class="col-md-4">
-                    <label for="end_date" class="form-label fw-semibold small">Tanggal Akhir</label>
-                    <input type="date" class="form-control" id="end_date" name="end_date"
-                           value="{{ request('end_date') }}">
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-filter me-1"></i>Terapkan
-                    </button>
-                </div>
-            </form>
-        </div>
+<!-- Custom Date Filter Dropdown Collapse -->
+<div class="collapse mb-4 {{ $period === 'custom' ? 'show' : '' }}" id="customDateRange">
+    <div class="uk-card p-3 p-md-4">
+        <form method="GET" action="{{ route('owner.dashboard') }}" class="row g-3 align-items-end">
+            <input type="hidden" name="period" value="custom">
+            <div class="col-12 col-md-4">
+                <label for="start_date" class="form-label fw-semibold small text-dark mb-1">Tanggal Mulai</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request('start_date') }}" required>
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="end_date" class="form-label fw-semibold small text-dark mb-1">Tanggal Akhir</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request('end_date') }}" required>
+            </div>
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-uk-primary w-100">
+                    <i class="fas fa-filter me-1.5"></i>Terapkan Filter
+                </button>
+                <a href="{{ route('owner.dashboard') }}" class="btn btn-uk-secondary">
+                    Reset
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 
-<!-- SECTION 1: KEUANGAN UTAMA -->
+<!-- SECTION 1: METRIK ARUS KAS & LABA BERSIH (3 Cards Grid) -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h6 class="fw-bold text-dark mb-0">
-        <i class="fas fa-wallet text-success me-2"></i>Kondisi Keuangan Usaha
-    </h6>
-    <span class="text-muted small">Ringkasan arus kas, modal & laba periode ini</span>
+    <div class="d-flex align-items-center gap-2">
+        <span class="badge rounded-circle p-1" style="background-color: var(--uk-primary);"></span>
+        <h6 class="fw-bold text-dark mb-0" style="font-size: 0.95rem;">Arus Kas & Laba Bersih</h6>
+    </div>
+    <span class="text-muted small">Formula: Total Masuk - Total Keluar - Beban Toko</span>
 </div>
+
 <div class="row g-3 mb-4">
-    <!-- Baris 1: 3 Metrik Utama Kas & Laba (Formula: Masuk - Keluar = Laba) -->
-    <!-- Total Uang Masuk -->
+    <!-- 1. Laba Bersih Usaha (HERO DARK CARD #131515) -->
     <div class="col-12 col-md-4">
-        <div class="card modern-stat-card accent-success h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Total Uang Masuk</span>
-                        <div class="stat-icon-pod pod-green">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
+        <div class="uk-stat-card-dark h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 250, 251, 0.7);">
+                        Laba Bersih Usaha
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.2); color: var(--uk-accent); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-chart-pie"></i>
                     </div>
-                    <h4 class="stat-value-text text-success">
-                        {{ format_rupiah($totalIncome) }}
-                    </h4>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-circle-check text-success me-1 opacity-75"></i>Kas masuk & penjualan</span>
-                    <a href="{{ route('owner.transactions.index') }}" class="text-success">Detail &rarr;</a>
+                <div class="d-flex align-items-baseline gap-2 mb-1 flex-wrap">
+                    <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: #FFFAFB;">
+                        {{ format_rupiah($netProfit) }}
+                    </h3>
                 </div>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.12); font-size: 0.78rem;">
+                @if($netProfit >= 0)
+                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(125, 226, 209, 0.2); color: var(--uk-accent); font-weight: 600;">
+                        <i class="fas fa-arrow-trend-up me-1"></i>Surplus Positif
+                    </span>
+                @else
+                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(43, 44, 40, 0.45); color: #FFFAFB; font-weight: 600; border: 1px solid rgba(255, 250, 251, 0.2);">
+                        <i class="fas fa-arrow-trend-down me-1"></i>Defisit Arus Kas
+                    </span>
+                @endif
+                <a href="{{ route('owner.reports.index') }}" style="color: var(--uk-accent); font-weight: 600;">
+                    Laporan Lengkap &rarr;
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Total Uang Keluar -->
+    <!-- 2. Total Uang Masuk (PRIMARY SOLID CARD #339989) -->
     <div class="col-12 col-md-4">
-        <div class="card modern-stat-card accent-danger h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Total Uang Keluar</span>
-                        <div class="stat-icon-pod pod-red">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
+        <div class="uk-stat-card-primary h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 250, 251, 0.85);">
+                        Total Uang Masuk
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(255, 250, 251, 0.2); color: #FFFAFB; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-arrow-down"></i>
                     </div>
-                    <h4 class="stat-value-text text-danger">
-                        {{ format_rupiah($totalExpense) }}
-                    </h4>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-circle-minus text-danger me-1 opacity-75"></i>Pengeluaran kas tercatat</span>
-                    <a href="{{ route('owner.transactions.index') }}" class="text-danger">Detail &rarr;</a>
-                </div>
+                <h3 class="fw-bold mb-0 text-white" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em;">
+                    {{ format_rupiah($totalIncome) }}
+                </h3>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.2); font-size: 0.78rem;">
+                <span class="text-white opacity-90"><i class="fas fa-check-circle me-1"></i>Kasir & Kas Masuk</span>
+                <a href="{{ route('owner.transactions.index') }}" class="text-white fw-bold">
+                    Detail Mutasi &rarr;
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Laba Bersih Usaha -->
+    <!-- 3. Total Uang Keluar (CLEAN LIGHT CARD) -->
     <div class="col-12 col-md-4">
-        <div class="card modern-stat-card {{ $netProfit >= 0 ? 'accent-success' : 'accent-danger' }} h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Laba Bersih Usaha</span>
-                        <div class="stat-icon-pod {{ $netProfit >= 0 ? 'pod-green' : 'pod-red' }}">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-baseline gap-2 flex-wrap mb-1">
-                        <h4 class="stat-value-text {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}">
-                            {{ format_rupiah($netProfit) }}
-                        </h4>
-                        @if($netProfit >= 0)
-                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill" style="font-size: 0.7rem;">
-                                <i class="fas fa-arrow-trend-up me-1"></i>Surplus
-                            </span>
-                        @else
-                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 rounded-pill" style="font-size: 0.7rem;">
-                                <i class="fas fa-arrow-trend-down me-1"></i>Defisit
-                            </span>
-                        @endif
+        <div class="uk-stat-card h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
+                        Total Uang Keluar
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-arrow-up"></i>
                     </div>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-calculator me-1 opacity-75"></i>Masuk - Keluar - Beban</span>
-                    <a href="{{ route('owner.reports.index') }}" class="text-dark">Laporan &rarr;</a>
-                </div>
+                <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: var(--uk-danger);">
+                    {{ format_rupiah($totalExpense) }}
+                </h3>
             </div>
-        </div>
-    </div>
-
-    <!-- Baris 2: 2 Metrik Struktur Modal & Beban Operasional -->
-    <!-- Modal Usaha -->
-    <div class="col-12 col-md-6">
-        <div class="card modern-stat-card accent-primary h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Modal Usaha (Capital)</span>
-                        <div class="stat-icon-pod pod-blue">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                    </div>
-                    <h4 class="stat-value-text text-primary">
-                        {{ format_rupiah($totalCapital) }}
-                    </h4>
-                </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-shield-alt text-primary me-1 opacity-75"></i>Akumulasi modal yang disetor ke usaha</span>
-                    <a href="{{ route('owner.capital.index') }}" class="text-primary">Kelola Modal &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Beban Operasional -->
-    <div class="col-12 col-md-6">
-        <div class="card modern-stat-card accent-warning h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Beban Operasional Toko</span>
-                        <div class="stat-icon-pod pod-amber">
-                            <i class="fas fa-receipt"></i>
-                        </div>
-                    </div>
-                    <h4 class="stat-value-text text-warning">
-                        {{ format_rupiah($totalOperational) }}
-                    </h4>
-                </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-building text-warning me-1 opacity-75"></i>Biaya listrik, sewa, gaji, & operasional rutin</span>
-                    <a href="{{ route('owner.expenses.index') }}" class="text-warning">Kelola Beban &rarr;</a>
-                </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
+                <span class="text-muted"><i class="fas fa-circle-minus text-danger me-1"></i>Pengeluaran kas tercatat</span>
+                <a href="{{ route('owner.transactions.index') }}" class="text-danger fw-semibold">
+                    Detail Kas &rarr;
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SECTION 2: RINGKASAN PRODUK, STOK & PENJUALAN -->
+<!-- SECTION 2: OPERASIONAL, PENJUALAN & INVENTARIS (4 Cards Grid) -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h6 class="fw-bold text-dark mb-0">
-        <i class="fas fa-boxes-stacked text-primary me-2"></i>Produk, Penjualan & Stok Toko
-    </h6>
-    <span class="text-muted small">Status inventaris dan pergerakan kasir</span>
+    <div class="d-flex align-items-center gap-2">
+        <span class="badge rounded-circle p-1" style="background-color: var(--uk-accent);"></span>
+        <h6 class="fw-bold text-dark mb-0" style="font-size: 0.95rem;">Operasional, Modal & Inventaris</h6>
+    </div>
+    <span class="text-muted small">Aktivitas penjualan kasir dan ketersediaan stok toko</span>
 </div>
+
 <div class="row g-3 mb-4">
-    <!-- Penjualan Hari Ini -->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card modern-stat-card accent-purple h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Penjualan Hari Ini</span>
-                        <div class="stat-icon-pod pod-purple">
-                            <i class="fas fa-cash-register"></i>
-                        </div>
+    <!-- 1. Penjualan Hari Ini (ACCENT SOLID CARD #7DE2D1) -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="uk-stat-card-accent h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: var(--uk-dark);">
+                        Penjualan Hari Ini
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(19, 21, 21, 0.1); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-cash-register"></i>
                     </div>
-                    <h4 class="stat-value-text text-dark">
-                        {{ format_rupiah($todaySalesTotal) }}
-                    </h4>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-receipt text-purple me-1 opacity-75"></i>{{ $todaySalesCount }} transaksi</span>
-                    <a href="{{ route('owner.sales.index') }}" class="text-primary">Kasir &rarr;</a>
-                </div>
+                <h4 class="fw-bold mb-0" style="font-size: 1.35rem; color: var(--uk-dark); letter-spacing: -0.02em;">
+                    {{ format_rupiah($todaySalesTotal) }}
+                </h4>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(19, 21, 21, 0.12); font-size: 0.78rem;">
+                <span class="fw-semibold" style="color: var(--uk-dark);">
+                    <i class="fas fa-receipt me-1 opacity-75"></i>{{ $todaySalesCount }} Transaksi
+                </span>
+                <a href="{{ route('owner.sales.index') }}" class="fw-bold" style="color: var(--uk-dark);">
+                    Kasir &rarr;
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Total Produk Aktif -->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card modern-stat-card accent-primary h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Total Produk</span>
-                        <div class="stat-icon-pod pod-blue">
-                            <i class="fas fa-box-open"></i>
-                        </div>
+    <!-- 2. Modal Usaha / Capital -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="uk-stat-card h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
+                        Modal Usaha
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-coins"></i>
                     </div>
-                    <h4 class="stat-value-text text-dark">
-                        {{ number_format($totalProducts) }} <span class="fs-6 fw-normal text-muted">Item</span>
-                    </h4>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-check-circle text-success me-1 opacity-75"></i>Katalog produk aktif</span>
-                    <a href="{{ route('owner.products.index') }}" class="text-primary">Katalog &rarr;</a>
-                </div>
+                <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.35rem; letter-spacing: -0.02em;">
+                    {{ format_rupiah($totalCapital) }}
+                </h4>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
+                <span class="text-muted"><i class="fas fa-shield-alt text-primary me-1"></i>Total modal disetor</span>
+                <a href="{{ route('owner.capital.index') }}" class="text-primary fw-semibold">
+                    Kelola &rarr;
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Stok Menipis -->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card modern-stat-card accent-warning h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Stok Menipis</span>
-                        <div class="stat-icon-pod pod-amber">
-                            <i class="fas fa-triangle-exclamation"></i>
-                        </div>
+    <!-- 3. Beban Operasional -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="uk-stat-card h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
+                        Beban Operasional
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.25); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-file-invoice"></i>
                     </div>
-                    <h4 class="stat-value-text text-warning">
-                        {{ number_format($lowStockCount) }} <span class="fs-6 fw-normal text-muted">Produk</span>
-                    </h4>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-info-circle text-warning me-1 opacity-75"></i>&le; batas minimum stok</span>
-                    <a href="{{ route('owner.stock.index') }}" class="text-warning">Cek Stok &rarr;</a>
-                </div>
+                <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.35rem; letter-spacing: -0.02em;">
+                    {{ format_rupiah($totalOperational) }}
+                </h4>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
+                <span class="text-muted"><i class="fas fa-store me-1"></i>Listrik, sewa & rutin</span>
+                <a href="{{ route('owner.expenses.index') }}" class="text-warning fw-semibold">
+                    Rincian &rarr;
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Stok Habis -->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card modern-stat-card accent-danger h-100">
-            <div class="card-body d-flex flex-column justify-content-between p-3">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="stat-label-text">Stok Habis</span>
-                        <div class="stat-icon-pod pod-red">
-                            <i class="fas fa-circle-xmark"></i>
-                        </div>
+    <!-- 4. Status Stok Inventaris -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="uk-stat-card h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
+                        Total Produk Aktif
+                    </span>
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                        <i class="fas fa-boxes-stacked"></i>
                     </div>
-                    <h4 class="stat-value-text text-danger">
-                        {{ number_format($outOfStockCount) }} <span class="fs-6 fw-normal text-muted">Produk</span>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mb-1">
+                    <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.35rem; letter-spacing: -0.02em;">
+                        {{ number_format($totalProducts) }}
                     </h4>
+                    <span class="text-muted small">Item terdaftar</span>
                 </div>
-                <div class="stat-card-footer">
-                    <span><i class="fas fa-bell text-danger me-1 opacity-75"></i>Perlu restock segera</span>
-                    <a href="{{ route('owner.stock.adjust') }}" class="text-danger">+ Isi Stok &rarr;</a>
+            </div>
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
+                <div class="d-flex gap-1">
+                    @if($lowStockCount > 0)
+                        <span class="badge bg-warning text-dark px-1.5 py-0.5 rounded" style="font-size: 0.68rem;">{{ $lowStockCount }} Menipis</span>
+                    @endif
+                    @if($outOfStockCount > 0)
+                        <span class="badge bg-danger text-white px-1.5 py-0.5 rounded" style="font-size: 0.68rem;">{{ $outOfStockCount }} Habis</span>
+                    @endif
+                    @if($lowStockCount == 0 && $outOfStockCount == 0)
+                        <span class="text-success small"><i class="fas fa-check-circle me-1"></i>Stok Prima</span>
+                    @endif
                 </div>
+                <a href="{{ route('owner.stock.index') }}" class="text-primary fw-semibold">
+                    Stok &rarr;
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SECTION 3: PERHATIAN STOK & TRANSAKSI TERBARU -->
+<!-- SECTION 3: PRODUK PERHATIAN & MUTASI TRANSAKSI TERBARU -->
 <div class="row g-4">
-    <!-- Produk yang Perlu Diperhatikan -->
-    <div class="col-lg-5">
-        <div class="card border shadow-sm h-100">
-            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">
-                    <i class="fas fa-bell text-warning me-2"></i>Produk Perlu Perhatian
-                </h6>
-                <a href="{{ route('owner.stock.index') }}" class="btn btn-sm btn-outline-warning">
+    <!-- Kolom Kiri: Produk Perlu Perhatian (Stok Menipis/Habis) -->
+    <div class="col-12 col-lg-5">
+        <div class="uk-card h-100 d-flex flex-column p-0 overflow-hidden">
+            <div class="p-3 px-4 border-bottom bg-white d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-bell text-warning"></i>
+                    <h6 class="fw-bold text-dark mb-0">Peringatan Stok Toko</h6>
+                </div>
+                <a href="{{ route('owner.stock.index') }}" class="btn btn-xs btn-uk-outline rounded-pill px-2.5">
                     Semua Stok
                 </a>
             </div>
-            <div class="card-body p-0">
+
+            <div class="p-0 flex-grow-1">
                 @if($attentionProducts->isEmpty())
-                    <div class="text-center py-5">
-                        <i class="fas fa-check-circle fa-3x text-success opacity-50 mb-2"></i>
-                        <h6 class="text-muted fw-bold">Semua Stok Aman</h6>
-                        <p class="text-muted small mb-0">Tidak ada produk yang stoknya menipis atau habis.</p>
+                    <div class="uk-empty-state py-5">
+                        <div class="uk-empty-icon" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div class="uk-empty-title">Semua Stok Aman</div>
+                        <p class="uk-empty-desc mb-0">Tidak ada produk yang berada di bawah batas minimum stok saat ini.</p>
                     </div>
                 @else
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush border-0">
                         @foreach($attentionProducts as $prod)
-                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                                <div>
-                                    <div class="fw-bold text-dark">{{ $prod->name }}</div>
-                                    <div class="text-muted small">
-                                        Harga: {{ format_rupiah($prod->selling_price) }} &bull; Min: {{ $prod->min_stock }} {{ $prod->unit }}
+                            <li class="list-group-item px-4 py-3 d-flex justify-content-between align-items-center border-bottom-subtle">
+                                <div class="me-2">
+                                    <div class="fw-bold text-dark mb-0.5" style="font-size: 0.88rem;">{{ $prod->name }}</div>
+                                    <div class="text-muted" style="font-size: 0.78rem;">
+                                        Kategori: <span class="text-dark">{{ $prod->category->name ?? 'Umum' }}</span> &bull; Min: {{ $prod->min_stock }} {{ $prod->unit }}
                                     </div>
                                 </div>
                                 <div class="text-end">
                                     @if($prod->isOutOfStock())
-                                        <span class="badge bg-danger text-white mb-1 d-inline-block">Stok Habis</span>
+                                        <span class="badge bg-danger text-white mb-1 d-inline-block px-2 py-0.5 rounded-pill" style="font-size: 0.68rem;">
+                                            Habis
+                                        </span>
                                     @elseif($prod->isLowStock())
-                                        <span class="badge bg-warning text-dark mb-1 d-inline-block">Stok Menipis</span>
-                                    @else
-                                        <span class="badge bg-success text-white mb-1 d-inline-block">Stok Aman</span>
+                                        <span class="badge bg-warning text-dark mb-1 d-inline-block px-2 py-0.5 rounded-pill" style="font-size: 0.68rem;">
+                                            Menipis
+                                        </span>
                                     @endif
-                                    <div class="fw-bold fs-6 {{ $prod->stock <= 0 ? 'text-danger' : 'text-warning' }}">
-                                        {{ number_format($prod->stock) }} {{ $prod->unit }}
+                                    <div class="fw-bold {{ $prod->stock <= 0 ? 'text-danger' : 'text-warning' }}" style="font-size: 0.95rem;">
+                                        {{ number_format($prod->stock) }} <span class="fw-normal small text-muted">{{ $prod->unit }}</span>
                                     </div>
                                 </div>
                             </li>
                         @endforeach
                     </ul>
-                    <div class="p-3 bg-light border-top text-center">
-                        <a href="{{ route('owner.stock.adjust') }}" class="btn btn-sm btn-warning w-100">
-                            <i class="fas fa-sliders-h me-1"></i>Lakukan Penyesuaian / Restock
-                        </a>
-                    </div>
                 @endif
+            </div>
+
+            <div class="p-3 px-4 bg-white border-top text-center mt-auto">
+                <a href="{{ route('owner.stock.adjust') }}" class="btn btn-sm btn-uk-secondary w-100 rounded-pill">
+                    <i class="fas fa-sliders-h me-1.5"></i>Lakukan Penyesuaian / Restock
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Transaksi Terbaru -->
-    <div class="col-lg-7">
-        <div class="card border shadow-sm h-100">
-            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">
-                    <i class="fas fa-list text-muted me-2"></i>Transaksi Keuangan Terbaru
-                </h6>
-                <a href="{{ route('owner.transactions.index') }}" class="btn btn-sm btn-outline-primary">
+    <!-- Kolom Kanan: Transaksi Keuangan Terbaru -->
+    <div class="col-12 col-lg-7">
+        <div class="uk-card h-100 d-flex flex-column p-0 overflow-hidden">
+            <div class="p-3 px-4 border-bottom bg-white d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-clock-rotate-left text-primary"></i>
+                    <h6 class="fw-bold text-dark mb-0">Mutasi Kas Terbaru</h6>
+                </div>
+                <a href="{{ route('owner.transactions.index') }}" class="btn btn-xs btn-uk-outline rounded-pill px-2.5">
                     Lihat Semua
                 </a>
             </div>
-            <div class="card-body p-0">
+
+            <div class="p-0 flex-grow-1">
                 @if($recentTransactions->isEmpty())
-                    <div class="text-center py-5">
-                        <i class="fas fa-inbox fa-3x text-muted opacity-50 mb-3"></i>
-                        <h6 class="text-muted fw-bold">Belum Ada Transaksi</h6>
-                        <p class="text-muted small mb-3">Mulai catat transaksi penjualan atau uang masuk usaha Anda.</p>
-                        <a href="{{ route('owner.sales.create') }}" class="btn btn-success">
+                    <div class="uk-empty-state py-5">
+                        <div class="uk-empty-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="uk-empty-title">Belum Ada Transaksi</div>
+                        <p class="uk-empty-desc mb-3">Mulai catat transaksi penjualan atau uang masuk usaha Anda.</p>
+                        <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3">
                             <i class="fas fa-plus me-1"></i>Catat Penjualan
                         </a>
                     </div>
                 @else
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light small">
+                    <div class="table-responsive mb-0">
+                        <table class="table uk-table align-middle mb-0">
+                            <thead>
                                 <tr>
-                                    <th class="ps-3">Tanggal</th>
-                                    <th>Tipe</th>
+                                    <th class="ps-4">Tanggal</th>
+                                    <th>Tipe & Kategori</th>
                                     <th>Keterangan / Sumber</th>
-                                    <th class="text-end">Jumlah</th>
-                                    <th class="pe-3">User</th>
+                                    <th class="text-end">Nominal</th>
+                                    <th class="pe-4 text-center">User</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($recentTransactions as $transaction)
                                     <tr>
-                                        <td class="ps-3 small text-muted">
-                                            {{ $transaction->transaction_date->format('d/m/Y') }}
+                                        <td class="ps-4">
+                                            <div class="fw-semibold text-dark" style="font-size: 0.82rem;">
+                                                {{ $transaction->transaction_date->format('d/m/Y') }}
+                                            </div>
+                                            <div class="text-muted" style="font-size: 0.7rem;">
+                                                {{ $transaction->created_at ? $transaction->created_at->format('H:i') : '' }}
+                                            </div>
                                         </td>
                                         <td>
                                             @if($transaction->type === 'masuk')
-                                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <span class="uk-badge-success mb-1 d-inline-flex align-items-center gap-1">
+                                                    <i class="fas fa-arrow-down" style="font-size: 0.65rem;"></i>
                                                     {{ $transaction->is_sale ? 'Penjualan' : 'Masuk' }}
                                                 </span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Keluar</span>
+                                                <span class="uk-badge-danger mb-1 d-inline-flex align-items-center gap-1">
+                                                    <i class="fas fa-arrow-up" style="font-size: 0.65rem;"></i>
+                                                    Keluar
+                                                </span>
                                             @endif
+                                            <div class="text-muted" style="font-size: 0.72rem;">
+                                                {{ $transaction->category->name ?? 'Kas Umum' }}
+                                            </div>
                                         </td>
-                                        <td class="small">
-                                            <div class="fw-semibold text-dark">{{ $transaction->source ?: ($transaction->description ?: '-') }}</div>
+                                        <td>
+                                            <div class="fw-semibold text-dark text-truncate" style="max-width: 200px; font-size: 0.82rem;">
+                                                {{ $transaction->source ?: ($transaction->description ?: '-') }}
+                                            </div>
                                         </td>
-                                        <td class="text-end fw-bold {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}">
+                                        <td class="text-end fw-bold {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}" style="font-size: 0.88rem;">
                                             {{ $transaction->type === 'masuk' ? '+' : '-' }} {{ format_rupiah($transaction->amount) }}
                                         </td>
-                                        <td class="pe-3 text-muted small">
-                                            {{ $transaction->user ? $transaction->user->name : '-' }}
+                                        <td class="pe-4 text-center">
+                                            <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.7rem;" title="{{ $transaction->user ? $transaction->user->name : '-' }}">
+                                                {{ $transaction->user ? Str::limit($transaction->user->name, 10) : '-' }}
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach

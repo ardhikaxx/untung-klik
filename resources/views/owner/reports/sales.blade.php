@@ -6,71 +6,67 @@
 <!-- Header & Navigasi Tab Laporan -->
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
     <div>
-        <h4 class="fw-bold mb-1">Laporan Penjualan & Produk</h4>
-        <p class="text-muted mb-0">{{ $periodLabel }}</p>
+        <h4 class="fw-bold mb-1" style="color: var(--uk-dark);">Laporan Penjualan & Produk</h4>
+        <p class="text-muted small mb-0"><i class="fas fa-calendar-alt me-1 text-primary"></i>Periode: <strong>{{ $periodLabel }}</strong></p>
     </div>
     <div class="d-flex gap-2 flex-wrap">
-        <a href="{{ route('owner.export.sales.pdf', request()->query()) }}" class="btn btn-danger btn-sm">
+        <a href="{{ route('owner.export.sales.pdf', request()->query()) }}" class="btn btn-sm btn-uk-outline text-danger">
             <i class="fas fa-file-pdf me-1"></i>Export PDF
         </a>
-        <a href="{{ route('owner.export.sales.excel', request()->query()) }}" class="btn btn-success btn-sm">
+        <a href="{{ route('owner.export.sales.excel', request()->query()) }}" class="btn btn-sm btn-uk-outline text-success">
             <i class="fas fa-file-excel me-1"></i>Export Excel
         </a>
-        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.print()">
+        <button type="button" class="btn btn-sm btn-uk-outline" onclick="window.print()">
             <i class="fas fa-print me-1"></i>Cetak
         </button>
-        <a href="{{ route('owner.sales.create') }}" class="btn btn-primary btn-sm">
+        <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-primary">
             <i class="fas fa-cash-register me-1"></i>Catat Penjualan
         </a>
     </div>
 </div>
 
 <!-- Navigasi Tab Laporan: Kas vs Penjualan -->
-<ul class="nav nav-pills mb-4 border-bottom pb-2">
-    <li class="nav-item">
-        <a class="nav-link text-secondary fw-semibold py-2 px-3" href="{{ route('owner.reports.index', ['period' => $period]) }}">
-            <i class="fas fa-book me-1"></i>Buku Kas & Laba Bersih
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active bg-success fw-semibold py-2 px-3" href="{{ route('owner.reports.sales', ['period' => $period]) }}">
-            <i class="fas fa-shopping-bag me-1"></i>Penjualan & Produk Terlaris
-        </a>
-    </li>
-</ul>
+<div class="d-flex gap-2 mb-4 pb-1">
+    <a class="btn btn-sm btn-uk-outline" href="{{ route('owner.reports.index', ['period' => $period]) }}">
+        <i class="fas fa-book me-1"></i>Buku Kas & Laba Bersih
+    </a>
+    <a class="btn btn-sm btn-uk-primary" href="{{ route('owner.reports.sales', ['period' => $period]) }}">
+        <i class="fas fa-shopping-bag me-1"></i>Penjualan & Produk Terlaris
+    </a>
+</div>
 
 <!-- Filter Periode & Kasir -->
-<div class="card border-0 shadow-sm mb-4">
-    <div class="card-body">
+<div class="card uk-card border-0 mb-4">
+    <div class="card-body p-3 p-md-4">
         <form method="GET" action="{{ route('owner.reports.sales') }}" id="periodForm">
             <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
                 <div class="d-flex gap-1 flex-wrap">
                     <a href="{{ route('owner.reports.sales', ['period' => 'today']) }}"
-                       class="btn btn-sm {{ $period === 'today' ? 'btn-success' : 'btn-outline-secondary' }}">
+                       class="btn btn-sm {{ $period === 'today' ? 'btn-uk-primary' : 'btn-uk-outline' }}">
                         Hari Ini
                     </a>
                     <a href="{{ route('owner.reports.sales', ['period' => 'yesterday']) }}"
-                       class="btn btn-sm {{ $period === 'yesterday' ? 'btn-success' : 'btn-outline-secondary' }}">
+                       class="btn btn-sm {{ $period === 'yesterday' ? 'btn-uk-primary' : 'btn-uk-outline' }}">
                         Kemarin
                     </a>
                     <a href="{{ route('owner.reports.sales', ['period' => 'week']) }}"
-                       class="btn btn-sm {{ $period === 'week' ? 'btn-success' : 'btn-outline-secondary' }}">
+                       class="btn btn-sm {{ $period === 'week' ? 'btn-uk-primary' : 'btn-uk-outline' }}">
                         Minggu Ini
                     </a>
                     <a href="{{ route('owner.reports.sales', ['period' => 'month']) }}"
-                       class="btn btn-sm {{ $period === 'month' ? 'btn-success' : 'btn-outline-secondary' }}">
+                       class="btn btn-sm {{ $period === 'month' ? 'btn-uk-primary' : 'btn-uk-outline' }}">
                         Bulan Ini
                     </a>
                     <a href="{{ route('owner.reports.sales', ['period' => 'year']) }}"
-                       class="btn btn-sm {{ $period === 'year' ? 'btn-success' : 'btn-outline-secondary' }}">
+                       class="btn btn-sm {{ $period === 'year' ? 'btn-uk-primary' : 'btn-uk-outline' }}">
                         Tahun Ini
                     </a>
                 </div>
             </div>
 
-            <div class="row g-2">
+            <div class="row g-3 align-items-end">
                 <div class="col-md-3 col-6">
-                    <label for="user_id" class="form-label small fw-semibold">Kasir / Petugas</label>
+                    <label for="user_id" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Kasir / Petugas</label>
                     <select class="form-select form-select-sm" id="user_id" name="user_id">
                         <option value="">Semua Kasir</option>
                         @foreach($cashiers as $c)
@@ -79,7 +75,7 @@
                     </select>
                 </div>
                 <div class="col-md-3 col-6">
-                    <label for="payment_method" class="form-label small fw-semibold">Metode Pembayaran</label>
+                    <label for="payment_method" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Metode Pembayaran</label>
                     <select class="form-select form-select-sm" id="payment_method" name="payment_method">
                         <option value="">Semua Metode</option>
                         <option value="Tunai" {{ $paymentMethod === 'Tunai' ? 'selected' : '' }}>Tunai</option>
@@ -88,21 +84,21 @@
                     </select>
                 </div>
                 <div class="col-md-2 col-6">
-                    <label for="start_date" class="form-label small fw-semibold">Dari Tanggal</label>
+                    <label for="start_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Dari Tanggal</label>
                     <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
                            value="{{ $startDate }}">
                 </div>
                 <div class="col-md-2 col-6">
-                    <label for="end_date" class="form-label small fw-semibold">Sampai Tanggal</label>
+                    <label for="end_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Sampai Tanggal</label>
                     <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
                            value="{{ $endDate }}">
                 </div>
                 <div class="col-md-2 col-12 d-flex align-items-end gap-1">
                     <input type="hidden" name="period" value="custom">
-                    <button type="submit" class="btn btn-sm btn-primary flex-grow-1">
+                    <button type="submit" class="btn btn-sm btn-uk-primary flex-grow-1">
                         <i class="fas fa-filter me-1"></i>Filter
                     </button>
-                    <a href="{{ route('owner.reports.sales') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                    <a href="{{ route('owner.reports.sales') }}" class="btn btn-sm btn-uk-outline" title="Reset Filter">
                         <i class="fas fa-undo"></i>
                     </a>
                 </div>
@@ -114,80 +110,80 @@
 <!-- Kartu Ringkasan Metrik Utama Penjualan -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-success h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-green mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.12); color: #339989;">
                         <i class="fas fa-cash-register"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total Omset</div>
-                    <h5 class="stat-value-text text-success" style="font-size: 1.15rem;">{{ format_rupiah($totalSales) }}</h5>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total Omset</div>
+                    <div class="uk-stat-value text-success" style="font-size: 1.15rem;">{{ format_rupiah($totalSales) }}</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-dark h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-slate mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(19, 21, 21, 0.1); color: var(--uk-dark);">
                         <i class="fas fa-tags"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Total HPP (Modal)</div>
-                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ format_rupiah($totalHpp) }}</h5>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total HPP (Modal)</div>
+                    <div class="uk-stat-value" style="font-size: 1.15rem; color: var(--uk-dark);">{{ format_rupiah($totalHpp) }}</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-primary h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-blue mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
                         <i class="fas fa-coins"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Laba Kotor (Gross)</div>
-                    <h5 class="stat-value-text text-primary mb-1" style="font-size: 1.15rem;">{{ format_rupiah($grossProfit) }}</h5>
-                    <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-0" style="font-size: 0.65rem;">Margin: {{ $profitMargin }}%</span>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Laba Kotor (Gross)</div>
+                    <div class="uk-stat-value mb-1" style="font-size: 1.15rem; color: var(--uk-primary);">{{ format_rupiah($grossProfit) }}</div>
+                    <span class="badge badge-uk-primary px-2 py-0" style="font-size: 0.68rem;">Margin: {{ $profitMargin }}%</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-warning h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-amber mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(125, 226, 209, 0.25); color: #131515;">
                         <i class="fas fa-receipt"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Transaksi Selesai</div>
-                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ number_format($totalTransactions) }} <span class="fs-6 fw-normal text-muted">Nota</span></h5>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Transaksi Selesai</div>
+                    <div class="uk-stat-value" style="font-size: 1.15rem; color: var(--uk-dark);">{{ number_format($totalTransactions) }} <span class="fs-6 fw-normal text-muted">Nota</span></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-teal h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-teal mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(125, 226, 209, 0.3); color: var(--uk-dark);">
                         <i class="fas fa-boxes-stacked"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Barang Terjual</div>
-                    <h5 class="stat-value-text text-dark" style="font-size: 1.15rem;">{{ number_format($totalItemsSold) }} <span class="fs-6 fw-normal text-muted">Unit</span></h5>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Barang Terjual</div>
+                    <div class="uk-stat-value" style="font-size: 1.15rem; color: var(--uk-dark);">{{ number_format($totalItemsSold) }} <span class="fs-6 fw-normal text-muted">Unit</span></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-6 col-lg-4 col-xl-2">
-        <div class="card modern-stat-card accent-purple h-100">
+        <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="stat-icon-pod pod-purple mx-auto mb-2">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(43, 44, 40, 0.12); color: var(--uk-dark-secondary);">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="stat-label-text mb-1" style="font-size: 0.72rem;">Rata-rata/Nota (AOV)</div>
-                    <h5 class="stat-value-text text-purple" style="font-size: 1.15rem;">{{ format_rupiah($averageOrderValue) }}</h5>
+                    <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Rata-rata/Nota (AOV)</div>
+                    <div class="uk-stat-value" style="font-size: 1.15rem; color: var(--uk-dark);">{{ format_rupiah($averageOrderValue) }}</div>
                 </div>
             </div>
         </div>
@@ -197,9 +193,9 @@
 <div class="row g-4 mb-4">
     <!-- Tabel Top 10 Produk Terlaris -->
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0 text-dark">
+        <div class="card uk-card border-0 h-100">
+            <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
                     <i class="fas fa-crown text-warning me-2"></i>10 Produk Terlaris (Bestseller)
                 </h6>
                 <span class="text-muted small">Periode ini</span>
@@ -212,14 +208,14 @@
                     </div>
                 @else
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light small">
+                        <table class="table uk-table align-middle mb-0">
+                            <thead>
                                 <tr>
-                                    <th class="ps-3" style="width: 40px;">#</th>
+                                    <th class="ps-4" style="width: 45px;">#</th>
                                     <th>Nama Produk</th>
                                     <th class="text-center">Terjual</th>
                                     <th class="text-end">Total Omset</th>
-                                    <th class="text-end pe-3">Estimasi Laba</th>
+                                    <th class="text-end pe-4">Estimasi Laba</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,13 +224,13 @@
                                         $profit = $item->total_revenue - $item->total_cost;
                                     @endphp
                                     <tr>
-                                        <td class="ps-3 fw-bold text-muted">
+                                        <td class="ps-4 fw-bold text-muted">
                                             @if($idx === 0)
-                                                <i class="fas fa-medal text-warning"></i>
+                                                <i class="fas fa-medal text-warning fs-6"></i>
                                             @elseif($idx === 1)
-                                                <i class="fas fa-medal text-secondary"></i>
+                                                <i class="fas fa-medal text-secondary fs-6"></i>
                                             @elseif($idx === 2)
-                                                <i class="fas fa-medal" style="color: #cd7f32;"></i>
+                                                <i class="fas fa-medal text-dark fs-6"></i>
                                             @else
                                                 {{ $idx + 1 }}
                                             @endif
@@ -243,14 +239,14 @@
                                             <span class="fw-semibold text-dark">{{ $item->product_name }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge bg-success bg-opacity-10 text-success fw-bold px-2 py-1">
+                                            <span class="badge badge-uk-accent text-dark fw-bold px-2 py-1">
                                                 {{ $item->total_qty }} unit
                                             </span>
                                         </td>
                                         <td class="text-end fw-semibold text-dark">
                                             {{ format_rupiah($item->total_revenue) }}
                                         </td>
-                                        <td class="text-end pe-3 fw-bold text-success">
+                                        <td class="text-end pe-4 fw-bold text-success">
                                             {{ format_rupiah($profit) }}
                                         </td>
                                     </tr>
@@ -266,13 +262,13 @@
     <!-- Ringkasan Metode Bayar & Kasir -->
     <div class="col-lg-4">
         <!-- Metode Pembayaran -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white border-bottom py-3">
-                <h6 class="fw-bold mb-0 text-dark">
-                    <i class="fas fa-wallet text-success me-2"></i>Metode Pembayaran
+        <div class="card uk-card border-0 mb-4">
+            <div class="card-header bg-transparent border-bottom py-3">
+                <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
+                    <i class="fas fa-wallet text-primary me-2"></i>Metode Pembayaran
                 </h6>
             </div>
-            <div class="card-body p-3">
+            <div class="card-body p-3 p-md-4">
                 @if($paymentBreakdown->isEmpty())
                     <p class="text-muted small text-center my-3">Belum ada transaksi</p>
                 @else
@@ -293,13 +289,13 @@
         </div>
 
         <!-- Kinerja Kasir -->
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white border-bottom py-3">
-                <h6 class="fw-bold mb-0 text-dark">
+        <div class="card uk-card border-0">
+            <div class="card-header bg-transparent border-bottom py-3">
+                <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
                     <i class="fas fa-users text-primary me-2"></i>Penjualan per Kasir
                 </h6>
             </div>
-            <div class="card-body p-3">
+            <div class="card-body p-3 p-md-4">
                 @if($cashierBreakdown->isEmpty())
                     <p class="text-muted small text-center my-3">Belum ada transaksi</p>
                 @else
@@ -310,7 +306,7 @@
                                 <small class="text-muted">{{ $cb->count }} penjualan dicatat</small>
                             </div>
                             <div class="text-end">
-                                <span class="fw-bold text-primary d-block">{{ format_rupiah($cb->total) }}</span>
+                                <span class="fw-bold text-dark d-block">{{ format_rupiah($cb->total) }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -321,12 +317,12 @@
 </div>
 
 <!-- Daftar Transaksi Penjualan Lengkap -->
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
-        <h6 class="fw-bold mb-0 text-dark">
-            <i class="fas fa-list-alt text-secondary me-2"></i>Riwayat Transaksi Penjualan Periode Ini
+<div class="card uk-card border-0">
+    <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+        <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
+            <i class="fas fa-list-alt text-primary me-2"></i>Riwayat Transaksi Penjualan Periode Ini
         </h6>
-        <span class="text-muted small">Total {{ $transactions->total() }} Transaksi</span>
+        <span class="badge badge-uk-accent text-dark fw-medium">Total {{ $transactions->total() }} Transaksi</span>
     </div>
     <div class="card-body p-0">
         @if($transactions->isEmpty())
@@ -336,23 +332,23 @@
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light small">
+                <table class="table uk-table align-middle mb-0">
+                    <thead>
                         <tr>
-                            <th class="ps-3" style="width: 40px;">No</th>
+                            <th class="ps-4" style="width: 45px;">No</th>
                             <th>No. Faktur / Tanggal</th>
                             <th>Pelanggan</th>
                             <th>Item Barang</th>
                             <th class="text-end">Total Bayar</th>
                             <th class="text-center">Metode</th>
                             <th>Kasir</th>
-                            <th class="text-center pe-3" style="width: 80px;">Nota</th>
+                            <th class="text-center pe-4" style="width: 80px;">Nota</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($transactions as $idx => $t)
                             <tr>
-                                <td class="ps-3 text-muted">{{ $transactions->firstItem() + $idx }}</td>
+                                <td class="ps-4 text-muted small">{{ $transactions->firstItem() + $idx }}</td>
                                 <td class="small" style="white-space: nowrap;">
                                     <div class="fw-bold text-dark">{{ $t->formatted_invoice_number }}</div>
                                     <div class="text-muted" style="font-size: 0.75rem;">{{ $t->transaction_date->format('d/m/Y') }}</div>
@@ -373,16 +369,16 @@
                                     {{ format_rupiah($t->amount) }}
                                 </td>
                                 <td class="text-center">
-                                    <span class="badge bg-secondary-subtle text-dark border">
+                                    <span class="badge badge-uk-accent text-dark fw-medium">
                                         {{ $t->payment_method ?: 'Tunai' }}
                                     </span>
                                 </td>
                                 <td class="small text-muted">
                                     {{ $t->user ? $t->user->name : '-' }}
                                 </td>
-                                <td class="text-center pe-3">
-                                    <a href="{{ route('owner.sales.show', $t) }}" class="btn btn-sm btn-outline-primary" title="Lihat Nota">
-                                        <i class="fas fa-receipt"></i>
+                                <td class="text-center pe-4">
+                                    <a href="{{ route('owner.sales.show', $t) }}" class="btn btn-sm btn-uk-outline" title="Lihat Nota">
+                                        <i class="fas fa-receipt text-success"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -391,9 +387,9 @@
                 </table>
             </div>
             @if($transactions->hasPages())
-                <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2 px-4 py-3">
                     <small class="text-muted">
-                        Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }} dari {{ $transactions->total() }} transaksi
+                        Menampilkan <span class="fw-semibold text-dark">{{ $transactions->firstItem() }}</span> - <span class="fw-semibold text-dark">{{ $transactions->lastItem() }}</span> dari <span class="fw-semibold text-dark">{{ $transactions->total() }}</span> transaksi
                     </small>
                     {{ $transactions->withQueryString()->links() }}
                 </div>

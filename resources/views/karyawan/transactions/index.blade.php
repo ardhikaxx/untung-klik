@@ -3,34 +3,36 @@
 @section('title', 'Riwayat Kas Masuk Manual')
 
 @section('content')
-<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+<!-- Page Header -->
+<div class="uk-page-header">
     <div>
-        <h5 class="fw-bold mb-1">Riwayat Kas Masuk Manual</h5>
-        <p class="text-muted mb-0 small">Kelola dan lihat semua catatan penerimaan kas masuk non-produk Anda</p>
+        <h2 class="uk-page-title">Riwayat Kas Masuk Manual</h2>
+        <p class="uk-page-subtitle">Kelola dan pantau seluruh catatan penerimaan kas masuk non-produk Anda.</p>
     </div>
-    <a href="{{ route('karyawan.transactions.create') }}" class="btn btn-success">
-        <i class="fas fa-plus me-2"></i>Catat Kas Masuk Baru
+    <a href="{{ route('karyawan.transactions.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs fw-bold">
+        <i class="fas fa-plus me-1.5"></i>Catat Kas Masuk Baru
     </a>
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
-    <div class="card-body">
-        <form method="GET" action="{{ route('karyawan.transactions.index') }}" class="row g-2 align-items-end">
+<!-- Filter Form -->
+<div class="card uk-card border-0 mb-4">
+    <div class="card-body p-3 p-md-4">
+        <form method="GET" action="{{ route('karyawan.transactions.index') }}" class="row g-3 align-items-end">
             <div class="col-md-4">
-                <label for="start_date" class="form-label small fw-semibold">Dari Tanggal</label>
-                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request('start_date') }}">
+                <label for="start_date" class="form-label fw-semibold small text-dark mb-1">Dari Tanggal</label>
+                <input type="date" class="form-control form-control-sm" id="start_date" name="start_date" value="{{ request('start_date') }}">
             </div>
             <div class="col-md-4">
-                <label for="end_date" class="form-label small fw-semibold">Sampai Tanggal</label>
-                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request('end_date') }}">
+                <label for="end_date" class="form-label fw-semibold small text-dark mb-1">Sampai Tanggal</label>
+                <input type="date" class="form-control form-control-sm" id="end_date" name="end_date" value="{{ request('end_date') }}">
             </div>
             <div class="col-md-4 d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-filter me-1"></i>Filter
+                <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-3 flex-grow-1">
+                    <i class="fas fa-filter me-1.5"></i>Filter
                 </button>
                 @if(request('start_date') || request('end_date'))
-                    <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-times me-1"></i>Reset
+                    <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3" title="Reset Filter">
+                        <i class="fas fa-times"></i>
                     </a>
                 @endif
             </div>
@@ -38,50 +40,58 @@
     </div>
 </div>
 
-<div class="card border-0 shadow-sm">
+<!-- Table Card -->
+<div class="card uk-card border-0">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            <table class="table uk-table align-middle mb-0">
+                <thead>
                     <tr>
-                        <th class="ps-3" style="width: 50px; font-size: 0.8125rem;">No</th>
-                        <th style="font-size: 0.8125rem;">Tanggal</th>
-                        <th style="font-size: 0.8125rem;">Kategori</th>
-                        <th style="font-size: 0.8125rem;">Sumber / Deskripsi</th>
-                        <th class="text-end" style="font-size: 0.8125rem;">Jumlah</th>
-                        <th class="text-center pe-3" style="width: 80px; font-size: 0.8125rem;">Aksi</th>
+                        <th class="ps-4" style="width: 60px;">No</th>
+                        <th>Tanggal & Waktu</th>
+                        <th>Kategori</th>
+                        <th>Sumber / Keterangan</th>
+                        <th class="text-end">Jumlah</th>
+                        <th class="text-center pe-4" style="width: 100px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($transactions as $transaction)
                     <tr>
-                        <td class="ps-3">{{ $transactions->firstItem() + $loop->index }}</td>
-                        <td>{{ $transaction->transaction_date->format('d/m/Y') }}</td>
+                        <td class="ps-4 text-muted small">{{ $transactions->firstItem() + $loop->index }}</td>
                         <td>
-                            <span class="badge" style="background-color: #dcfce7; color: #16a34a;">{{ $transaction->category->name ?? '-' }}</span>
+                            <div class="fw-semibold text-dark">{{ $transaction->transaction_date->format('d/m/Y') }}</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">{{ $transaction->created_at->format('H:i') }} WIB</small>
+                        </td>
+                        <td>
+                            <span class="badge badge-uk-accent text-dark fw-medium">
+                                {{ $transaction->category->name ?? '-' }}
+                            </span>
                         </td>
                         <td>
                             @if($transaction->is_sale)
                                 <div class="mb-1">
-                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                    <span class="badge badge-uk-primary">
                                         <i class="fas fa-receipt me-1"></i>{{ $transaction->invoice_number ?? 'Penjualan' }}
                                     </span>
                                 </div>
                             @endif
-                            <div>{{ $transaction->source ?? '-' }}</div>
+                            <div class="fw-medium text-dark">{{ $transaction->source ?? '-' }}</div>
                             @if($transaction->description)
-                                <small class="text-muted">{{ Str::limit($transaction->description, 35) }}</small>
+                                <small class="text-muted d-block text-truncate" style="max-width: 280px; font-size: 0.75rem;">{{ $transaction->description }}</small>
                             @endif
                         </td>
-                        <td class="text-end fw-semibold" style="color: #16a34a;">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
-                        <td class="text-center pe-3">
+                        <td class="text-end fw-bold text-success" style="font-size: 0.95rem;">
+                            + Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                        </td>
+                        <td class="text-center pe-4">
                             @if($transaction->is_sale)
-                                <a href="{{ route('karyawan.sales.show', $transaction->id) }}" class="btn btn-sm btn-outline-success" title="Lihat Struk Penjualan">
-                                    <i class="fas fa-receipt"></i>
+                                <a href="{{ route('karyawan.sales.show', $transaction->id) }}" class="btn btn-xs btn-uk-primary rounded-pill px-2.5" title="Lihat Struk Penjualan">
+                                    <i class="fas fa-receipt me-1"></i>Struk
                                 </a>
                             @else
-                                <a href="{{ route('karyawan.transactions.show', $transaction->id) }}" class="btn btn-sm btn-outline-primary" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
+                                <a href="{{ route('karyawan.transactions.show', $transaction->id) }}" class="btn btn-xs btn-uk-outline rounded-pill px-2.5" title="Lihat Detail Transaksi">
+                                    <i class="fas fa-eye me-1"></i>Detail
                                 </a>
                             @endif
                         </td>
@@ -89,9 +99,16 @@
                     @empty
                     <tr>
                         <td colspan="6" class="text-center py-5">
-                            <i class="fas fa-inbox d-block mb-2" style="font-size: 2.5rem; color: #d1d5db;"></i>
-                            <p class="text-muted mb-1">Belum ada catatan kas masuk manual</p>
-                            <a href="{{ route('karyawan.transactions.create') }}" class="text-decoration-none">Catat kas masuk pertama Anda</a>
+                            <div class="uk-empty-state py-4">
+                                <div class="uk-empty-icon">
+                                    <i class="fas fa-inbox"></i>
+                                </div>
+                                <div class="uk-empty-title">Belum Ada Catatan Kas Masuk</div>
+                                <p class="uk-empty-desc mb-3">Catat kas masuk non-produk Anda seperti jasa, servis, atau pendapatan lain.</p>
+                                <a href="{{ route('karyawan.transactions.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 fw-bold">
+                                    <i class="fas fa-plus me-1.5"></i>Catat Kas Masuk
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @endforelse
@@ -101,9 +118,9 @@
     </div>
 
     @if($transactions->hasPages())
-    <div class="card-footer bg-white border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div class="card-footer bg-transparent border-top d-flex justify-content-between align-items-center flex-wrap gap-2 px-4 py-3">
         <small class="text-muted">
-            Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }} dari {{ $transactions->total() }} data
+            Menampilkan <span class="fw-semibold text-dark">{{ $transactions->firstItem() }}</span> - <span class="fw-semibold text-dark">{{ $transactions->lastItem() }}</span> dari <span class="fw-semibold text-dark">{{ $transactions->total() }}</span> data
         </small>
         <div>
             {{ $transactions->withQueryString()->links() }}

@@ -14,7 +14,8 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 11px;
-            color: #2b2f38;
+            color: #131515;
+            background-color: #FFFAFB;
             line-height: 1.4;
             padding: 24px;
         }
@@ -23,13 +24,13 @@
             text-align: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2.5px solid #16a34a;
+            border-bottom: 2.5px solid #339989;
         }
 
         .header h1 {
             font-size: 18px;
             font-weight: bold;
-            color: #111827;
+            color: #131515;
             margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -37,19 +38,19 @@
 
         .header .subtitle {
             font-size: 13px;
-            color: #4b5563;
+            color: #2B2C28;
             font-weight: 600;
             margin-bottom: 6px;
         }
 
         .header .period {
             font-size: 11px;
-            color: #15803d;
-            background-color: #f0fdf4;
+            color: #131515;
+            background-color: rgba(125, 226, 209, 0.2);
             display: inline-block;
             padding: 4px 14px;
             border-radius: 4px;
-            border: 1px solid #bbf7d0;
+            border: 1px solid #7DE2D1;
             font-weight: 600;
         }
 
@@ -61,7 +62,7 @@
 
         .meta-table td {
             font-size: 10.5px;
-            color: #4b5563;
+            color: #2B2C28;
             border: none;
             padding: 2px 0;
         }
@@ -69,10 +70,10 @@
         .section-title {
             font-size: 12.5px;
             font-weight: bold;
-            color: #1f2937;
+            color: #131515;
             margin-bottom: 8px;
             padding-bottom: 4px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.12);
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
@@ -85,8 +86,8 @@
         }
 
         .kpi-box {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background-color: #FFFAFB;
+            border: 1px solid rgba(43, 44, 40, 0.12);
             border-radius: 5px;
             padding: 8px 10px;
             text-align: center;
@@ -94,7 +95,8 @@
 
         .kpi-box .label {
             font-size: 9px;
-            color: #6b7280;
+            color: #2B2C28;
+            opacity: 0.8;
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 3px;
@@ -113,37 +115,37 @@
         }
 
         table.data-table thead {
-            background-color: #f3f4f6;
+            background-color: rgba(125, 226, 209, 0.15);
         }
 
         table.data-table th {
             padding: 6px 8px;
             text-align: left;
             font-weight: bold;
-            color: #374151;
-            border-top: 1px solid #d1d5db;
-            border-bottom: 1.5px solid #9ca3af;
+            color: #131515;
+            border-top: 1px solid rgba(43, 44, 40, 0.15);
+            border-bottom: 1.5px solid rgba(43, 44, 40, 0.2);
             font-size: 9.5px;
             text-transform: uppercase;
         }
 
         table.data-table td {
             padding: 6px 8px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.08);
             vertical-align: middle;
         }
 
         table.data-table tr:nth-child(even) td {
-            background-color: #fafafa;
+            background-color: rgba(125, 226, 209, 0.04);
         }
 
         .text-end { text-align: right; }
         .text-center { text-align: center; }
 
-        .text-success { color: #15803d; }
-        .text-danger { color: #b91c1c; }
-        .text-primary { color: #1d4ed8; }
-        .text-muted { color: #6b7280; }
+        .text-success { color: #339989; }
+        .text-danger { color: #2B2C28; }
+        .text-primary { color: #339989; }
+        .text-muted { color: #2B2C28; opacity: 0.75; }
 
         .badge {
             display: inline-block;
@@ -153,16 +155,29 @@
             font-weight: bold;
         }
 
-        .badge-success { background-color: #dcfce7; color: #15803d; }
-        .badge-info { background-color: #e0f2fe; color: #0369a1; }
-        .badge-secondary { background-color: #f3f4f6; color: #4b5563; }
+        .badge-success {
+            background-color: rgba(51, 153, 137, 0.15);
+            color: #339989;
+            border: 1px solid rgba(51, 153, 137, 0.3);
+        }
+        .badge-info {
+            background-color: rgba(125, 226, 209, 0.25);
+            color: #131515;
+            border: 1px solid #7DE2D1;
+        }
+        .badge-secondary {
+            background-color: rgba(43, 44, 40, 0.1);
+            color: #2B2C28;
+            border: 1px solid rgba(43, 44, 40, 0.2);
+        }
 
         .footer {
             margin-top: 25px;
             padding-top: 10px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid rgba(43, 44, 40, 0.12);
             font-size: 9.5px;
-            color: #9ca3af;
+            color: #2B2C28;
+            opacity: 0.7;
             text-align: center;
         }
 
@@ -291,7 +306,7 @@
         </tbody>
         @if($sales->isNotEmpty())
         <tfoot>
-            <tr style="background-color: #f3f4f6; font-weight: bold;">
+            <tr style="background-color: rgba(125, 226, 209, 0.15); font-weight: bold;">
                 <td colspan="5" class="text-end">TOTAL KESELURUHAN:</td>
                 <td class="text-end text-muted">{{ format_rupiah($totalHpp) }}</td>
                 <td class="text-end text-muted">{{ format_rupiah($totalDiscount) }}</td>

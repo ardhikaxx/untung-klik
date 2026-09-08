@@ -3,100 +3,101 @@
 @section('title', 'Detail Transaksi')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h4 class="fw-bold mb-1">Detail Transaksi</h4>
-        <p class="text-muted mb-0">Informasi lengkap transaksi</p>
+        <h4 class="fw-bold mb-1" style="color: var(--uk-dark);">Detail Transaksi Kas</h4>
+        <p class="text-muted small mb-0">Rincian lengkap arsip transaksi keuangan buku kas</p>
     </div>
-    <a href="{{ route('owner.transactions.index') }}" class="btn btn-outline-secondary">
+    <a href="{{ route('owner.transactions.index') }}" class="btn btn-uk-outline">
         <i class="fas fa-arrow-left me-1"></i>Kembali
     </a>
 </div>
 
 @if($transaction->is_sale)
-<div class="alert alert-success border-0 shadow-sm mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
-    <div>
-        <i class="fas fa-check-circle me-2"></i>
-        <strong>Transaksi Penjualan Kasir (Invoice: {{ $transaction->invoice_number ?? ('PJ-'.$transaction->id) }})</strong>
-        <div class="small text-muted">Transaksi ini tercatat dari kasir dan memiliki rincian produk, stok, diskon, dan nota belanja.</div>
+<div class="card uk-card border-0 mb-4" style="background: rgba(125, 226, 209, 0.15); border-left: 4px solid var(--uk-primary) !important;">
+    <div class="card-body p-3 p-md-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h6 class="fw-bold mb-1" style="color: var(--uk-dark);">
+                <i class="fas fa-receipt me-2 text-primary"></i>Transaksi Penjualan Kasir ({{ $transaction->invoice_number ?? ('PJ-'.$transaction->id) }})
+            </h6>
+            <div class="small text-muted">Transaksi ini terhubung langsung dengan modul kasir penjualan, nota belanja, pemotongan stok otomatis, dan diskon.</div>
+        </div>
+        <a href="{{ route('owner.sales.show', $transaction) }}" class="btn btn-uk-primary btn-sm">
+            <i class="fas fa-external-link-alt me-1"></i>Buka Struk Lengkap
+        </a>
     </div>
-    <a href="{{ route('owner.sales.show', $transaction) }}" class="btn btn-success btn-sm">
-        <i class="fas fa-receipt me-1"></i>Buka Struk Penjualan
-    </a>
 </div>
 @endif
 
-<div class="row">
+<div class="row g-4">
     <div class="col-lg-8">
-        <div class="card border shadow-sm">
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">
-                    <i class="fas fa-file-invoice me-2"></i>Informasi Transaksi
+        <div class="card uk-card border-0">
+            <div class="card-header bg-transparent py-3 border-bottom d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
+                    <i class="fas fa-file-invoice-dollar me-2 text-primary"></i>Voucher Bukti Transaksi
                 </h6>
                 @if($transaction->type === 'masuk')
-                    <span class="badge bg-success fs-6">Uang Masuk</span>
+                    <span class="badge badge-uk-success fs-6"><i class="fas fa-arrow-down me-1"></i>Uang Masuk</span>
                 @else
-                    <span class="badge bg-danger fs-6">Uang Keluar</span>
+                    <span class="badge badge-uk-danger fs-6"><i class="fas fa-arrow-up me-1"></i>Uang Keluar</span>
                 @endif
             </div>
-            <div class="card-body">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Tanggal Transaksi</small>
-                            <span class="fw-semibold fs-5">
+            <div class="card-body p-4">
+                <!-- Amount Banner -->
+                <div class="p-4 rounded-3 text-center mb-4" style="background: var(--uk-bg-light); border: 1px solid var(--uk-border);">
+                    <small class="text-muted text-uppercase fw-semibold letter-spacing" style="font-size: 0.75rem;">Nominal Transaksi</small>
+                    <div class="fw-bold fs-2 mt-1 {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}">
+                        {{ $transaction->type === 'masuk' ? '+' : '-' }} Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-3 border bg-white h-100">
+                            <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Tanggal Transaksi</small>
+                            <span class="fw-semibold text-dark fs-6 d-block mt-1">
                                 <i class="fas fa-calendar-alt me-2 text-primary"></i>
                                 {{ $transaction->transaction_date->format('d F Y') }}
                             </span>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Jumlah</small>
-                            <span class="fw-bold fs-3 {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}">
-                                {{ $transaction->type === 'masuk' ? '+' : '-' }} Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-3 border bg-white h-100">
+                            <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Metode Pembayaran</small>
+                            <span class="fw-semibold text-dark fs-6 d-block mt-1">
+                                <i class="fas fa-wallet me-2 text-primary"></i>
+                                {{ ucfirst($transaction->payment_method ?? 'Tunai') }}
                             </span>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Kategori</small>
-                            <span class="fw-semibold">
-                                <i class="fas fa-tag me-2 text-secondary"></i>
-                                {{ $transaction->category->name ?? 'Tidak ada kategori' }}
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-3 border bg-white h-100">
+                            <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Kategori</small>
+                            <span class="fw-semibold text-dark fs-6 d-block mt-1">
+                                <i class="fas fa-tag me-2 text-primary"></i>
+                                {{ $transaction->category->name ?? 'Tanpa Kategori' }}
                             </span>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Metode Pembayaran</small>
-                            <span class="fw-semibold">
-                                <i class="fas fa-credit-card me-2 text-secondary"></i>
-                                {{ ucfirst($transaction->payment_method ?? '-') }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Sumber</small>
-                            <span class="fw-semibold">
-                                <i class="fas fa-store me-2 text-secondary"></i>
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-3 border bg-white h-100">
+                            <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Sumber / Pihak Terkait</small>
+                            <span class="fw-semibold text-dark fs-6 d-block mt-1">
+                                <i class="fas fa-building me-2 text-primary"></i>
                                 {{ $transaction->source ?: '-' }}
                             </span>
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="border rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Keterangan</small>
-                            <span class="fw-semibold">
-                                <i class="fas fa-align-left me-2 text-secondary"></i>
-                                {{ $transaction->description ?: '-' }}
-                            </span>
+                        <div class="p-3 rounded-3 border bg-white">
+                            <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Keterangan Rinci</small>
+                            <p class="text-dark mb-0 mt-1" style="line-height: 1.6;">
+                                {{ $transaction->description ?: 'Tidak ada keterangan tambahan.' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -105,72 +106,69 @@
     </div>
 
     <div class="col-lg-4">
-        <div class="card border shadow-sm mb-3">
-            <div class="card-header bg-white">
-                <h6 class="fw-bold mb-0">
-                    <i class="fas fa-user me-2"></i>Pencatat
+        <!-- Pencatat & Audit Info -->
+        <div class="card uk-card border-0 mb-4">
+            <div class="card-header bg-transparent py-3 border-bottom">
+                <h6 class="fw-bold mb-0" style="color: var(--uk-dark);">
+                    <i class="fas fa-user-check me-2 text-primary"></i>Pencatat & Audit
                 </h6>
             </div>
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center me-3"
-                         style="width: 48px; height: 48px;">
-                        <span class="text-success fw-bold">
-                            {{ strtoupper(substr($transaction->user->name, 0, 1)) }}
-                        </span>
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white fs-5" style="width: 44px; height: 44px; background-color: var(--uk-dark);">
+                        {{ strtoupper(substr($transaction->user->name ?? 'U', 0, 1)) }}
                     </div>
                     <div>
-                        <div class="fw-semibold">{{ $transaction->user->name }}</div>
-                        <small class="text-muted">{{ $transaction->user->role }}</small>
+                        <div class="fw-bold text-dark">{{ $transaction->user->name ?? '-' }}</div>
+                        <span class="badge badge-uk-accent text-dark fw-medium">{{ ucfirst($transaction->user->role ?? 'User') }}</span>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="card border shadow-sm mb-3">
-            <div class="card-header bg-white">
-                <h6 class="fw-bold mb-0">
-                    <i class="fas fa-clock me-2"></i>Riwayat
-                </h6>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <small class="text-muted d-block">Dibuat pada</small>
-                    <span class="fw-semibold">{{ $transaction->created_at->format('d/m/Y H:i') }}</span>
+                <hr class="my-3 text-muted opacity-25">
+
+                <div class="mb-2">
+                    <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Waktu Pencatatan</small>
+                    <span class="small fw-semibold text-dark">{{ $transaction->created_at->format('d/m/Y H:i') }} WIB</span>
                 </div>
+
                 <div>
-                    <small class="text-muted d-block">Terakhir diperbarui</small>
-                    <span class="fw-semibold">{{ $transaction->updated_at->format('d/m/Y H:i') }}</span>
+                    <small class="text-muted d-block text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Terakhir Dimodifikasi</small>
+                    <span class="small fw-semibold text-dark">{{ $transaction->updated_at->format('d/m/Y H:i') }} WIB</span>
                 </div>
             </div>
         </div>
 
-        <div class="d-grid gap-2">
-            <a href="{{ route('owner.transactions.edit', $transaction) }}" class="btn btn-warning">
-                <i class="fas fa-edit me-1"></i>Edit Transaksi
-            </a>
-            <form action="{{ route('owner.transactions.destroy', $transaction) }}" method="POST" class="d-grid delete-form">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger btn-delete">
-                    <i class="fas fa-trash me-1"></i>Hapus Transaksi
-                </button>
-            </form>
+        <!-- Action Card -->
+        <div class="card uk-card border-0">
+            <div class="card-body p-4 d-flex flex-column gap-2">
+                @if(!$transaction->is_sale)
+                    <a href="{{ route('owner.transactions.edit', $transaction) }}" class="btn btn-uk-primary w-100">
+                        <i class="fas fa-edit me-1"></i>Edit Data Transaksi
+                    </a>
+                @endif
+                <form action="{{ route('owner.transactions.destroy', $transaction) }}" method="POST" class="delete-form w-100">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-uk-outline text-danger w-100 btn-delete">
+                        <i class="fas fa-trash-alt me-1"></i>Hapus Transaksi
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 @push('scripts')
 <script>
-    document.querySelector('.btn-delete').addEventListener('click', function() {
+    document.querySelector('.btn-delete')?.addEventListener('click', function() {
         var form = this.closest('form');
         Swal.fire({
             title: 'Hapus Transaksi?',
-            text: 'Transaksi yang dihapus tidak dapat dikembalikan.',
+            text: 'Transaksi yang dihapus akan dikeluarkan dari buku kas dan tidak dapat dikembalikan.',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#6b7280',
+            confirmButtonColor: '#2B2C28',
+            cancelButtonColor: '#131515',
             confirmButtonText: 'Ya, Hapus',
             cancelButtonText: 'Batal'
         }).then(function(result) {

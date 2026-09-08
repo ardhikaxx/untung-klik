@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: 'Data yang dihapus tidak dapat dikembalikan.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#6c757d',
+                confirmButtonColor: '#2B2C28',
+                cancelButtonColor: '#131515',
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: 'Anda akan keluar dari sesi ini.',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#6c757d',
+                confirmButtonColor: '#2B2C28',
+                cancelButtonColor: '#131515',
                 confirmButtonText: 'Ya, Keluar',
                 cancelButtonText: 'Batal'
             }).then((result) => {

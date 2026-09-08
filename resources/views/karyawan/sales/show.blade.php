@@ -3,153 +3,152 @@
 @section('title', 'Nota Penjualan ' . $sale->formatted_invoice_number)
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 d-print-none">
+<!-- Page Header & Action Buttons -->
+<div class="uk-page-header d-print-none">
     <div>
-        <h4 class="fw-bold mb-1">Nota Penjualan {{ $sale->formatted_invoice_number }}</h4>
-        <p class="text-muted mb-0">Rincian bukti transaksi kasir dan pembayaran pelanggan.</p>
+        <h2 class="uk-page-title">Nota Penjualan {{ $sale->formatted_invoice_number }}</h2>
+        <p class="uk-page-subtitle">Rincian bukti transaksi kasir dan pembayaran pelanggan toko.</p>
     </div>
-    <div class="d-flex gap-2 flex-wrap">
-        <a href="{{ route('karyawan.sales.index') }}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left me-1"></i>Riwayat Penjualan
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <a href="{{ route('karyawan.sales.index') }}" class="btn btn-sm btn-uk-outline rounded-pill px-3">
+            <i class="fas fa-arrow-left me-1.5"></i>Riwayat
         </a>
-        <a href="{{ route('karyawan.sales.create') }}" class="btn btn-outline-primary">
-            <i class="fas fa-plus-circle me-1"></i>+ Transaksi Baru
+        <a href="{{ route('karyawan.sales.create') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">
+            <i class="fas fa-plus me-1.5"></i>+ Transaksi Baru
         </a>
-        <button type="button" class="btn btn-success" onclick="shareToWhatsApp()">
-            <i class="fab fa-whatsapp me-1"></i>Kirim ke WA
+        <button type="button" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs" onclick="shareToWhatsApp()">
+            <i class="fab fa-whatsapp me-1.5"></i>Kirim ke WA
         </button>
-        <button type="button" class="btn btn-primary" onclick="window.print()">
-            <i class="fas fa-print me-1"></i>Cetak Struk
+        <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" onclick="window.print()">
+            <i class="fas fa-print me-1.5"></i>Cetak Struk
         </button>
     </div>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-lg-7 col-md-9">
-        <div class="card border shadow-sm print-area">
-            <div class="card-body p-4 p-sm-5">
-                <!-- Header Toko / Struk -->
-                <div class="text-center border-bottom pb-4 mb-4">
-                    <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                        <div class="p-2 rounded-circle bg-success bg-opacity-10 text-success d-inline-flex">
-                            <i class="fas fa-store fs-4"></i>
-                        </div>
-                        <h4 class="fw-bold text-dark mb-0">
-                            {{ auth()->user()->business ? auth()->user()->business->name : 'Untung Klik' }}
-                        </h4>
+        <div class="uk-card print-area p-4 p-sm-5">
+            <!-- Header Toko / Struk -->
+            <div class="text-center border-bottom pb-4 mb-4">
+                <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                    <div style="width: 40px; height: 40px; border-radius: 10px; background-color: var(--uk-primary); color: #FFFAFB; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+                        <i class="fas fa-store"></i>
                     </div>
-                    @if(auth()->user()->business && auth()->user()->business->address)
-                        <p class="text-muted small mb-1">{{ auth()->user()->business->address }}</p>
-                    @endif
-                    @if(auth()->user()->business && auth()->user()->business->phone)
-                        <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-1"></i>{{ auth()->user()->business->phone }}</p>
-                    @endif
+                    <h4 class="fw-bold text-dark mb-0" style="letter-spacing: -0.02em;">
+                        {{ auth()->user()->business ? auth()->user()->business->name : 'Untung Klik' }}
+                    </h4>
                 </div>
-
-                <!-- Informasi Nota -->
-                <div class="row g-2 mb-4 small">
-                    <div class="col-sm-6">
-                        <div class="text-muted">No. Faktur:</div>
-                        <div class="fw-bold text-dark fs-6">{{ $sale->formatted_invoice_number }}</div>
-                    </div>
-                    <div class="col-sm-6 text-sm-end">
-                        <div class="text-muted">Tanggal & Jam:</div>
-                        <div class="fw-semibold text-dark">
-                            {{ $sale->transaction_date->format('d F Y') }} {{ $sale->created_at ? $sale->created_at->format('H:i') : '' }}
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-muted">Pelanggan:</div>
-                        <div class="fw-semibold text-dark">
-                            {{ $sale->customer_name ?: 'Pelanggan Umum' }}
-                            @if($sale->customer_phone)
-                                <span class="text-muted small">({{ $sale->customer_phone }})</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-sm-6 text-sm-end">
-                        <div class="text-muted">Kasir / Petugas:</div>
-                        <div class="fw-semibold text-dark">{{ $sale->user ? $sale->user->name : '-' }}</div>
-                    </div>
-                </div>
-
-                <!-- Tabel Item -->
-                <div class="table-responsive mb-4">
-                    <table class="table align-middle mb-0">
-                        <thead class="table-light small">
-                            <tr>
-                                <th class="ps-2">Item Produk</th>
-                                <th class="text-center" style="width: 80px;">Qty</th>
-                                <th class="text-end" style="width: 120px;">Harga</th>
-                                <th class="text-end pe-2" style="width: 130px;">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($sale->items as $item)
-                                <tr>
-                                    <td class="ps-2">
-                                        <div class="fw-semibold text-dark">{{ $item->product_name }}</div>
-                                        @if($item->product && $item->product->sku)
-                                            <div class="text-muted" style="font-size: 0.75rem;">SKU: {{ $item->product->sku }}</div>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">{{ $item->quantity }}</td>
-                                    <td class="text-end small">{{ format_rupiah($item->unit_price) }}</td>
-                                    <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($item->subtotal) }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="text-center py-3 text-muted">
-                                        {{ $sale->description ?: 'Penjualan Produk' }}
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                        <tfoot class="border-top">
-                            @if($sale->discount > 0)
-                            <tr>
-                                <td colspan="3" class="text-end text-muted small pt-3">Subtotal:</td>
-                                <td class="text-end pe-2 fw-semibold text-dark pt-3">{{ format_rupiah($sale->subtotal) }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-end text-danger small">Potongan / Diskon:</td>
-                                <td class="text-end pe-2 fw-semibold text-danger">- {{ format_rupiah($sale->discount) }}</td>
-                            </tr>
-                            @endif
-                            <tr>
-                                <td colspan="3" class="text-end fw-bold fs-6 pt-2">TOTAL AKHIR:</td>
-                                <td class="text-end pe-2 fw-bold fs-5 text-success pt-2">{{ format_rupiah($sale->amount) }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-end text-muted small">Metode Pembayaran:</td>
-                                <td class="text-end pe-2 fw-semibold text-dark">{{ $sale->payment_method ?: 'Tunai' }}</td>
-                            </tr>
-                            @if($sale->cash_received !== null)
-                            <tr>
-                                <td colspan="3" class="text-end text-muted small">Uang Diterima:</td>
-                                <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($sale->cash_received) }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-end text-muted small">Kembalian:</td>
-                                <td class="text-end pe-2 fw-bold text-success">{{ format_rupiah($sale->cash_change ?: 0) }}</td>
-                            </tr>
-                            @endif
-                        </tfoot>
-                    </table>
-                </div>
-
-                @if($sale->description)
-                    <div class="p-3 bg-light rounded-3 mb-4 small text-muted">
-                        <strong>Catatan:</strong> {{ $sale->description }}
-                    </div>
+                @if(auth()->user()->business && auth()->user()->business->address)
+                    <p class="text-muted small mb-1">{{ auth()->user()->business->address }}</p>
                 @endif
+                @if(auth()->user()->business && auth()->user()->business->phone)
+                    <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-1 text-primary"></i>{{ auth()->user()->business->phone }}</p>
+                @endif
+            </div>
 
-                <!-- Pesan Penutup Struk -->
-                <div class="text-center border-top pt-4 text-muted small">
-                    <p class="mb-1 fw-bold text-dark">Terima Kasih Atas Kunjungan Anda!</p>
-                    <p class="mb-0 text-muted" style="font-size: 0.75rem;">Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa nota ini.</p>
-                    <p class="mb-0 mt-2 text-secondary" style="font-size: 0.7rem;">Untung Klik - Buku Kas & Kasir Digital UMKM</p>
+            <!-- Informasi Nota -->
+            <div class="row g-2 mb-4 small">
+                <div class="col-sm-6">
+                    <div class="text-muted" style="font-size: 0.75rem;">No. Faktur:</div>
+                    <div class="fw-bold text-dark fs-6">{{ $sale->formatted_invoice_number }}</div>
                 </div>
+                <div class="col-sm-6 text-sm-end">
+                    <div class="text-muted" style="font-size: 0.75rem;">Tanggal & Jam:</div>
+                    <div class="fw-semibold text-dark">
+                        {{ $sale->transaction_date->format('d F Y') }} {{ $sale->created_at ? $sale->created_at->format('H:i') : '' }}
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-muted" style="font-size: 0.75rem;">Pelanggan:</div>
+                    <div class="fw-semibold text-dark">
+                        {{ $sale->customer_name ?: 'Pelanggan Umum' }}
+                        @if($sale->customer_phone)
+                            <span class="text-muted small">({{ $sale->customer_phone }})</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    <div class="text-muted" style="font-size: 0.75rem;">Kasir / Petugas:</div>
+                    <div class="fw-semibold text-dark">{{ $sale->user ? $sale->user->name : '-' }}</div>
+                </div>
+            </div>
+
+            <!-- Tabel Item -->
+            <div class="table-responsive mb-4">
+                <table class="table align-middle mb-0">
+                    <thead class="table-light small">
+                        <tr>
+                            <th class="ps-2">Item Produk</th>
+                            <th class="text-center" style="width: 80px;">Qty</th>
+                            <th class="text-end" style="width: 120px;">Harga</th>
+                            <th class="text-end pe-2" style="width: 130px;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($sale->items as $item)
+                            <tr>
+                                <td class="ps-2">
+                                    <div class="fw-semibold text-dark" style="font-size: 0.85rem;">{{ $item->product_name }}</div>
+                                    @if($item->product && $item->product->sku)
+                                        <div class="text-muted" style="font-size: 0.72rem;">SKU: {{ $item->product->sku }}</div>
+                                    @endif
+                                </td>
+                                <td class="text-center small">{{ $item->quantity }}</td>
+                                <td class="text-end small">{{ format_rupiah($item->unit_price) }}</td>
+                                <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($item->subtotal) }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-3 text-muted">
+                                    {{ $sale->description ?: 'Penjualan Produk' }}
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                    <tfoot class="border-top">
+                        @if($sale->discount > 0)
+                        <tr>
+                            <td colspan="3" class="text-end text-muted small pt-3">Subtotal:</td>
+                            <td class="text-end pe-2 fw-semibold text-dark pt-3">{{ format_rupiah($sale->subtotal) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end text-danger small">Potongan / Diskon:</td>
+                            <td class="text-end pe-2 fw-semibold text-danger">- {{ format_rupiah($sale->discount) }}</td>
+                        </tr>
+                        @endif
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold fs-6 pt-2 text-dark">TOTAL AKHIR:</td>
+                            <td class="text-end pe-2 fw-bold fs-5 text-success pt-2">{{ format_rupiah($sale->amount) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end text-muted small">Metode Pembayaran:</td>
+                            <td class="text-end pe-2 fw-semibold text-dark">{{ $sale->payment_method ?: 'Tunai' }}</td>
+                        </tr>
+                        @if($sale->cash_received !== null)
+                        <tr>
+                            <td colspan="3" class="text-end text-muted small">Uang Diterima:</td>
+                            <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($sale->cash_received) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end text-muted small">Kembalian:</td>
+                            <td class="text-end pe-2 fw-bold text-success">{{ format_rupiah($sale->cash_change ?: 0) }}</td>
+                        </tr>
+                        @endif
+                    </tfoot>
+                </table>
+            </div>
+
+            @if($sale->description)
+                <div class="p-3 bg-light rounded-3 mb-4 small text-muted border">
+                    <strong>Catatan:</strong> {{ $sale->description }}
+                </div>
+            @endif
+
+            <!-- Pesan Penutup Struk -->
+            <div class="text-center border-top pt-4 text-muted small">
+                <p class="mb-1 fw-bold text-dark">Terima Kasih Atas Kunjungan Anda!</p>
+                <p class="mb-0 text-muted" style="font-size: 0.75rem;">Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.</p>
+                <p class="mb-0 mt-2 text-secondary" style="font-size: 0.7rem;">Untung Klik - Sistem Buku Kas Digital & Kasir UMKM</p>
             </div>
         </div>
     </div>
@@ -163,8 +162,8 @@
             size: auto;
         }
         body {
-            background: #fff !important;
-            color: #000 !important;
+            background: #FFFAFB !important;
+            color: #131515 !important;
         }
         body * {
             visibility: hidden;

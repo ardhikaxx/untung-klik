@@ -3,29 +3,30 @@
 @section('title', 'Tambah Pengeluaran Operasional')
 
 @section('content')
-<div class="mb-4">
-    <a href="{{ route('owner.expenses.index') }}" class="text-decoration-none text-muted">
-        <i class="fas fa-arrow-left me-1"></i>Kembali ke Daftar Pengeluaran
-    </a>
-</div>
-
 <div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
-                <h5 class="fw-bold mb-0">Tambah Pengeluaran Baru</h5>
+    <div class="col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center mb-4">
+            <a href="{{ route('owner.expenses.index') }}" class="btn btn-uk-outline btn-sm me-3">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h4 class="fw-bold mb-1" style="color: var(--uk-dark);">Tambah Pengeluaran</h4>
+                <p class="text-muted small mb-0">Catat biaya operasional, perlengkapan, gaji, atau sewa</p>
             </div>
+        </div>
+
+        <div class="card uk-card border-0">
             <div class="card-body p-4">
                 <form method="POST" action="{{ route('owner.expenses.store') }}">
                     @csrf
 
-                    <div class="mb-3">
-                        <label for="amount" class="form-label">Jumlah Pengeluaran <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
+                    <div class="mb-4">
+                        <label for="amount" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Jumlah Pengeluaran (Rp) <span class="text-danger">*</span></label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text fw-bold bg-white text-dark border-end-0">Rp</span>
                             <input
                                 type="number"
-                                class="form-control form-control-lg @error('amount') is-invalid @enderror"
+                                class="form-control form-control-lg border-start-0 ps-0 fw-bold @error('amount') is-invalid @enderror"
                                 id="amount"
                                 name="amount"
                                 value="{{ old('amount') }}"
@@ -33,6 +34,7 @@
                                 min="0"
                                 required
                                 autofocus
+                                style="font-size: 1.5rem; color: var(--uk-dark-secondary);"
                             >
                         </div>
                         @error('amount')
@@ -41,7 +43,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="expense_date" class="form-label">Tanggal <span class="text-danger">*</span></label>
+                        <label for="expense_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Tanggal Pengeluaran <span class="text-danger">*</span></label>
                         <input
                             type="date"
                             class="form-control @error('expense_date') is-invalid @enderror"
@@ -56,14 +58,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="category_id" class="form-label">Kategori <span class="text-danger">*</span></label>
+                        <label for="category_id" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Kategori Pengeluaran <span class="text-danger">*</span></label>
                         <select
                             class="form-select @error('category_id') is-invalid @enderror"
                             id="category_id"
                             name="category_id"
                             required
                         >
-                            <option value="">-- Pilih Kategori --</option>
+                            <option value="">Pilih Kategori Beban</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
@@ -74,24 +76,24 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="description" class="form-label">Keterangan</label>
+                        <label for="description" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Keterangan Rinci</label>
                         <textarea
                             class="form-control @error('description') is-invalid @enderror"
                             id="description"
                             name="description"
                             rows="3"
-                            placeholder="Deskripsi singkat mengenai pengeluaran ini"
+                            placeholder="Deskripsi singkat atau rincian keperluan pengeluaran ini"
                         >{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-success px-4">
-                            <i class="fas fa-save me-2"></i>Simpan
+                    <div class="d-flex align-items-center gap-2 pt-2">
+                        <button type="submit" class="btn btn-uk-primary px-4">
+                            <i class="fas fa-check-circle me-1"></i>Simpan Pengeluaran
                         </button>
-                        <a href="{{ route('owner.expenses.index') }}" class="btn btn-outline-secondary px-4">Batal</a>
+                        <a href="{{ route('owner.expenses.index') }}" class="btn btn-uk-outline">Batal</a>
                     </div>
                 </form>
             </div>

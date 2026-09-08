@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', 'Lupa PIN')
+
 @section('content')
 <div class="auth-card">
     <div class="auth-brand">
@@ -7,19 +9,19 @@
             <i class="fas fa-key"></i>
         </div>
         <h1>Lupa PIN</h1>
-        <p>Masukkan nomor telepon yang terdaftar untuk mereset PIN Anda</p>
+        <p>Masukkan nomor telepon terdaftar untuk mengatur ulang PIN Anda</p>
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #ecfdf5; color: #065f46; border-left: 4px solid #10b981 !important; border-radius: 8px;">
-            <i class="fas fa-check-circle me-2 text-success"></i>
+        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); border-left: 4px solid var(--uk-primary) !important; border-radius: 8px;">
+            <i class="fas fa-check-circle me-2" style="color: var(--uk-primary);"></i>
             <div>{{ session('success') }}</div>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #fef2f2; color: #991b1b; border-left: 4px solid #ef4444 !important; border-radius: 8px;">
-            <i class="fas fa-exclamation-circle me-2 text-danger"></i>
+        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); border-left: 4px solid var(--uk-dark-secondary) !important; border-radius: 8px;">
+            <i class="fas fa-exclamation-circle me-2" style="color: var(--uk-dark-secondary);"></i>
             <div>{{ session('error') }}</div>
         </div>
     @endif
@@ -39,7 +41,7 @@
                     id="phone"
                     name="phone"
                     value="{{ old('phone') }}"
-                    placeholder="Masukkan nomor telepon"
+                    placeholder="Contoh: 08123456789"
                     required
                     autofocus
                 >
@@ -50,7 +52,7 @@
         </div>
 
         <button type="submit" class="btn-primary-custom">
-            Kirim
+            Kirim Link Reset PIN
         </button>
     </form>
 
@@ -68,7 +70,7 @@
             icon: 'error',
             title: 'Gagal Memproses',
             html: '<ul class="text-start mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>',
-            confirmButtonColor: '#ef4444',
+            confirmButtonColor: '#339989',
             confirmButtonText: 'Periksa Kembali'
         });
     @endif

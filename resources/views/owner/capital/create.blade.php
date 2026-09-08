@@ -3,29 +3,30 @@
 @section('title', 'Tambah Modal')
 
 @section('content')
-<div class="mb-4">
-    <a href="{{ route('owner.capital.index') }}" class="text-decoration-none text-muted">
-        <i class="fas fa-arrow-left me-1"></i>Kembali ke Daftar Modal
-    </a>
-</div>
-
 <div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
-                <h5 class="fw-bold mb-0">Tambah Modal Baru</h5>
+    <div class="col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center mb-4">
+            <a href="{{ route('owner.capital.index') }}" class="btn btn-uk-outline btn-sm me-3">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h4 class="fw-bold mb-1" style="color: var(--uk-dark);">Tambah Modal Baru</h4>
+                <p class="text-muted small mb-0">Catat penambahan modal awal atau modal tambahan usaha</p>
             </div>
+        </div>
+
+        <div class="card uk-card border-0">
             <div class="card-body p-4">
                 <form method="POST" action="{{ route('owner.capital.store') }}">
                     @csrf
 
-                    <div class="mb-3">
-                        <label for="amount" class="form-label">Jumlah Modal <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
+                    <div class="mb-4">
+                        <label for="amount" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Jumlah Modal (Rp) <span class="text-danger">*</span></label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text fw-bold bg-white text-dark border-end-0">Rp</span>
                             <input
                                 type="number"
-                                class="form-control form-control-lg @error('amount') is-invalid @enderror"
+                                class="form-control form-control-lg border-start-0 ps-0 fw-bold @error('amount') is-invalid @enderror"
                                 id="amount"
                                 name="amount"
                                 value="{{ old('amount') }}"
@@ -33,6 +34,7 @@
                                 min="0"
                                 required
                                 autofocus
+                                style="font-size: 1.5rem; color: var(--uk-dark);"
                             >
                         </div>
                         @error('amount')
@@ -41,7 +43,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="entry_date" class="form-label">Tanggal <span class="text-danger">*</span></label>
+                        <label for="entry_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Tanggal Penyetoran <span class="text-danger">*</span></label>
                         <input
                             type="date"
                             class="form-control @error('entry_date') is-invalid @enderror"
@@ -56,14 +58,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="source" class="form-label">Sumber <span class="text-danger">*</span></label>
+                        <label for="source" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Sumber Modal <span class="text-danger">*</span></label>
                         <input
                             type="text"
                             class="form-control @error('source') is-invalid @enderror"
                             id="source"
                             name="source"
                             value="{{ old('source') }}"
-                            placeholder="Contoh: Setoran pribadi, Pinjaman bank"
+                            placeholder="Contoh: Tabungan Pribadi, Investor Mitra, Pinjaman Bank"
                             required
                         >
                         @error('source')
@@ -72,24 +74,24 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="description" class="form-label">Keterangan</label>
+                        <label for="description" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px;">Keterangan Rinci</label>
                         <textarea
                             class="form-control @error('description') is-invalid @enderror"
                             id="description"
                             name="description"
                             rows="3"
-                            placeholder="Deskripsi singkat mengenai modal ini"
+                            placeholder="Catatan tambahan mengenai penggunaan alokasi modal ini (opsional)"
                         >{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-success px-4">
-                            <i class="fas fa-save me-2"></i>Simpan
+                    <div class="d-flex align-items-center gap-2 pt-2">
+                        <button type="submit" class="btn btn-uk-primary px-4">
+                            <i class="fas fa-check-circle me-1"></i>Simpan Modal
                         </button>
-                        <a href="{{ route('owner.capital.index') }}" class="btn btn-outline-secondary px-4">Batal</a>
+                        <a href="{{ route('owner.capital.index') }}" class="btn btn-uk-outline">Batal</a>
                     </div>
                 </form>
             </div>

@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', 'Atur Ulang PIN')
+
 @section('content')
 <div class="auth-card">
     <div class="auth-brand">
@@ -7,19 +9,19 @@
             <i class="fas fa-shield-halved"></i>
         </div>
         <h1>Atur Ulang PIN</h1>
-        <p>Buat PIN baru untuk akun Anda</p>
+        <p>Buat 4 digit PIN baru untuk akun Anda</p>
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #ecfdf5; color: #065f46; border-left: 4px solid #10b981 !important; border-radius: 8px;">
-            <i class="fas fa-check-circle me-2 text-success"></i>
+        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); border-left: 4px solid var(--uk-primary) !important; border-radius: 8px;">
+            <i class="fas fa-check-circle me-2" style="color: var(--uk-primary);"></i>
             <div>{{ session('success') }}</div>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-sm" style="background-color: #fef2f2; color: #991b1b; border-left: 4px solid #ef4444 !important; border-radius: 8px;">
-            <i class="fas fa-exclamation-circle me-2 text-danger"></i>
+        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); border-left: 4px solid var(--uk-dark-secondary) !important; border-radius: 8px;">
+            <i class="fas fa-exclamation-circle me-2" style="color: var(--uk-dark-secondary);"></i>
             <div>{{ session('error') }}</div>
         </div>
     @endif
@@ -47,7 +49,7 @@
                     required
                     autofocus
                 >
-                <button type="button" class="btn-toggle-pin" id="togglePin" tabindex="-1">
+                <button type="button" class="btn-toggle-pin" id="togglePin" tabindex="-1" aria-label="Toggle PIN Visibility">
                     <i class="fas fa-eye" id="pinIcon"></i>
                 </button>
             </div>
@@ -57,7 +59,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="pin_confirmation" class="form-label">Konfirmasi PIN</label>
+            <label for="pin_confirmation" class="form-label">Konfirmasi PIN Baru</label>
             <div class="input-group">
                 <span class="input-icon">
                     <i class="fas fa-lock"></i>
@@ -67,13 +69,13 @@
                     class="form-control @error('pin_confirmation') is-invalid @enderror"
                     id="pin_confirmation"
                     name="pin_confirmation"
-                    placeholder="Ulangi 4 digit PIN"
+                    placeholder="Ulangi 4 digit PIN baru"
                     maxlength="4"
                     inputmode="numeric"
                     pattern="[0-9]*"
                     required
                 >
-                <button type="button" class="btn-toggle-pin" id="togglePinConfirm" tabindex="-1">
+                <button type="button" class="btn-toggle-pin" id="togglePinConfirm" tabindex="-1" aria-label="Toggle Confirm PIN Visibility">
                     <i class="fas fa-eye" id="pinConfirmIcon"></i>
                 </button>
             </div>
@@ -83,7 +85,7 @@
         </div>
 
         <button type="submit" class="btn-primary-custom">
-            Perbarui PIN
+            Simpan PIN Baru
         </button>
     </form>
 
@@ -121,7 +123,7 @@
             icon: 'error',
             title: 'Gagal Memperbarui PIN',
             html: '<ul class="text-start mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>',
-            confirmButtonColor: '#ef4444',
+            confirmButtonColor: '#339989',
             confirmButtonText: 'Periksa Kembali'
         });
     @endif

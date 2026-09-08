@@ -14,7 +14,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 12px;
-            color: #333;
+            color: #131515;
+            background-color: #FFFAFB;
             line-height: 1.5;
             padding: 20px;
         }
@@ -23,31 +24,31 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #22c55e;
+            border-bottom: 3px solid #339989;
         }
 
         .header h1 {
             font-size: 20px;
             font-weight: 700;
-            color: #1a1d23;
+            color: #131515;
             margin-bottom: 4px;
         }
 
         .header .subtitle {
             font-size: 14px;
-            color: #555;
+            color: #2B2C28;
             font-weight: 600;
             margin-bottom: 10px;
         }
 
         .header .period {
             font-size: 13px;
-            color: #666;
-            background-color: #f0fdf4;
+            color: #131515;
+            background-color: rgba(125, 226, 209, 0.2);
             display: inline-block;
             padding: 4px 16px;
             border-radius: 4px;
-            border: 1px solid #bbf7d0;
+            border: 1px solid #7DE2D1;
         }
 
         .business-info {
@@ -57,13 +58,13 @@
         .business-info p {
             margin-bottom: 2px;
             font-size: 11px;
-            color: #555;
+            color: #2B2C28;
         }
 
         .business-info .business-name {
             font-size: 13px;
             font-weight: 600;
-            color: #1a1d23;
+            color: #131515;
         }
 
         .summary {
@@ -73,10 +74,10 @@
         .summary h2 {
             font-size: 14px;
             font-weight: 700;
-            color: #1a1d23;
+            color: #131515;
             margin-bottom: 10px;
             padding-bottom: 5px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.12);
         }
 
         .summary-grid {
@@ -87,8 +88,8 @@
         }
 
         .summary-item {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background-color: #FFFAFB;
+            border: 1px solid rgba(43, 44, 40, 0.12);
             border-radius: 6px;
             padding: 12px;
             text-align: center;
@@ -96,7 +97,8 @@
 
         .summary-item .label {
             font-size: 10px;
-            color: #6b7280;
+            color: #2B2C28;
+            opacity: 0.8;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 4px;
@@ -107,11 +109,11 @@
             font-weight: 700;
         }
 
-        .text-success { color: #16a34a; }
-        .text-danger { color: #dc2626; }
-        .text-primary { color: #2563eb; }
-        .text-warning { color: #d97706; }
-        .text-info { color: #0891b2; }
+        .text-success { color: #339989; }
+        .text-danger { color: #2B2C28; }
+        .text-primary { color: #339989; }
+        .text-warning { color: #131515; }
+        .text-info { color: #339989; }
 
         .transactions {
             margin-bottom: 30px;
@@ -120,10 +122,10 @@
         .transactions h2 {
             font-size: 14px;
             font-weight: 700;
-            color: #1a1d23;
+            color: #131515;
             margin-bottom: 10px;
             padding-bottom: 5px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.12);
         }
 
         table {
@@ -133,15 +135,15 @@
         }
 
         thead {
-            background-color: #f3f4f6;
+            background-color: rgba(125, 226, 209, 0.15);
         }
 
         th {
             padding: 8px 10px;
             text-align: left;
             font-weight: 600;
-            color: #374151;
-            border-bottom: 2px solid #d1d5db;
+            color: #131515;
+            border-bottom: 2px solid rgba(43, 44, 40, 0.2);
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
@@ -149,17 +151,18 @@
 
         td {
             padding: 7px 10px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.08);
             vertical-align: middle;
         }
 
         tr:nth-child(even) {
-            background-color: #f9fafb;
+            background-color: rgba(125, 226, 209, 0.04);
         }
 
         .badge-masuk {
-            background-color: #dcfce7;
-            color: #16a34a;
+            background-color: rgba(51, 153, 137, 0.15);
+            color: #339989;
+            border: 1px solid rgba(51, 153, 137, 0.3);
             padding: 2px 8px;
             border-radius: 10px;
             font-size: 10px;
@@ -167,8 +170,9 @@
         }
 
         .badge-keluar {
-            background-color: #fee2e2;
-            color: #dc2626;
+            background-color: rgba(43, 44, 40, 0.1);
+            color: #2B2C28;
+            border: 1px solid rgba(43, 44, 40, 0.2);
             padding: 2px 8px;
             border-radius: 10px;
             font-size: 10px;
@@ -180,10 +184,11 @@
         .footer {
             margin-top: 40px;
             padding-top: 15px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid rgba(43, 44, 40, 0.12);
             text-align: center;
             font-size: 10px;
-            color: #9ca3af;
+            color: #2B2C28;
+            opacity: 0.7;
         }
 
         @media print {
@@ -197,10 +202,10 @@
     <div class="header">
         <h1>{{ $business->name }}</h1>
         @if ($business->address)
-            <p style="font-size: 11px; color: #666; margin-bottom: 2px;">{{ $business->address }}</p>
+            <p style="font-size: 11px; color: #2B2C28; margin-bottom: 2px;">{{ $business->address }}</p>
         @endif
         @if ($business->phone)
-            <p style="font-size: 11px; color: #666; margin-bottom: 8px;">Telp: {{ $business->phone }}</p>
+            <p style="font-size: 11px; color: #2B2C28; margin-bottom: 8px;">Telp: {{ $business->phone }}</p>
         @endif
         <div class="subtitle">LAPORAN KEUANGAN</div>
         <div class="period">{{ $periodLabel }}</div>
@@ -274,14 +279,14 @@
                                 {{ $transaction->description ?? '-' }}
                             @endif
                         </td>
-                        <td class="text-end" style="font-weight: 600; color: {{ $transaction->type === 'masuk' ? '#16a34a' : '#dc2626' }};">
+                        <td class="text-end" style="font-weight: 600; color: {{ $transaction->type === 'masuk' ? '#339989' : '#2B2C28' }};">
                             {{ $transaction->type === 'masuk' ? '+' : '-' }} Rp {{ number_format($transaction->amount, 0, ',', '.') }}
                         </td>
                         <td>{{ $transaction->user->name ?? '-' }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 20px; color: #9ca3af;">
+                        <td colspan="7" style="text-align: center; padding: 20px; color: #2B2C28; opacity: 0.6;">
                             Tidak ada data transaksi
                         </td>
                     </tr>

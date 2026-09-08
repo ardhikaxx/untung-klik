@@ -3,32 +3,33 @@
 @section('title', 'Uang Masuk & Keluar')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h4 class="fw-bold mb-1">Uang Masuk & Keluar</h4>
-        <p class="text-muted mb-0">Kelola semua transaksi keuangan</p>
+        <h4 class="fw-bold mb-1" style="color: var(--uk-dark);">Buku Kas & Transaksi</h4>
+        <p class="text-muted small mb-0">Kelola dan pantau seluruh catatan arus kas masuk maupun keluar secara digital</p>
     </div>
-    <a href="{{ route('owner.transactions.create') }}" class="btn btn-success">
-        <i class="fas fa-plus me-1"></i>Tambah Transaksi
+    <a href="{{ route('owner.transactions.create') }}" class="btn btn-uk-primary">
+        <i class="fas fa-plus me-2"></i>Tambah Transaksi
     </a>
 </div>
 
-<div class="card border shadow-sm mb-4">
-    <div class="card-body">
+<!-- Filter Card -->
+<div class="card uk-card mb-4 border-0">
+    <div class="card-body p-3 p-md-4">
         <form method="GET" action="{{ route('owner.transactions.index') }}">
             <div class="row g-3">
-                <div class="col-md-2">
-                    <label for="type" class="form-label fw-semibold small">Tipe</label>
+                <div class="col-6 col-md-2">
+                    <label for="type" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Tipe Transaksi</label>
                     <select class="form-select" id="type" name="type">
-                        <option value="">Semua</option>
+                        <option value="">Semua Tipe</option>
                         <option value="masuk" {{ request('type') === 'masuk' ? 'selected' : '' }}>Masuk</option>
                         <option value="keluar" {{ request('type') === 'keluar' ? 'selected' : '' }}>Keluar</option>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <label for="category_id" class="form-label fw-semibold small">Kategori</label>
+                <div class="col-6 col-md-2">
+                    <label for="category_id" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Kategori</label>
                     <select class="form-select" id="category_id" name="category_id">
-                        <option value="">Semua</option>
+                        <option value="">Semua Kategori</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
@@ -36,119 +37,146 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <label for="start_date" class="form-label fw-semibold small">Dari</label>
+                <div class="col-6 col-md-2">
+                    <label for="start_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Dari Tanggal</label>
                     <input type="date" class="form-control" id="start_date" name="start_date"
                            value="{{ request('start_date') }}">
                 </div>
-                <div class="col-md-2">
-                    <label for="end_date" class="form-label fw-semibold small">Sampai</label>
+                <div class="col-6 col-md-2">
+                    <label for="end_date" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Sampai Tanggal</label>
                     <input type="date" class="form-control" id="end_date" name="end_date"
                            value="{{ request('end_date') }}">
                 </div>
-                <div class="col-md-2">
-                    <label for="search" class="form-label fw-semibold small">Cari</label>
+                <div class="col-12 col-md-2">
+                    <label for="search" class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">Cari Transaksi</label>
                     <input type="text" class="form-control" id="search" name="search"
-                           value="{{ request('search') }}" placeholder="Sumber/keterangan">
+                           value="{{ request('search') }}" placeholder="Sumber/keterangan...">
                 </div>
-                <div class="col-md-2 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-primary flex-grow-1">
+                <div class="col-12 col-md-2 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-uk-primary flex-grow-1">
                         <i class="fas fa-filter me-1"></i>Filter
                     </button>
-                    <a href="{{ route('owner.transactions.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-times"></i>
-                    </a>
+                    @if(request()->hasAny(['type', 'category_id', 'start_date', 'end_date', 'search']))
+                        <a href="{{ route('owner.transactions.index') }}" class="btn btn-uk-outline" title="Reset Filter">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<div class="card border shadow-sm">
+<!-- Transactions Table Card -->
+<div class="card uk-card border-0">
     <div class="card-body p-0">
         @if($transactions->isEmpty())
             <div class="text-center py-5">
                 <div class="mb-3">
-                    <i class="fas fa-inbox fa-3x text-muted"></i>
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                        <i class="fas fa-wallet fa-2x"></i>
+                    </div>
                 </div>
-                <h6 class="text-muted">Belum ada transaksi</h6>
-                <p class="text-muted small mb-3">Mulai catat transaksi keuangan usaha Anda</p>
-                <a href="{{ route('owner.transactions.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus me-1"></i>Tambah Transaksi
+                <h6 class="fw-bold mb-1" style="color: var(--uk-dark);">Belum Ada Transaksi Tercatat</h6>
+                <p class="text-muted small mb-3">Mulai catat transaksi uang masuk atau pengeluaran operasional Anda</p>
+                <a href="{{ route('owner.transactions.create') }}" class="btn btn-uk-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i>Tambah Transaksi Pertama
                 </a>
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
+                <table class="table uk-table align-middle mb-0">
+                    <thead>
                         <tr>
-                            <th class="ps-3" style="width: 50px;">No</th>
+                            <th class="ps-4" style="width: 60px;">No</th>
                             <th>Tanggal</th>
                             <th>Tipe</th>
                             <th>Kategori</th>
-                            <th>Sumber/Keterangan</th>
+                            <th>Sumber & Keterangan</th>
                             <th class="text-end">Jumlah</th>
-                            <th>User</th>
-                            <th class="text-center pe-3" style="width: 140px;">Aksi</th>
+                            <th>Pencatat</th>
+                            <th class="text-center pe-4" style="width: 140px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($transactions as $index => $transaction)
                             <tr>
-                                <td class="ps-3">{{ $transactions->firstItem() + $index }}</td>
-                                <td>{{ $transaction->transaction_date->format('d/m/Y') }}</td>
+                                <td class="ps-4 text-muted small">{{ $transactions->firstItem() + $index }}</td>
+                                <td>
+                                    <div class="fw-semibold text-dark">{{ $transaction->transaction_date->format('d/m/Y') }}</div>
+                                    <small class="text-muted" style="font-size: 0.75rem;">{{ $transaction->created_at->format('H:i') }} WIB</small>
+                                </td>
                                 <td>
                                     @if($transaction->type === 'masuk')
-                                        <span class="badge bg-success">Masuk</span>
+                                        <span class="badge badge-uk-success">
+                                            <i class="fas fa-arrow-down me-1"></i>Masuk
+                                        </span>
                                     @else
-                                        <span class="badge bg-danger">Keluar</span>
+                                        <span class="badge badge-uk-danger">
+                                            <i class="fas fa-arrow-up me-1"></i>Keluar
+                                        </span>
                                     @endif
                                 </td>
-                                <td>{{ $transaction->category->name ?? '-' }}</td>
+                                <td>
+                                    @if($transaction->category)
+                                        <span class="badge badge-uk-accent text-dark fw-medium">
+                                            {{ $transaction->category->name }}
+                                        </span>
+                                    @else
+                                        <span class="text-muted small">-</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if($transaction->is_sale)
                                         <div class="mb-1">
-                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
-                                                <i class="fas fa-receipt me-1"></i>{{ $transaction->invoice_number ?? 'Penjualan' }}
+                                            <span class="badge badge-uk-primary">
+                                                <i class="fas fa-receipt me-1"></i>{{ $transaction->invoice_number ?? 'Penjualan Kasir' }}
                                             </span>
                                             @if($transaction->customer_name)
-                                                <span class="small text-muted">({{ $transaction->customer_name }})</span>
+                                                <span class="small text-muted ms-1">({{ $transaction->customer_name }})</span>
                                             @endif
                                         </div>
                                     @endif
-                                    <div>{{ $transaction->source ?: '-' }}</div>
+                                    <div class="fw-medium text-dark">{{ $transaction->source ?: '-' }}</div>
                                     @if($transaction->description)
-                                        <small class="text-muted">{{ Str::limit($transaction->description, 40) }}</small>
+                                        <small class="text-muted d-block text-truncate" style="max-width: 260px;">{{ $transaction->description }}</small>
                                     @endif
                                 </td>
-                                <td class="text-end fw-semibold {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}">
+                                <td class="text-end fw-bold {{ $transaction->type === 'masuk' ? 'text-success' : 'text-danger' }}">
                                     {{ $transaction->type === 'masuk' ? '+' : '-' }} Rp {{ number_format($transaction->amount, 0, ',', '.') }}
                                 </td>
-                                <td class="text-muted small">{{ $transaction->user->name }}</td>
-                                <td class="text-center pe-3">
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white small" style="width: 26px; height: 26px; background-color: var(--uk-dark-secondary); font-size: 0.7rem;">
+                                            {{ strtoupper(substr($transaction->user->name ?? 'U', 0, 1)) }}
+                                        </div>
+                                        <span class="small text-muted">{{ $transaction->user->name ?? '-' }}</span>
+                                    </div>
+                                </td>
+                                <td class="text-center pe-4">
                                     <div class="d-flex gap-1 justify-content-center">
                                         @if($transaction->is_sale)
                                             <a href="{{ route('owner.sales.show', $transaction) }}"
-                                               class="btn btn-sm btn-outline-success" title="Lihat Struk Penjualan">
-                                                <i class="fas fa-receipt"></i>
+                                               class="btn btn-sm btn-uk-outline" title="Lihat Struk Penjualan">
+                                                <i class="fas fa-receipt text-success"></i>
                                             </a>
                                         @else
                                             <a href="{{ route('owner.transactions.show', $transaction) }}"
-                                               class="btn btn-sm btn-outline-info" title="Lihat">
-                                                <i class="fas fa-eye"></i>
+                                               class="btn btn-sm btn-uk-outline" title="Detail Transaksi">
+                                                <i class="fas fa-eye text-primary"></i>
                                             </a>
                                             <a href="{{ route('owner.transactions.edit', $transaction) }}"
-                                               class="btn btn-sm btn-outline-warning" title="Edit">
-                                                <i class="fas fa-edit"></i>
+                                               class="btn btn-sm btn-uk-outline" title="Edit Transaksi">
+                                                <i class="fas fa-edit text-warning"></i>
                                             </a>
                                         @endif
                                         <form action="{{ route('owner.transactions.destroy', $transaction) }}"
                                               method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete"
-                                                    title="Hapus" data-id="{{ $transaction->id }}">
-                                                <i class="fas fa-trash"></i>
+                                            <button type="button" class="btn btn-sm btn-uk-outline btn-delete text-danger"
+                                                    title="Hapus Transaksi" data-id="{{ $transaction->id }}">
+                                                <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
                                     </div>
@@ -159,10 +187,10 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 px-3 py-3 border-top">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 px-4 py-3 border-top">
                 <small class="text-muted">
-                    Menampilkan {{ $transactions->firstItem() }} - {{ $transactions->lastItem() }}
-                    dari {{ $transactions->total() }} transaksi
+                    Menampilkan <span class="fw-semibold text-dark">{{ $transactions->firstItem() }}</span> - <span class="fw-semibold text-dark">{{ $transactions->lastItem() }}</span>
+                    dari <span class="fw-semibold text-dark">{{ $transactions->total() }}</span> transaksi
                 </small>
                 <div>
                     {{ $transactions->withQueryString()->links() }}
@@ -179,11 +207,11 @@
             var form = this.closest('form');
             Swal.fire({
                 title: 'Hapus Transaksi?',
-                text: 'Transaksi yang dihapus tidak dapat dikembalikan.',
+                text: 'Transaksi yang dihapus akan dikeluarkan dari buku kas dan tidak dapat dikembalikan.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#6b7280',
+                confirmButtonColor: '#2B2C28',
+                cancelButtonColor: '#131515',
                 confirmButtonText: 'Ya, Hapus',
                 cancelButtonText: 'Batal'
             }).then(function(result) {

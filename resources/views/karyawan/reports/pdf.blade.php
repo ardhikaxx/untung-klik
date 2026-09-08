@@ -14,7 +14,8 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             font-size: 12px;
-            color: #1a1d23;
+            color: #131515;
+            background-color: #FFFAFB;
             line-height: 1.5;
             padding: 20px;
         }
@@ -23,26 +24,27 @@
             text-align: center;
             margin-bottom: 24px;
             padding-bottom: 16px;
-            border-bottom: 2px solid #22c55e;
+            border-bottom: 2px solid #339989;
         }
 
         .header h1 {
             font-size: 18px;
             font-weight: 700;
-            color: #1a1d23;
+            color: #131515;
             margin-bottom: 4px;
         }
 
         .header .subtitle {
             font-size: 14px;
             font-weight: 600;
-            color: #374151;
+            color: #2B2C28;
             margin-bottom: 2px;
         }
 
         .header .date {
             font-size: 12px;
-            color: #6b7280;
+            color: #2B2C28;
+            opacity: 0.8;
         }
 
         .summary {
@@ -53,14 +55,16 @@
 
         .summary-card {
             flex: 1;
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(43, 44, 40, 0.12);
+            background-color: #FFFAFB;
             border-radius: 8px;
             padding: 12px 16px;
         }
 
         .summary-card .label {
             font-size: 11px;
-            color: #6b7280;
+            color: #2B2C28;
+            opacity: 0.8;
             margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -69,19 +73,20 @@
         .summary-card .value {
             font-size: 18px;
             font-weight: 700;
-            color: #22c55e;
+            color: #339989;
         }
 
         .summary-card .value-count {
             font-size: 18px;
             font-weight: 700;
-            color: #2563eb;
+            color: #131515;
         }
 
         .info {
             margin-bottom: 20px;
             font-size: 11px;
-            color: #6b7280;
+            color: #2B2C28;
+            opacity: 0.8;
         }
 
         table {
@@ -91,15 +96,15 @@
         }
 
         thead th {
-            background-color: #f3f4f6;
+            background-color: rgba(125, 226, 209, 0.15);
             font-size: 11px;
             font-weight: 600;
-            color: #374151;
+            color: #131515;
             text-transform: uppercase;
             letter-spacing: 0.03em;
             padding: 8px 10px;
             text-align: left;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid rgba(43, 44, 40, 0.2);
         }
 
         thead th:last-child {
@@ -108,18 +113,18 @@
 
         tbody td {
             padding: 8px 10px;
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid rgba(43, 44, 40, 0.08);
             font-size: 12px;
         }
 
         tbody td:last-child {
             text-align: right;
             font-weight: 600;
-            color: #22c55e;
+            color: #339989;
         }
 
         .total-row td {
-            border-top: 2px solid #e5e7eb;
+            border-top: 2px solid rgba(43, 44, 40, 0.2);
             border-bottom: none;
             font-weight: 700;
             font-size: 13px;
@@ -127,22 +132,24 @@
         }
 
         .total-row td:last-child {
-            color: #22c55e;
+            color: #339989;
         }
 
         .footer {
             margin-top: 24px;
             padding-top: 12px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid rgba(43, 44, 40, 0.12);
             font-size: 10px;
-            color: #9ca3af;
+            color: #2B2C28;
+            opacity: 0.7;
             text-align: center;
         }
 
         .empty-state {
             text-align: center;
             padding: 30px;
-            color: #9ca3af;
+            color: #2B2C28;
+            opacity: 0.7;
         }
 
         .empty-state p {
@@ -190,19 +197,19 @@
                 <td>
                     {{ $transaction->category->name ?? '-' }}
                     @if($transaction->invoice_number)
-                        <br><span style="font-size: 10px; color: #15803d; font-weight: bold;">#{{ $transaction->invoice_number }}</span>
+                        <br><span style="font-size: 10px; color: #339989; font-weight: bold;">#{{ $transaction->invoice_number }}</span>
                     @endif
                 </td>
                 <td>
                     {{ $transaction->customer_name ?: ($transaction->source ?? '-') }}
                     @if($transaction->customer_name && $transaction->source)
-                        <br><span style="font-size: 10px; color: #6b7280;">({{ $transaction->source }})</span>
+                        <br><span style="font-size: 10px; color: #2B2C28; opacity: 0.8;">({{ $transaction->source }})</span>
                     @endif
                 </td>
                 <td>
                     @if($transaction->is_sale && $transaction->items->isNotEmpty())
                         @foreach($transaction->items as $item)
-                            <div style="font-size: 11px;">{{ $item->product_name }} <span style="color: #6b7280;">({{ $item->quantity }}x)</span></div>
+                            <div style="font-size: 11px;">{{ $item->product_name }} <span style="color: #2B2C28; opacity: 0.8;">({{ $item->quantity }}x)</span></div>
                         @endforeach
                     @else
                         {{ $transaction->description ?? '-' }}
