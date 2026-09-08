@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,8 +23,8 @@ class ReceiptSettingController extends Controller
             $business = Business::firstOrCreate(
                 ['owner_id' => $user->id],
                 [
-                    'name' => 'Galeri E-Bike Uwinfly & NUV',
-                    'type' => 'Dealer Resmi Sepeda & Motor Listrik',
+                    'name' => config('app.name', 'Untung Klik'),
+                    'type' => 'Sistem Buku Kas Digital & Keuangan Usaha UMKM',
                     'phone' => $user->phone ?: '081234567890',
                     'address' => 'Jl. Soekarno-Hatta No. 210, Bandung',
                     'receipt_footer' => 'Terima Kasih Atas Kunjungan Anda!',
@@ -39,7 +40,17 @@ class ReceiptSettingController extends Controller
         $business->receipt_footer = $business->receipt_footer ?: 'Terima Kasih Atas Kunjungan Anda!';
         $business->receipt_note = $business->receipt_note ?: 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.';
 
-        return view('owner.receipt.index', compact('business'));
+        // Ambil beberapa produk riil dari katalog toko untuk pratinjau nota live
+        $previewProducts = Product::where('business_id', $business->id)
+            ->where('is_active', true)
+            ->take(3)
+            ->get();
+
+        if ($previewProducts->isEmpty()) {
+            $previewProducts = Product::where('is_active', true)->take(3)->get();
+        }
+
+        return view('owner.receipt.index', compact('business', 'previewProducts'));
     }
 
     /**

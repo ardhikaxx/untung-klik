@@ -175,9 +175,14 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between pt-3 border-top flex-wrap gap-2">
-                    <button type="button" class="btn btn-sm btn-uk-outline rounded-pill px-3" onclick="resetToDefaults()">
-                        <i class="fas fa-rotate-left me-1.5"></i>Reset ke Bawaan
-                    </button>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <button type="button" class="btn btn-sm btn-uk-outline rounded-pill px-3" onclick="resetToDefaults()">
+                            <i class="fas fa-rotate-left me-1.5"></i>Reset Bawaan Aplikasi
+                        </button>
+                        <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" onclick="loadGaleriPreset()">
+                            <i class="fas fa-store me-1.5"></i>Template Galeri E-Bike
+                        </button>
+                    </div>
                     <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-4 py-2 shadow-xs fw-bold">
                         <i class="fas fa-save me-1.5"></i>Simpan Pengaturan Nota
                     </button>
@@ -206,7 +211,7 @@
                             <i class="fas fa-store"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-0 font-sans-serif" id="previewName" style="letter-spacing: -0.02em; font-family: system-ui, sans-serif;">
-                            {{ $business->name ?: 'Galeri E-Bike Uwinfly & NUV' }}
+                            {{ $business->name ?: config('app.name', 'Untung Klik') }}
                         </h5>
                     </div>
                     <div class="text-muted small mb-1" id="previewType" style="font-size: 0.75rem; {{ $business->type ? '' : 'display: none;' }}">
@@ -245,40 +250,61 @@
 
                 <!-- Rincian Item Mockup -->
                 <div class="small mb-2" style="font-size: 0.72rem;">
-                    <div class="d-flex justify-content-between fw-bold mb-1">
-                        <span>Sepeda Listrik D7S</span>
-                        <span>Rp 4.250.000</span>
-                    </div>
-                    <div class="text-muted ps-2 mb-1">1 x @ Rp 4.250.000</div>
-
-                    <div class="d-flex justify-content-between fw-bold mb-1">
-                        <span>Helm Exclusive Uwinfly</span>
-                        <span>Rp 150.000</span>
-                    </div>
-                    <div class="text-muted ps-2 mb-1">1 x @ Rp 150.000</div>
+                    @forelse($previewProducts->take(2) as $prod)
+                        <div class="d-flex justify-content-between fw-bold mb-0.5">
+                            <span class="text-truncate me-2" style="max-width: 180px;">{{ $prod->name }}</span>
+                            <span>{{ format_rupiah($prod->selling_price) }}</span>
+                        </div>
+                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ {{ format_rupiah($prod->selling_price) }}</div>
+                    @empty
+                        <div class="d-flex justify-content-between fw-bold mb-0.5">
+                            <span class="text-truncate me-2">Sepeda Listrik D7S</span>
+                            <span>Rp 4.250.000</span>
+                        </div>
+                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 4.250.000</div>
+                        <div class="d-flex justify-content-between fw-bold mb-0.5">
+                            <span class="text-truncate me-2">Helm Exclusive Uwinfly</span>
+                            <span>Rp 150.000</span>
+                        </div>
+                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 150.000</div>
+                    @endforelse
                 </div>
+
+                @php
+                    $displayItems = $previewProducts->take(2);
+                    $mockSubtotal = $displayItems->isNotEmpty() ? (float) $displayItems->sum('selling_price') : 4400000;
+                    $mockDiscount = $mockSubtotal >= 500000 ? 50000 : 0;
+                    $mockTotal = $mockSubtotal - $mockDiscount;
+                    $mockCash = ceil($mockTotal / 100000) * 100000;
+                    if ($mockCash <= $mockTotal) {
+                        $mockCash += 50000;
+                    }
+                    $mockChange = $mockCash - $mockTotal;
+                @endphp
 
                 <!-- Total Kalkulasi Mockup -->
                 <div class="border-top border-dashed pt-2 mb-3" style="border-top-style: dashed !important; font-size: 0.75rem;">
                     <div class="d-flex justify-content-between mb-1">
                         <span>Subtotal:</span>
-                        <span>Rp 4.400.000</span>
+                        <span>{{ format_rupiah($mockSubtotal) }}</span>
                     </div>
+                    @if($mockDiscount > 0)
                     <div class="d-flex justify-content-between mb-1 text-muted">
                         <span>Diskon:</span>
-                        <span>- Rp 50.000</span>
+                        <span>- {{ format_rupiah($mockDiscount) }}</span>
                     </div>
+                    @endif
                     <div class="d-flex justify-content-between fw-bold text-dark fs-6 pt-1 border-top" style="border-color: var(--uk-border) !important;">
                         <span>TOTAL:</span>
-                        <span>Rp 4.350.000</span>
+                        <span>{{ format_rupiah($mockTotal) }}</span>
                     </div>
                     <div class="d-flex justify-content-between pt-1 text-muted">
                         <span>Tunai:</span>
-                        <span>Rp 4.500.000</span>
+                        <span>{{ format_rupiah($mockCash) }}</span>
                     </div>
                     <div class="d-flex justify-content-between text-muted">
                         <span>Kembalian:</span>
-                        <span>Rp 150.000</span>
+                        <span>{{ format_rupiah($mockChange) }}</span>
                     </div>
                 </div>
 
@@ -322,7 +348,7 @@
         const noteVal = document.getElementById('receipt_note').value.trim();
 
         // Nama
-        document.getElementById('previewName').innerText = nameVal || 'Nama Toko Anda';
+        document.getElementById('previewName').innerText = nameVal || '{{ config('app.name', 'Untung Klik') }}';
 
         // Slogan/Type
         const previewType = document.getElementById('previewType');
@@ -366,6 +392,16 @@
     }
 
     function resetToDefaults() {
+        document.getElementById('name').value = '{{ config('app.name', 'Untung Klik') }}';
+        document.getElementById('type').value = 'Sistem Buku Kas Digital & Keuangan Usaha UMKM';
+        document.getElementById('address').value = 'Jl. Soekarno-Hatta No. 210, Bandung';
+        document.getElementById('phone').value = '081234567890';
+        document.getElementById('receipt_footer').value = 'Terima Kasih Atas Kunjungan Anda!';
+        document.getElementById('receipt_note').value = 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.';
+        syncPreview();
+    }
+
+    function loadGaleriPreset() {
         document.getElementById('name').value = 'Galeri E-Bike Uwinfly & NUV';
         document.getElementById('type').value = 'Dealer Resmi Sepeda & Motor Listrik';
         document.getElementById('address').value = 'Jl. Soekarno-Hatta No. 210, Bandung';

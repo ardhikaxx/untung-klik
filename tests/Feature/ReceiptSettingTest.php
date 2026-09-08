@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Business;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -123,4 +125,34 @@ test('sales invoice show page renders configured store details', function () {
     $response->assertSee('Jl. Soekarno-Hatta No. 210, Bandung');
     $response->assertSee('081234567890');
     $response->assertSee('Terima Kasih Atas Kunjungan Anda!');
+});
+
+test('receipt preview displays real products from database and reset to app defaults', function () {
+    $category = ProductCategory::create([
+        'business_id' => $this->business->id,
+        'name' => 'Sepeda Listrik',
+        'is_active' => true,
+    ]);
+
+    $product = Product::create([
+        'business_id' => $this->business->id,
+        'category_id' => $category->id,
+        'name' => 'Uwinfly D7S Super Red',
+        'sku' => 'UWF-D7S-RED-TEST',
+        'selling_price' => 3950000,
+        'purchase_price' => 3300000,
+        'unit' => 'unit',
+        'stock' => 10,
+        'min_stock' => 2,
+        'is_active' => true,
+    ]);
+
+    $response = $this->actingAs($this->owner)->get(route('owner.receipt.index'));
+
+    $response->assertStatus(200);
+    $response->assertSee('Uwinfly D7S Super Red');
+    $response->assertSee('Rp 3.950.000');
+    $response->assertSee('Reset Bawaan Aplikasi');
+    $response->assertSee('Template Galeri E-Bike');
+    $response->assertSee('Untung Klik');
 });
