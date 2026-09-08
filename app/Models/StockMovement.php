@@ -61,11 +61,30 @@ class StockMovement extends Model
     public function getTypeBadgeClassAttribute(): string
     {
         return match ($this->type) {
-            'initial', 'in' => 'badge-success',
-            'sale' => 'badge-info',
-            'damaged', 'lost' => 'badge-danger',
-            'adjustment', 'correction' => 'badge-secondary',
-            default => 'badge-secondary',
+            'initial' => 'badge-stok-initial bg-primary text-white',
+            'in' => 'badge-stok-in bg-success text-white',
+            'out' => 'badge-stok-out bg-warning text-white',
+            'sale' => 'badge-stok-sale bg-info text-white',
+            'adjustment' => 'badge-stok-adjustment bg-warning text-white',
+            'damaged' => 'badge-stok-damaged bg-danger text-white',
+            'lost' => 'badge-stok-lost bg-dark text-white',
+            'correction' => 'badge-stok-correction bg-secondary text-white',
+            default => 'badge-secondary bg-secondary text-white',
+        };
+    }
+
+    public function getTypeIconAttribute(): string
+    {
+        return match ($this->type) {
+            'initial' => 'fas fa-box',
+            'in' => 'fas fa-arrow-down',
+            'out' => 'fas fa-arrow-up',
+            'sale' => 'fas fa-shopping-cart',
+            'adjustment' => 'fas fa-sliders-h',
+            'damaged' => 'fas fa-heart-crack',
+            'lost' => 'fas fa-question-circle',
+            'correction' => 'fas fa-wrench',
+            default => 'fas fa-circle',
         };
     }
 }

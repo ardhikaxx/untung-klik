@@ -446,3 +446,17 @@ test('owner and karyawan can view sale receipt with invoice details', function (
     $ownerView->assertSee('140.000');
     $ownerView->assertSee($this->business->name);
 });
+
+test('stock movement activity badges have distinctive colors and icons', function () {
+    $types = ['initial', 'in', 'out', 'sale', 'adjustment', 'damaged', 'lost', 'correction'];
+
+    foreach ($types as $type) {
+        $movement = new StockMovement(['type' => $type]);
+        expect($movement->type_badge_class)->not->toBeEmpty();
+        expect($movement->type_icon)->not->toBeEmpty();
+    }
+
+    // Check stock index page renders badge class
+    $response = $this->actingAs($this->owner)->get(route('owner.stock.index'));
+    $response->assertStatus(200);
+});

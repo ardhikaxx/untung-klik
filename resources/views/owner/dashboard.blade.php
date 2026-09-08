@@ -60,87 +60,136 @@
 </div>
 
 <!-- SECTION 1: KEUANGAN UTAMA -->
-<h6 class="fw-bold text-dark mb-3">
-    <i class="fas fa-wallet text-success me-2"></i>Kondisi Keuangan Usaha
-</h6>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="fw-bold text-dark mb-0">
+        <i class="fas fa-wallet text-success me-2"></i>Kondisi Keuangan Usaha
+    </h6>
+    <span class="text-muted small">Ringkasan arus kas, modal & laba periode ini</span>
+</div>
 <div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
+    <!-- Baris 1: 3 Metrik Utama Kas & Laba (Formula: Masuk - Keluar = Laba) -->
+    <!-- Total Uang Masuk -->
+    <div class="col-12 col-md-4">
         <div class="card border shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted mb-1 small fw-semibold">Total Uang Masuk</p>
-                        <h4 class="fw-bold mb-0 text-success">{{ format_rupiah($totalIncome) }}</h4>
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small fw-semibold">Total Uang Masuk</span>
+                        <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                            <i class="fas fa-arrow-down text-success"></i>
+                        </div>
                     </div>
-                    <div class="rounded-circle bg-success bg-opacity-10 p-3">
-                        <i class="fas fa-arrow-down text-success"></i>
-                    </div>
+                    <h4 class="fw-bold mb-1 text-success text-nowrap" style="font-size: clamp(1.2rem, 1.4vw, 1.45rem); letter-spacing: -0.02em;">
+                        {{ format_rupiah($totalIncome) }}
+                    </h4>
+                </div>
+                <div class="text-muted small pt-2 border-top mt-2 d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                    <span><i class="fas fa-info-circle me-1 opacity-75"></i>Kas masuk & penjualan toko</span>
+                    <a href="{{ route('owner.transactions.index') }}" class="text-success text-decoration-none fw-semibold">Detail &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg">
+    <!-- Total Uang Keluar -->
+    <div class="col-12 col-md-4">
         <div class="card border shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted mb-1 small fw-semibold">Total Uang Keluar</p>
-                        <h4 class="fw-bold mb-0 text-danger">{{ format_rupiah($totalExpense) }}</h4>
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small fw-semibold">Total Uang Keluar</span>
+                        <div class="rounded-circle bg-danger bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                            <i class="fas fa-arrow-up text-danger"></i>
+                        </div>
                     </div>
-                    <div class="rounded-circle bg-danger bg-opacity-10 p-3">
-                        <i class="fas fa-arrow-up text-danger"></i>
-                    </div>
+                    <h4 class="fw-bold mb-1 text-danger text-nowrap" style="font-size: clamp(1.2rem, 1.4vw, 1.45rem); letter-spacing: -0.02em;">
+                        {{ format_rupiah($totalExpense) }}
+                    </h4>
+                </div>
+                <div class="text-muted small pt-2 border-top mt-2 d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                    <span><i class="fas fa-info-circle me-1 opacity-75"></i>Pengeluaran kas tercatat</span>
+                    <a href="{{ route('owner.transactions.index') }}" class="text-danger text-decoration-none fw-semibold">Detail &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg">
-        <div class="card border shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted mb-1 small fw-semibold">Modal Usaha</p>
-                        <h4 class="fw-bold mb-0 text-primary">{{ format_rupiah($totalCapital) }}</h4>
+    <!-- Laba Bersih Usaha -->
+    <div class="col-12 col-md-4">
+        <div class="card border shadow-sm h-100 border-start border-4 {{ $netProfit >= 0 ? 'border-success' : 'border-danger' }}">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small fw-semibold">Laba Bersih Usaha</span>
+                        <div class="rounded-circle {{ $netProfit >= 0 ? 'bg-success' : 'bg-danger' }} bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                            <i class="fas fa-chart-line {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}"></i>
+                        </div>
                     </div>
-                    <div class="rounded-circle bg-primary bg-opacity-10 p-3">
-                        <i class="fas fa-coins text-primary"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-sm-6 col-lg">
-        <div class="card border shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted mb-1 small fw-semibold">Beban Operasional</p>
-                        <h4 class="fw-bold mb-0 text-warning">{{ format_rupiah($totalOperational) }}</h4>
-                    </div>
-                    <div class="rounded-circle bg-warning bg-opacity-10 p-3">
-                        <i class="fas fa-receipt text-warning"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-sm-6 col-lg">
-        <div class="card border shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <p class="text-muted mb-1 small fw-semibold">Laba Bersih</p>
-                        <h4 class="fw-bold mb-0 {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}">
+                    <div class="d-flex align-items-baseline gap-2 flex-wrap mb-1">
+                        <h4 class="fw-bold mb-0 {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }} text-nowrap" style="font-size: clamp(1.2rem, 1.4vw, 1.45rem); letter-spacing: -0.02em;">
                             {{ format_rupiah($netProfit) }}
                         </h4>
+                        @if($netProfit >= 0)
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1" style="font-size: 0.7rem;">
+                                <i class="fas fa-arrow-trend-up me-1"></i>Surplus
+                            </span>
+                        @else
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1" style="font-size: 0.7rem;">
+                                <i class="fas fa-arrow-trend-down me-1"></i>Defisit
+                            </span>
+                        @endif
                     </div>
-                    <div class="rounded-circle {{ $netProfit >= 0 ? 'bg-success' : 'bg-danger' }} bg-opacity-10 p-3">
-                        <i class="fas fa-chart-line {{ $netProfit >= 0 ? 'text-success' : 'text-danger' }}"></i>
+                </div>
+                <div class="text-muted small pt-2 border-top mt-2 d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                    <span><i class="fas fa-calculator me-1 opacity-75"></i>Masuk - Keluar - Beban</span>
+                    <a href="{{ route('owner.reports.index') }}" class="text-dark text-decoration-none fw-semibold">Laporan &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Baris 2: 2 Metrik Struktur Modal & Beban Operasional -->
+    <!-- Modal Usaha -->
+    <div class="col-12 col-md-6">
+        <div class="card border shadow-sm h-100">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small fw-semibold">Modal Usaha (Capital)</span>
+                        <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                            <i class="fas fa-coins text-primary"></i>
+                        </div>
                     </div>
+                    <h4 class="fw-bold mb-1 text-primary text-nowrap" style="font-size: clamp(1.2rem, 1.4vw, 1.45rem); letter-spacing: -0.02em;">
+                        {{ format_rupiah($totalCapital) }}
+                    </h4>
+                </div>
+                <div class="text-muted small pt-2 border-top mt-2 d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                    <span><i class="fas fa-shield-alt me-1 opacity-75"></i>Total akumulasi modal yang disetor ke usaha</span>
+                    <a href="{{ route('owner.capital.index') }}" class="text-primary text-decoration-none fw-semibold">Kelola Modal &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Beban Operasional -->
+    <div class="col-12 col-md-6">
+        <div class="card border shadow-sm h-100">
+            <div class="card-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted small fw-semibold">Beban Operasional Toko</span>
+                        <div class="rounded-circle bg-warning bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                            <i class="fas fa-receipt text-warning"></i>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-1 text-warning text-nowrap" style="font-size: clamp(1.2rem, 1.4vw, 1.45rem); letter-spacing: -0.02em;">
+                        {{ format_rupiah($totalOperational) }}
+                    </h4>
+                </div>
+                <div class="text-muted small pt-2 border-top mt-2 d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                    <span><i class="fas fa-building me-1 opacity-75"></i>Biaya listrik, sewa, gaji, & operasional rutin</span>
+                    <a href="{{ route('owner.expenses.index') }}" class="text-warning text-decoration-none fw-semibold">Kelola Beban &rarr;</a>
                 </div>
             </div>
         </div>

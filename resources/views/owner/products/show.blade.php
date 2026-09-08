@@ -129,8 +129,8 @@
                                             {{ $move->created_at->format('d/m/Y H:i') }}
                                         </td>
                                         <td>
-                                            <span class="badge {{ $move->type_badge_class }}">
-                                                {{ $move->type_label }}
+                                            <span class="badge {{ $move->type_badge_class }} px-2 py-1">
+                                                <i class="{{ $move->type_icon }} me-1"></i>{{ $move->type_label }}
                                             </span>
                                         </td>
                                         <td class="text-center fw-bold {{ $move->quantity > 0 ? 'text-success' : ($move->quantity < 0 ? 'text-danger' : 'text-muted') }}">

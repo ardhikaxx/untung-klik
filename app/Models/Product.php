@@ -88,9 +88,9 @@ class Product extends Model
     public function getStockStatusBadgeClassAttribute(): string
     {
         return match ($this->stock_status) {
-            'out' => 'badge-danger',
-            'low' => 'badge-warning',
-            default => 'badge-success',
+            'out' => 'badge-danger bg-danger text-white',
+            'low' => 'badge-warning bg-warning text-dark',
+            default => 'badge-success bg-success text-white',
         };
     }
 }

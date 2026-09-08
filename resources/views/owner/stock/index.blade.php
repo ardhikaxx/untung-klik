@@ -179,7 +179,7 @@
                                 </td>
                                 <td>
                                     <span class="badge {{ $move->type_badge_class }} px-2 py-1">
-                                        {{ $move->type_label }}
+                                        <i class="{{ $move->type_icon }} me-1"></i>{{ $move->type_label }}
                                     </span>
                                 </td>
                                 <td class="text-center fw-bold fs-6 {{ $move->quantity > 0 ? 'text-success' : ($move->quantity < 0 ? 'text-danger' : 'text-muted') }}">
