@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Profil Saya')
 
@@ -13,20 +13,25 @@
 
 <!-- Header User Hero Pod -->
 <div class="card uk-card border-0 mb-4">
-    <div class="card-body p-4 d-flex align-items-center flex-wrap gap-3">
-        <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 58px; height: 58px; background-color: var(--uk-dark); color: #FFFAFB;">
-            {{ strtoupper(substr($user->name, 0, 1)) }}
-        </div>
-        <div>
-            <h4 class="fw-bold mb-1 text-dark">{{ $user->name }}</h4>
-            <div class="d-flex align-items-center gap-2 flex-wrap">
-                <span class="badge badge-uk-primary">{{ ucfirst($user->role) }}</span>
-                <span class="text-muted small font-monospace"><i class="fas fa-at me-1"></i>{{ $user->username }}</span>
-                @if(isset($business) && $business)
-                    <span class="badge badge-uk-accent text-dark fw-medium"><i class="fas fa-store me-1"></i>{{ $business->name }}</span>
-                @endif
+    <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 58px; height: 58px; background-color: var(--uk-dark); color: #FFFAFB;">
+                {{ strtoupper(substr($user->name, 0, 1)) }}
+            </div>
+            <div>
+                <h4 class="fw-bold mb-1 text-dark">{{ $user->name }}</h4>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <span class="badge badge-uk-primary">{{ ucfirst($user->role) }}</span>
+                    <span class="text-muted small font-monospace"><i class="fas fa-at me-1"></i>{{ $user->username }}</span>
+                    @if($user->business)
+                        <span class="badge badge-uk-accent text-dark fw-medium"><i class="fas fa-store me-1"></i>{{ $user->business->name }}</span>
+                    @endif
+                </div>
             </div>
         </div>
+        <a href="{{ route('owner.receipt.index') }}" class="btn btn-sm btn-uk-outline rounded-pill px-3.5 shadow-xs">
+            <i class="fas fa-receipt me-1.5"></i>Pengaturan Bagian Nota & Toko
+        </a>
     </div>
 </div>
 

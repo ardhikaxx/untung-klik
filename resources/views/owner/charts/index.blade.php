@@ -10,13 +10,13 @@
     </div>
     <div class="d-flex gap-2">
         <button class="btn btn-sm btn-uk-primary btn-period active" data-period="30days">
-            30 Hari Terakhir
+            <i class="fas fa-calendar-day me-1.5"></i>30 Hari Terakhir
         </button>
         <button class="btn btn-sm btn-uk-outline btn-period" data-period="6months">
-            6 Bulan
+            <i class="fas fa-calendar-week me-1.5"></i>6 Bulan
         </button>
         <button class="btn btn-sm btn-uk-outline btn-period" data-period="12months">
-            12 Bulan (1 Tahun)
+            <i class="fas fa-calendar me-1.5"></i>12 Bulan (1 Tahun)
         </button>
     </div>
 </div>

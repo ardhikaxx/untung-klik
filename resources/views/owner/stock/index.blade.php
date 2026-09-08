@@ -14,7 +14,7 @@
             <i class="fas fa-boxes-stacked me-1.5"></i>Katalog Produk
         </a>
         <a href="{{ route('owner.stock.adjust') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs fw-bold">
-            <i class="fas fa-sliders-h me-1.5"></i>+ Penyesuaian Stok
+            <i class="fas fa-sliders-h me-1.5"></i>Penyesuaian Stok
         </a>
     </div>
 </div>
@@ -42,7 +42,7 @@
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="badge bg-danger text-white rounded-pill px-2 py-0.5" style="font-size: 0.68rem;">0 {{ $p->unit }}</span>
                                         <a href="{{ route('owner.stock.adjust', ['product_id' => $p->id]) }}" class="btn btn-xs btn-uk-danger rounded-pill px-2.5">
-                                            + Isi Stok
+                                            <i class="fas fa-plus me-1"></i>Isi Stok
                                         </a>
                                     </div>
                                 </li>
@@ -73,7 +73,7 @@
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="badge bg-warning text-dark rounded-pill px-2 py-0.5 fw-bold" style="font-size: 0.68rem;">{{ $p->stock }} {{ $p->unit }}</span>
                                         <a href="{{ route('owner.stock.adjust', ['product_id' => $p->id]) }}" class="btn btn-xs btn-uk-secondary rounded-pill px-2.5">
-                                            + Tambah
+                                            <i class="fas fa-plus me-1"></i>Tambah
                                         </a>
                                     </div>
                                 </li>
@@ -167,7 +167,7 @@
                             <th>Produk</th>
                             <th>Aktivitas</th>
                             <th class="text-center">Perubahan</th>
-                            <th class="text-center">Sebelum &rarr; Sesudah</th>
+                            <th class="text-center">Sebelum <i class="fas fa-arrow-right mx-1 text-muted" style="font-size: 0.72rem;"></i> Sesudah</th>
                             <th>Keterangan / Alasan</th>
                             <th class="pe-4">Petugas</th>
                         </tr>
@@ -195,7 +195,7 @@
                                 </td>
                                 <td class="text-center small">
                                     <span class="text-muted">{{ number_format($move->stock_before) }}</span>
-                                    <span class="mx-1 text-muted">&rarr;</span>
+                                    <i class="fas fa-arrow-right mx-1 text-muted" style="font-size: 0.72rem;"></i>
                                     <span class="fw-bold text-dark">{{ number_format($move->stock_after) }}</span>
                                 </td>
                                 <td class="small">

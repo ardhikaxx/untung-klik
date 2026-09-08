@@ -79,7 +79,7 @@
         </div>
 
         <button type="submit" class="btn-primary-custom">
-            Masuk
+            <i class="fas fa-right-to-bracket me-1.5"></i>Masuk
         </button>
     </form>
 

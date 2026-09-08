@@ -191,7 +191,9 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                    <a href="{{ route('owner.products.index') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">Batal</a>
+                    <a href="{{ route('owner.products.index') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">
+                        <i class="fas fa-times me-1.5"></i>Batal
+                    </a>
                     <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-4 shadow-xs fw-bold">
                         <i class="fas fa-save me-1.5"></i>Simpan Perubahan
                     </button>
@@ -227,7 +229,7 @@
                 Untuk menjaga akurasi audit buku kas dan inventaris, stok fisik tidak diedit manual di sini.
             </p>
             <a href="{{ route('owner.stock.adjust', ['product_id' => $product->id]) }}" class="btn btn-sm btn-uk-outline w-100 rounded-pill">
-                <i class="fas fa-sliders-h me-1.5"></i>Sesuaikan Stok di Menu Mutasi &rarr;
+                <i class="fas fa-sliders-h me-1.5"></i>Sesuaikan Stok di Menu Mutasi <i class="fas fa-arrow-right ms-1"></i>
             </a>
         </div>
 

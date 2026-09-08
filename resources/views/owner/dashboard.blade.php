@@ -32,7 +32,7 @@
             <i class="fas fa-calendar-alt me-1.5"></i>Custom
         </button>
         <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs">
-            <i class="fas fa-cash-register me-1.5"></i>+ Catat Penjualan
+            <i class="fas fa-cash-register me-1.5"></i>Catat Penjualan
         </a>
     </div>
 </div>
@@ -55,7 +55,7 @@
                     <i class="fas fa-filter me-1.5"></i>Terapkan Filter
                 </button>
                 <a href="{{ route('owner.dashboard') }}" class="btn btn-uk-secondary">
-                    Reset
+                    <i class="fas fa-undo me-1.5"></i>Reset
                 </a>
             </div>
         </form>
@@ -101,7 +101,7 @@
                     </span>
                 @endif
                 <a href="{{ route('owner.reports.index') }}" style="color: var(--uk-accent); font-weight: 600;">
-                    Laporan Lengkap &rarr;
+                    Laporan Lengkap <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -126,7 +126,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.2); font-size: 0.78rem;">
                 <span class="text-white opacity-90"><i class="fas fa-check-circle me-1"></i>Kasir & Kas Masuk</span>
                 <a href="{{ route('owner.transactions.index') }}" class="text-white fw-bold">
-                    Detail Mutasi &rarr;
+                    Detail Mutasi <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -151,7 +151,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
                 <span class="text-muted"><i class="fas fa-circle-minus text-danger me-1"></i>Pengeluaran kas tercatat</span>
                 <a href="{{ route('owner.transactions.index') }}" class="text-danger fw-semibold">
-                    Detail Kas &rarr;
+                    Detail Kas <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -189,7 +189,7 @@
                     <i class="fas fa-receipt me-1 opacity-75"></i>{{ $todaySalesCount }} Transaksi
                 </span>
                 <a href="{{ route('owner.sales.index') }}" class="fw-bold" style="color: var(--uk-dark);">
-                    Kasir &rarr;
+                    Kasir <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -214,7 +214,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
                 <span class="text-muted"><i class="fas fa-shield-alt text-primary me-1"></i>Total modal disetor</span>
                 <a href="{{ route('owner.capital.index') }}" class="text-primary fw-semibold">
-                    Kelola &rarr;
+                    Kelola <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -239,7 +239,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
                 <span class="text-muted"><i class="fas fa-store me-1"></i>Listrik, sewa & rutin</span>
                 <a href="{{ route('owner.expenses.index') }}" class="text-warning fw-semibold">
-                    Rincian &rarr;
+                    Rincian <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -277,7 +277,7 @@
                     @endif
                 </div>
                 <a href="{{ route('owner.stock.index') }}" class="text-primary fw-semibold">
-                    Stok &rarr;
+                    Stok <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -295,7 +295,7 @@
                     <h6 class="fw-bold text-dark mb-0">Peringatan Stok Toko</h6>
                 </div>
                 <a href="{{ route('owner.stock.index') }}" class="btn btn-xs btn-uk-outline rounded-pill px-2.5">
-                    Semua Stok
+                    <i class="fas fa-boxes-stacked me-1"></i>Semua Stok
                 </a>
             </div>
 
@@ -355,7 +355,7 @@
                     <h6 class="fw-bold text-dark mb-0">Mutasi Kas Terbaru</h6>
                 </div>
                 <a href="{{ route('owner.transactions.index') }}" class="btn btn-xs btn-uk-outline rounded-pill px-2.5">
-                    Lihat Semua
+                    <i class="fas fa-list me-1"></i>Lihat Semua
                 </a>
             </div>
 

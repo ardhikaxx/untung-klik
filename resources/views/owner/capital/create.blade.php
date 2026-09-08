@@ -91,7 +91,9 @@
                         <button type="submit" class="btn btn-uk-primary px-4">
                             <i class="fas fa-check-circle me-1"></i>Simpan Modal
                         </button>
-                        <a href="{{ route('owner.capital.index') }}" class="btn btn-uk-outline">Batal</a>
+                        <a href="{{ route('owner.capital.index') }}" class="btn btn-uk-outline">
+                            <i class="fas fa-times me-1"></i>Batal
+                        </a>
                     </div>
                 </form>
             </div>

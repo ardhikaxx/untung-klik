@@ -13,8 +13,11 @@
         <a href="{{ route('owner.sales.index') }}" class="btn btn-sm btn-uk-outline rounded-pill px-3">
             <i class="fas fa-arrow-left me-1.5"></i>Riwayat
         </a>
+        <a href="{{ route('owner.receipt.index') }}" class="btn btn-sm btn-uk-outline rounded-pill px-3">
+            <i class="fas fa-sliders-h me-1.5"></i>Atur Nota
+        </a>
         <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">
-            <i class="fas fa-plus me-1.5"></i>+ Transaksi Baru
+            <i class="fas fa-plus me-1.5"></i>Transaksi Baru
         </a>
         <button type="button" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs" onclick="shareToWhatsApp()">
             <i class="fab fa-whatsapp me-1.5"></i>Kirim ke WA
@@ -35,14 +38,22 @@
                         <i class="fas fa-store"></i>
                     </div>
                     <h4 class="fw-bold text-dark mb-0" style="letter-spacing: -0.02em;">
-                        {{ auth()->user()->business ? auth()->user()->business->name : 'Untung Klik' }}
+                        {{ $sale->business ? $sale->business->name : (auth()->user()->business ? auth()->user()->business->name : 'Untung Klik') }}
                     </h4>
                 </div>
-                @if(auth()->user()->business && auth()->user()->business->address)
-                    <p class="text-muted small mb-1">{{ auth()->user()->business->address }}</p>
+                @php
+                    $bizType = $sale->business ? $sale->business->type : (auth()->user()->business ? auth()->user()->business->type : null);
+                    $bizAddr = $sale->business ? $sale->business->address : (auth()->user()->business ? auth()->user()->business->address : null);
+                    $bizPhone = $sale->business ? $sale->business->phone : (auth()->user()->business ? auth()->user()->business->phone : null);
+                @endphp
+                @if($bizType)
+                    <p class="text-muted small mb-1" style="font-size: 0.78rem;">{{ $bizType }}</p>
                 @endif
-                @if(auth()->user()->business && auth()->user()->business->phone)
-                    <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-1 text-primary"></i>{{ auth()->user()->business->phone }}</p>
+                @if($bizAddr)
+                    <p class="text-muted small mb-1">{{ $bizAddr }}</p>
+                @endif
+                @if($bizPhone)
+                    <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-1 text-primary"></i>{{ $bizPhone }}</p>
                 @endif
             </div>
 
@@ -146,8 +157,14 @@
 
             <!-- Pesan Penutup Struk -->
             <div class="text-center border-top pt-4 text-muted small">
-                <p class="mb-1 fw-bold text-dark">Terima Kasih Atas Kunjungan Anda!</p>
-                <p class="mb-0 text-muted" style="font-size: 0.75rem;">Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.</p>
+                @php
+                    $bizFooter = ($sale->business && $sale->business->receipt_footer) ? $sale->business->receipt_footer : (auth()->user()->business && auth()->user()->business->receipt_footer ? auth()->user()->business->receipt_footer : 'Terima Kasih Atas Kunjungan Anda!');
+                    $bizNote = ($sale->business && $sale->business->receipt_note) ? $sale->business->receipt_note : (auth()->user()->business && auth()->user()->business->receipt_note ? auth()->user()->business->receipt_note : 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.');
+                @endphp
+                <p class="mb-1 fw-bold text-dark">{{ $bizFooter }}</p>
+                @if($bizNote)
+                    <p class="mb-0 text-muted" style="font-size: 0.75rem;">{{ $bizNote }}</p>
+                @endif
                 <p class="mb-0 mt-2 text-secondary" style="font-size: 0.7rem;">Untung Klik - Sistem Buku Kas Digital & Kasir UMKM</p>
             </div>
         </div>
@@ -192,7 +209,7 @@
 @push('scripts')
 <script>
     function shareToWhatsApp() {
-        const storeName = "{{ auth()->user()->business ? auth()->user()->business->name : 'Untung Klik' }}";
+        const storeName = "{{ $sale->business ? $sale->business->name : (auth()->user()->business ? auth()->user()->business->name : 'Untung Klik') }}";
         const invoiceNo = "{{ $sale->formatted_invoice_number }}";
         const dateStr = "{{ $sale->transaction_date->format('d/m/Y') }}";
         const customer = "{{ $sale->customer_name ?: 'Pelanggan Umum' }}";

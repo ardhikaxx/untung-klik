@@ -17,6 +17,8 @@ class Business extends Model
         'type',
         'phone',
         'address',
+        'receipt_footer',
+        'receipt_note',
         'logo',
         'is_active',
     ];

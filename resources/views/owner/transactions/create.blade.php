@@ -133,7 +133,7 @@
                             <i class="fas fa-check-circle me-1"></i>Simpan Transaksi
                         </button>
                         <a href="{{ route('owner.transactions.index') }}" class="btn btn-uk-outline">
-                            Batal
+                            <i class="fas fa-times me-1"></i>Batal
                         </a>
                     </div>
                 </form>

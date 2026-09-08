@@ -85,7 +85,7 @@
         </div>
 
         <button type="submit" class="btn-primary-custom">
-            Simpan PIN Baru
+            <i class="fas fa-key me-1.5"></i>Simpan PIN Baru
         </button>
     </form>
 

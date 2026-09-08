@@ -14,7 +14,7 @@
             <i class="fas fa-chart-line me-1.5"></i>Laporan Penjualan
         </a>
         <a href="{{ route('owner.sales.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs fw-bold">
-            <i class="fas fa-cash-register me-1.5"></i>+ Catat Penjualan Baru
+            <i class="fas fa-cash-register me-1.5"></i>Catat Penjualan Baru
         </a>
     </div>
 </div>

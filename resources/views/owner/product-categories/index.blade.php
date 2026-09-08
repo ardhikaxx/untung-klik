@@ -14,7 +14,7 @@
             <i class="fas fa-box me-1.5"></i>Lihat Produk
         </a>
         <button type="button" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs fw-bold" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-            <i class="fas fa-plus me-1.5"></i>+ Tambah Kategori
+            <i class="fas fa-plus me-1.5"></i>Tambah Kategori
         </button>
     </div>
 </div>
@@ -114,8 +114,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer border-top py-2.5 px-4 bg-light">
-                                                    <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 fw-bold">Simpan Perubahan</button>
+                                                    <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" data-bs-dismiss="modal">
+                                                        <i class="fas fa-times me-1.5"></i>Batal
+                                                    </button>
+                                                    <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 fw-bold">
+                                                        <i class="fas fa-save me-1.5"></i>Simpan Perubahan
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -156,8 +160,12 @@
                     </div>
                 </div>
                 <div class="modal-footer border-top py-2.5 px-4 bg-light">
-                    <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 fw-bold">Simpan Kategori</button>
+                    <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1.5"></i>Batal
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 fw-bold">
+                        <i class="fas fa-save me-1.5"></i>Simpan Kategori
+                    </button>
                 </div>
             </form>
         </div>

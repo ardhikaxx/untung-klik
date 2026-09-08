@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Catat Kas Masuk')
 
@@ -133,7 +133,9 @@
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                        <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">Batal</a>
+                        <a href="{{ route('karyawan.transactions.index') }}" class="btn btn-sm btn-uk-secondary rounded-pill px-3">
+                            <i class="fas fa-times me-1.5"></i>Batal
+                        </a>
                         <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-4 shadow-xs fw-bold">
                             <i class="fas fa-save me-1.5"></i>Simpan Kas Masuk
                         </button>

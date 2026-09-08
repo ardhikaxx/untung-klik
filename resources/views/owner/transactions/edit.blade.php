@@ -136,7 +136,7 @@
                             <i class="fas fa-save me-1"></i>Perbarui Transaksi
                         </button>
                         <a href="{{ route('owner.transactions.index') }}" class="btn btn-uk-outline">
-                            Batal
+                            <i class="fas fa-times me-1"></i>Batal
                         </a>
                     </div>
                 </form>

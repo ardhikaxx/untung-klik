@@ -52,7 +52,7 @@
                     @if($categories->isNotEmpty())
                     <div class="d-flex gap-1.5 flex-wrap mt-2.5 pt-2 border-top">
                         <button type="button" class="btn btn-xs btn-uk-primary category-filter-btn active py-1 px-2.5 rounded-pill"
-                                onclick="filterByCategory('all', this)" style="font-size: 0.75rem;">Semua Kategori</button>
+                                onclick="filterByCategory('all', this)" style="font-size: 0.75rem;"><i class="fas fa-layer-group me-1"></i>Semua Kategori</button>
                         @foreach($categories as $c)
                             <button type="button" class="btn btn-xs btn-uk-ghost category-filter-btn py-1 px-2.5 rounded-pill"
                                     onclick="filterByCategory('{{ $c->id }}', this)" style="font-size: 0.75rem;">
@@ -100,7 +100,7 @@
                         <i class="fas fa-shopping-cart text-primary me-2"></i>Daftar Item Belanja
                     </h6>
                     <button type="button" class="btn btn-xs btn-uk-outline rounded-pill px-3" onclick="addItemRow()">
-                        <i class="fas fa-plus me-1"></i>+ Tambah Baris
+                        <i class="fas fa-plus me-1"></i>Tambah Baris
                     </button>
                 </div>
                 <div class="p-0">
@@ -222,11 +222,21 @@
 
                     <!-- Quick Cash Shortcuts -->
                     <div class="d-flex gap-1 flex-wrap mb-3">
-                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="setExactCash()">Uang Pas</button>
-                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(10000)">+10rb</button>
-                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(20000)">+20rb</button>
-                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(50000)">+50rb</button>
-                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(100000)">+100rb</button>
+                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="setExactCash()">
+                            <i class="fas fa-check me-1"></i>Uang Pas
+                        </button>
+                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(10000)">
+                            <i class="fas fa-plus me-1"></i>10rb
+                        </button>
+                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(20000)">
+                            <i class="fas fa-plus me-1"></i>20rb
+                        </button>
+                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(50000)">
+                            <i class="fas fa-plus me-1"></i>50rb
+                        </button>
+                        <button type="button" class="btn btn-xs btn-uk-outline py-1 px-2 rounded small" onclick="addCashShortcut(100000)">
+                            <i class="fas fa-plus me-1"></i>100rb
+                        </button>
                     </div>
 
                     <!-- Kembalian Display -->
@@ -245,7 +255,9 @@
                 <button type="submit" class="btn btn-uk-primary w-100 py-3 fw-bold fs-6 shadow-xs rounded-pill" id="submitBtn">
                     <i class="fas fa-check-circle me-1.5"></i>Simpan & Cetak Struk
                 </button>
-                <a href="{{ route('karyawan.sales.index') }}" class="btn btn-uk-secondary w-100 mt-2 btn-sm rounded-pill">Batal</a>
+                <a href="{{ route('karyawan.sales.index') }}" class="btn btn-uk-secondary w-100 mt-2 btn-sm rounded-pill">
+                    <i class="fas fa-times me-1.5"></i>Batal
+                </a>
                 </div>
             </div>
         </div>
@@ -508,11 +520,15 @@
                     </td>
                     <td>
                         <div class="input-group input-group-sm justify-content-center">
-                            <button type="button" class="btn btn-outline-secondary px-2" onclick="updateCartQty(${index}, -1)">-</button>
+                            <button type="button" class="btn btn-outline-secondary px-2" onclick="updateCartQty(${index}, -1)">
+                                <i class="fas fa-minus" style="font-size: 0.7rem;"></i>
+                            </button>
                             <input type="number" class="form-control text-center px-1" name="items[${index}][quantity]"
                                    value="${item.qty}" min="1" max="${product.stock || 1}" required
                                    style="max-width: 55px;" onchange="onManualQtyInput(${index}, this)">
-                            <button type="button" class="btn btn-outline-secondary px-2" onclick="updateCartQty(${index}, 1)">+</button>
+                            <button type="button" class="btn btn-outline-secondary px-2" onclick="updateCartQty(${index}, 1)">
+                                <i class="fas fa-plus" style="font-size: 0.7rem;"></i>
+                            </button>
                         </div>
                     </td>
                     <td class="text-end fw-bold text-dark fs-6" id="row-subtotal-${index}">

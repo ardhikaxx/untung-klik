@@ -52,7 +52,7 @@
         </div>
 
         <button type="submit" class="btn-primary-custom">
-            Kirim Link Reset PIN
+            <i class="fas fa-paper-plane me-1.5"></i>Kirim Link Reset PIN
         </button>
     </form>
 

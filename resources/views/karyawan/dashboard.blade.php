@@ -40,7 +40,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(19, 21, 21, 0.12); font-size: 0.78rem;">
                 <span class="fw-semibold" style="color: var(--uk-dark);"><i class="fas fa-calendar-day me-1 opacity-75"></i>Shift Aktif Hari Ini</span>
                 <a href="{{ route('karyawan.sales.create') }}" class="fw-bold" style="color: var(--uk-dark);">
-                    Buka Kasir &rarr;
+                    Buka Kasir <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid var(--uk-border); font-size: 0.78rem;">
                 <span class="text-muted"><i class="fas fa-clock me-1 text-primary"></i>Struk kasir hari ini</span>
                 <a href="{{ route('karyawan.sales.index') }}" class="text-primary fw-semibold">
-                    Daftar Nota &rarr;
+                    Daftar Nota <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.12); font-size: 0.78rem;">
                 <span class="text-white-50"><i class="fas fa-shield-alt me-1"></i>Akumulasi catatan Anda</span>
                 <a href="{{ route('karyawan.reports.index') }}" style="color: var(--uk-accent); font-weight: 600;">
-                    Riwayat Shift &rarr;
+                    Riwayat Shift <i class="fas fa-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>

@@ -17,7 +17,7 @@
             <i class="fas fa-layer-group me-1.5"></i>Kategori
         </a>
         <a href="{{ route('owner.products.create') }}" class="btn btn-sm btn-uk-primary rounded-pill px-3.5 shadow-xs fw-bold">
-            <i class="fas fa-plus me-1.5"></i>+ Tambah Produk
+            <i class="fas fa-plus me-1.5"></i>Tambah Produk
         </a>
     </div>
 </div>

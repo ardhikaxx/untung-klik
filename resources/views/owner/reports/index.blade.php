@@ -55,7 +55,7 @@
                     <button type="button"
                             class="btn btn-sm {{ $period === 'custom' ? 'btn-uk-primary' : 'btn-uk-outline' }}"
                             id="btnCustomPeriod">
-                        Custom
+                        <i class="fas fa-calendar-alt me-1.5"></i>Custom
                     </button>
                 </div>
 

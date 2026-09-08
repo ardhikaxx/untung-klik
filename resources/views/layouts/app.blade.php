@@ -116,9 +116,13 @@
                             <i class="fas fa-users-cog"></i>
                             <span>Kelola Pengguna</span>
                         </a>
+                        <a href="{{ route('owner.receipt.index') }}" class="uk-nav-item {{ request()->routeIs('owner.receipt.*') ? 'active' : '' }}">
+                            <i class="fas fa-receipt"></i>
+                            <span>Pengaturan Nota</span>
+                        </a>
                         <a href="{{ route('owner.profile') }}" class="uk-nav-item {{ request()->routeIs('owner.profile') ? 'active' : '' }}">
                             <i class="fas fa-store"></i>
-                            <span>Profil Usaha</span>
+                            <span>Profil Usaha & Akun</span>
                         </a>
                     </div>
                 @else

@@ -13,6 +13,7 @@ use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\OperationalExpenseController;
 use App\Http\Controllers\Owner\ProductCategoryController;
 use App\Http\Controllers\Owner\ProductController;
+use App\Http\Controllers\Owner\ReceiptSettingController;
 use App\Http\Controllers\Owner\ReportController;
 use App\Http\Controllers\Owner\SaleController;
 use App\Http\Controllers\Owner\StockController;
@@ -79,6 +80,10 @@ Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner,admin'])
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/pin', [ProfileController::class, 'changePin'])->name('profile.pin');
+
+    // Pengaturan Nota & Toko
+    Route::get('/receipt-settings', [ReceiptSettingController::class, 'index'])->name('receipt.index');
+    Route::put('/receipt-settings', [ReceiptSettingController::class, 'update'])->name('receipt.update');
 
     // Export Keuangan
     Route::get('/export/pdf', [ExportController::class, 'exportPdf'])->name('export.pdf');
