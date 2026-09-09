@@ -31,7 +31,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Total Produk
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-boxes-stacked"></i>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Stok Menipis
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.25); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-triangle-exclamation"></i>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Stok Habis
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(229, 88, 18, 0.15); color: var(--uk-orange); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-circle-xmark"></i>
                     </div>
                 </div>
@@ -220,9 +220,9 @@
                                         Menipis
                                     </span>
                                 @else
-                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(51, 153, 137, 0.15); color: var(--uk-primary); font-size: 0.68rem;">
-                                        Aman
-                                    </span>
+                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(149, 198, 35, 0.18); color: #2e4206; font-size: 0.68rem;">
+                                         Aman
+                                     </span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -230,7 +230,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-sm border-0 bg-transparent p-0" title="Klik untuk mengubah status aktif/nonaktif">
                                         @if($product->is_active)
-                                            <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(51, 153, 137, 0.15); color: var(--uk-primary); font-size: 0.7rem;">Aktif</span>
+                                            <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(14, 71, 73, 0.12); color: var(--uk-primary); font-size: 0.7rem;">Aktif</span>
                                         @else
                                             <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-0.5 rounded-pill" style="font-size: 0.7rem;">Nonaktif</span>
                                         @endif
