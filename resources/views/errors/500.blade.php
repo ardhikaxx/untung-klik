@@ -15,31 +15,31 @@
 
     <style>
         body {
-            background-color: #FFFAFB;
+            background-color: #F4F7F6;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #131515;
+            color: #002626;
         }
         .error-card {
             max-width: 480px;
             width: 100%;
-            background: #FFFAFB;
+            background: #FFFFFF;
             border-radius: 16px;
             padding: 40px 32px;
             text-align: center;
-            box-shadow: 0 4px 20px -2px rgba(19, 21, 21, 0.06);
-            border: 1px solid rgba(43, 44, 40, 0.12);
+            box-shadow: 0 4px 20px -2px rgba(0, 38, 38, 0.08);
+            border: 1px solid rgba(14, 71, 73, 0.14);
         }
         .error-icon {
             width: 72px;
             height: 72px;
             border-radius: 50%;
-            background-color: rgba(43, 44, 40, 0.1);
-            color: #2B2C28;
+            background-color: rgba(229, 88, 18, 0.15);
+            color: #E55812;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -53,7 +53,7 @@
         <div class="error-icon">
             <i class="fas fa-triangle-exclamation"></i>
         </div>
-        <h3 class="fw-bold mb-2" style="color: #131515;">Terjadi Kendala Sistem (500)</h3>
+        <h3 class="fw-bold mb-2" style="color: #002626;">Terjadi Kendala Sistem (500)</h3>
         <p class="text-muted mb-4" style="font-size: 0.9rem;">
             Mohon maaf, sistem sedang mengalami kendala internal sementara. Silakan coba muat ulang atau kembali ke dashboard.
         </p>
