@@ -21,14 +21,14 @@
 
     <style>
         body {
-            background-color: #FFFAFB;
+            background-color: #F4F7F6;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 24px 16px;
-            color: #131515;
+            color: #002626;
         }
 
         .auth-wrapper {
@@ -37,10 +37,10 @@
         }
 
         .auth-card {
-            background: #FFFAFB;
+            background: #FFFFFF;
             border-radius: 16px;
-            border: 1px solid rgba(43, 44, 40, 0.12);
-            box-shadow: 0 4px 20px -2px rgba(19, 21, 21, 0.06), 0 2px 6px -1px rgba(19, 21, 21, 0.03);
+            border: 1px solid rgba(14, 71, 73, 0.14);
+            box-shadow: 0 4px 20px -2px rgba(0, 38, 38, 0.08), 0 2px 6px -1px rgba(0, 38, 38, 0.04);
             padding: 38px 34px;
         }
 
@@ -52,28 +52,28 @@
         .auth-brand .brand-icon {
             width: 52px;
             height: 52px;
-            background-color: #339989;
+            background-color: #0E4749;
             border-radius: 14px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 14px;
-            color: #FFFAFB;
+            color: #FFFFFF;
             font-size: 22px;
         }
 
         .auth-brand h1 {
             font-size: 22px;
             font-weight: 800;
-            color: #131515;
+            color: #002626;
             margin-bottom: 4px;
             letter-spacing: -0.025em;
         }
 
         .auth-brand p {
             font-size: 13px;
-            color: #2B2C28;
-            opacity: 0.75;
+            color: #4A6363;
+            opacity: 0.9;
             line-height: 1.5;
             margin: 0;
         }
@@ -81,21 +81,21 @@
         .auth-form .form-label {
             font-size: 13px;
             font-weight: 600;
-            color: #131515;
+            color: #002626;
             margin-bottom: 6px;
         }
 
         .input-group {
             border-radius: 10px;
             overflow: hidden;
-            border: 1.5px solid rgba(43, 44, 40, 0.15);
+            border: 1.5px solid rgba(14, 71, 73, 0.18);
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            background: #FFFAFB;
+            background: #FFFFFF;
         }
 
         .input-group:focus-within {
-            border-color: #339989;
-            box-shadow: 0 0 0 3px rgba(51, 153, 137, 0.15);
+            border-color: #0E4749;
+            box-shadow: 0 0 0 3px rgba(14, 71, 73, 0.18);
         }
 
         .input-group .input-icon {
@@ -103,16 +103,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #FFFAFB;
-            border-right: 1.5px solid rgba(43, 44, 40, 0.15);
-            color: #2B2C28;
+            background: #EEF4F2;
+            border-right: 1.5px solid rgba(14, 71, 73, 0.18);
+            color: #4A6363;
             font-size: 14px;
         }
 
         .input-group:focus-within .input-icon {
-            background: rgba(125, 226, 209, 0.15);
-            color: #339989;
-            border-right-color: #339989;
+            background: rgba(149, 198, 35, 0.18);
+            color: #0E4749;
+            border-right-color: #0E4749;
         }
 
         .input-group .form-control {
@@ -121,7 +121,7 @@
             padding: 11px 14px;
             font-size: 14px;
             font-weight: 500;
-            color: #131515;
+            color: #002626;
             background: transparent;
             height: 46px;
         }
@@ -132,14 +132,14 @@
         }
 
         .input-group .form-control::placeholder {
-            color: rgba(43, 44, 40, 0.45);
+            color: rgba(74, 99, 99, 0.55);
             font-weight: 400;
         }
 
         .btn-toggle-pin {
             background: none;
             border: none;
-            color: #2B2C28;
+            color: #4A6363;
             padding: 0 14px;
             cursor: pointer;
             display: flex;
@@ -149,7 +149,7 @@
         }
 
         .btn-toggle-pin:hover {
-            color: #339989;
+            color: #0E4749;
         }
 
         .btn-primary-custom {
@@ -157,8 +157,8 @@
             height: 46px;
             border: none;
             border-radius: 10px;
-            background-color: #339989;
-            color: #FFFAFB;
+            background-color: #0E4749;
+            color: #FFFFFF;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
@@ -167,8 +167,8 @@
         }
 
         .btn-primary-custom:hover {
-            background-color: #2B2C28;
-            color: #FFFAFB;
+            background-color: #002626;
+            color: #FFFFFF;
         }
 
         .btn-primary-custom:active {
@@ -179,25 +179,25 @@
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
-            color: #2B2C28;
-            opacity: 0.8;
+            color: #4A6363;
+            opacity: 0.9;
         }
 
         .auth-link a {
-            color: #339989;
+            color: #0E4749;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.2s ease;
         }
 
         .auth-link a:hover {
-            color: #2B2C28;
+            color: #002626;
             text-decoration: underline;
         }
 
         .text-danger-custom {
             font-size: 12px;
-            color: #2B2C28;
+            color: #E55812;
             margin-top: 6px;
             display: block;
         }
@@ -227,9 +227,9 @@
             text: {!! json_encode(session('success')) !!},
             timer: 3000,
             timerProgressBar: true,
-            confirmButtonColor: '#339989',
+            confirmButtonColor: '#0E4749',
             confirmButtonText: 'Tutup',
-            background: '#FFFAFB'
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -240,9 +240,9 @@
             icon: 'error',
             title: 'Gagal',
             text: {!! json_encode(session('error')) !!},
-            confirmButtonColor: '#339989',
+            confirmButtonColor: '#0E4749',
             confirmButtonText: 'Mengerti',
-            background: '#FFFAFB'
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -253,9 +253,9 @@
             icon: 'warning',
             title: 'Perhatian',
             text: {!! json_encode(session('warning')) !!},
-            confirmButtonColor: '#339989',
+            confirmButtonColor: '#0E4749',
             confirmButtonText: 'Mengerti',
-            background: '#FFFAFB'
+            background: '#FFFFFF'
         });
     </script>
     @endif
