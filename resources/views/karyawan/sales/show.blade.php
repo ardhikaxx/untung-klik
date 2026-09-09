@@ -31,7 +31,7 @@
             <!-- Header Toko / Struk -->
             <div class="text-center border-bottom pb-4 mb-4">
                 <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                    <div style="width: 40px; height: 40px; border-radius: 10px; background-color: var(--uk-primary); color: #FFFAFB; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+                    <div style="width: 40px; height: 40px; border-radius: 10px; background-color: var(--uk-primary); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
                         <i class="fas fa-store"></i>
                     </div>
                     <h4 class="fw-bold text-dark mb-0" style="letter-spacing: -0.02em;">
@@ -176,8 +176,8 @@
             size: auto;
         }
         body {
-            background: #FFFAFB !important;
-            color: #131515 !important;
+            background: #FFFFFF !important;
+            color: #002626 !important;
         }
         body * {
             visibility: hidden;
