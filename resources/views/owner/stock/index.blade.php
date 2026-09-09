@@ -24,7 +24,7 @@
     <div class="row g-3 mb-4">
         @if($outOfStockProducts->isNotEmpty())
             <div class="col-12 col-lg-6">
-                <div class="uk-card border-danger-subtle p-0 overflow-hidden" style="background-color: rgba(43, 44, 40, 0.04); border-left: 4px solid var(--uk-dark-secondary) !important;">
+                <div class="uk-card border-danger-subtle p-0 overflow-hidden" style="background-color: rgba(229, 88, 18, 0.05); border-left: 4px solid var(--uk-orange) !important;">
                     <div class="p-3 px-4 border-bottom bg-white d-flex justify-content-between align-items-center">
                         <span class="fw-bold text-danger" style="font-size: 0.88rem;">
                             <i class="fas fa-circle-xmark me-1.5"></i>Stok Habis ({{ $outOfStockProducts->count() }} Produk)
@@ -55,7 +55,7 @@
 
         @if($lowStockProducts->isNotEmpty())
             <div class="col-12 col-lg-6">
-                <div class="uk-card border-warning-subtle p-0 overflow-hidden" style="background-color: rgba(125, 226, 209, 0.12); border-left: 4px solid var(--uk-accent) !important;">
+                <div class="uk-card border-warning-subtle p-0 overflow-hidden" style="background-color: rgba(229, 88, 18, 0.05); border-left: 4px solid var(--uk-orange) !important;">
                     <div class="p-3 px-4 border-bottom bg-white d-flex justify-content-between align-items-center">
                         <span class="fw-bold text-warning-emphasis" style="font-size: 0.88rem;">
                             <i class="fas fa-triangle-exclamation text-warning me-1.5"></i>Stok Menipis ({{ $lowStockProducts->count() }} Produk)
