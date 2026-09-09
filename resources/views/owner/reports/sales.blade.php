@@ -113,7 +113,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.12); color: #339989;">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(149, 198, 35, 0.18); color: #95C623;">
                         <i class="fas fa-cash-register"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total Omset</div>
@@ -126,7 +126,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(19, 21, 21, 0.1); color: var(--uk-dark);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(0, 38, 38, 0.08); color: var(--uk-dark);">
                         <i class="fas fa-tags"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total HPP (Modal)</div>
@@ -139,7 +139,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                         <i class="fas fa-coins"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Laba Kotor (Gross)</div>
@@ -153,7 +153,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(125, 226, 209, 0.25); color: #131515;">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                         <i class="fas fa-receipt"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Transaksi Selesai</div>
@@ -166,7 +166,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(125, 226, 209, 0.3); color: var(--uk-dark);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                         <i class="fas fa-boxes-stacked"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Barang Terjual</div>
@@ -179,7 +179,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(43, 44, 40, 0.12); color: var(--uk-dark-secondary);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(0, 38, 38, 0.08); color: var(--uk-dark);">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Rata-rata/Nota (AOV)</div>
