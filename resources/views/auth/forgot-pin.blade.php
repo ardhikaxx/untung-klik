@@ -13,15 +13,15 @@
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); border-left: 4px solid var(--uk-primary) !important; border-radius: 8px;">
-            <i class="fas fa-check-circle me-2" style="color: var(--uk-primary);"></i>
+        <div class="alert alert-success d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(149, 198, 35, 0.15); color: #2e4206; border-left: 4px solid var(--uk-accent) !important; border-radius: 8px;">
+            <i class="fas fa-check-circle me-2" style="color: var(--uk-accent);"></i>
             <div>{{ session('success') }}</div>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); border-left: 4px solid var(--uk-dark-secondary) !important; border-radius: 8px;">
-            <i class="fas fa-exclamation-circle me-2" style="color: var(--uk-dark-secondary);"></i>
+        <div class="alert alert-danger d-flex align-items-center mb-3 py-2 px-3 small border-0 shadow-xs" style="background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); border-left: 4px solid var(--uk-orange) !important; border-radius: 8px;">
+            <i class="fas fa-exclamation-circle me-2" style="color: var(--uk-orange);"></i>
             <div>{{ session('error') }}</div>
         </div>
     @endif
@@ -70,7 +70,7 @@
             icon: 'error',
             title: 'Gagal Memproses',
             html: '<ul class="text-start mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>',
-            confirmButtonColor: '#339989',
+            confirmButtonColor: '#0E4749',
             confirmButtonText: 'Periksa Kembali'
         });
     @endif
