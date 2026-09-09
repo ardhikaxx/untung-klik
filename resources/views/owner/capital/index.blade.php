@@ -18,7 +18,7 @@
     <div class="col-md-5 col-xl-4">
         <div class="card uk-stat-card border-0">
             <div class="card-body p-4 d-flex align-items-center">
-                <div class="uk-stat-icon me-3" style="background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
+                <div class="uk-stat-icon me-3" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                     <i class="fas fa-coins fa-lg"></i>
                 </div>
                 <div>
@@ -115,7 +115,7 @@
                     <tr>
                         <td colspan="7" class="text-center py-5">
                             <div class="mb-3">
-                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(14, 71, 73, 0.1); color: var(--uk-primary);">
                                     <i class="fas fa-coins fa-lg"></i>
                                 </div>
                             </div>
@@ -153,8 +153,8 @@ document.querySelectorAll('.btn-delete').forEach(function(btn) {
             text: 'Data modal yang dihapus tidak dapat dikembalikan.',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#2B2C28',
-            cancelButtonColor: '#131515',
+            confirmButtonColor: '#E55812',
+            cancelButtonColor: '#002626',
             confirmButtonText: 'Ya, Hapus',
             cancelButtonText: 'Batal'
         }).then(function(result) {
