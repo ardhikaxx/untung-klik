@@ -29,9 +29,9 @@
                     <i class="fas fa-chart-area me-2 text-primary"></i>Tren Arus Kas Usaha
                 </h6>
                 <div class="d-flex align-items-center gap-3 small">
-                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #339989; display: inline-block;"></span> Pemasukan</span>
-                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #7DE2D1; display: inline-block;"></span> Pengeluaran</span>
-                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #2B2C28; display: inline-block;"></span> Laba Bersih</span>
+                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #95C623; display: inline-block;"></span> Pemasukan</span>
+                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #E55812; display: inline-block;"></span> Pengeluaran</span>
+                    <span class="d-inline-flex align-items-center gap-1"><span style="width: 10px; height: 10px; border-radius: 50%; background: #0E4749; display: inline-block;"></span> Laba Bersih</span>
                 </div>
             </div>
             <div class="card-body p-4">
@@ -72,43 +72,43 @@
                             {
                                 label: 'Pemasukan',
                                 data: data.income,
-                                borderColor: '#339989',
-                                backgroundColor: 'rgba(51, 153, 137, 0.1)',
+                                borderColor: '#95C623',
+                                backgroundColor: 'rgba(149, 198, 35, 0.12)',
                                 borderWidth: 2.5,
                                 fill: true,
                                 tension: 0.35,
                                 pointRadius: 3,
                                 pointHoverRadius: 6,
-                                pointBackgroundColor: '#339989',
-                                pointBorderColor: '#FFFAFB',
+                                pointBackgroundColor: '#95C623',
+                                pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
                             },
                             {
                                 label: 'Pengeluaran',
                                 data: data.expense,
-                                borderColor: '#7DE2D1',
-                                backgroundColor: 'rgba(125, 226, 209, 0.15)',
+                                borderColor: '#E55812',
+                                backgroundColor: 'rgba(229, 88, 18, 0.12)',
                                 borderWidth: 2.5,
                                 fill: true,
                                 tension: 0.35,
                                 pointRadius: 3,
                                 pointHoverRadius: 6,
-                                pointBackgroundColor: '#7DE2D1',
-                                pointBorderColor: '#FFFAFB',
+                                pointBackgroundColor: '#E55812',
+                                pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
                             },
                             {
                                 label: 'Laba Bersih',
                                 data: data.profit,
-                                borderColor: '#2B2C28',
-                                backgroundColor: 'rgba(43, 44, 40, 0.08)',
+                                borderColor: '#0E4749',
+                                backgroundColor: 'rgba(14, 71, 73, 0.08)',
                                 borderWidth: 2.5,
                                 fill: true,
                                 tension: 0.35,
                                 pointRadius: 3,
                                 pointHoverRadius: 6,
-                                pointBackgroundColor: '#131515',
-                                pointBorderColor: '#FFFAFB',
+                                pointBackgroundColor: '#002626',
+                                pointBorderColor: '#FFFFFF',
                                 pointBorderWidth: 2,
                             }
                         ]
@@ -131,11 +131,11 @@
                                         family: "'Plus Jakarta Sans', sans-serif",
                                         weight: '600'
                                     },
-                                    color: '#2B2C28'
+                                    color: '#002626'
                                 }
                             },
                             tooltip: {
-                                backgroundColor: '#131515',
+                                backgroundColor: '#002626',
                                 titleFont: { size: 12, family: "'Plus Jakarta Sans', sans-serif", weight: '600' },
                                 bodyFont: { size: 11, family: "'Plus Jakarta Sans', sans-serif" },
                                 padding: 12,
@@ -157,14 +157,14 @@
                                         size: 11,
                                         family: "'Plus Jakarta Sans', sans-serif"
                                     },
-                                    color: '#2B2C28',
+                                    color: '#002626',
                                     maxRotation: 45,
                                 }
                             },
                             y: {
                                 beginAtZero: true,
                                 grid: {
-                                    color: 'rgba(19, 21, 21, 0.05)',
+                                    color: 'rgba(0, 38, 38, 0.06)',
                                     drawBorder: false,
                                 },
                                 ticks: {
@@ -172,7 +172,7 @@
                                         size: 11,
                                         family: "'Plus Jakarta Sans', sans-serif"
                                     },
-                                    color: '#2B2C28',
+                                    color: '#002626',
                                     callback: function(value) {
                                         if (value >= 1000000) {
                                             return 'Rp ' + (value / 1000000).toFixed(0) + 'jt';
