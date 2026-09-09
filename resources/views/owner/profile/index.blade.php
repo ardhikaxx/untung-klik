@@ -15,7 +15,7 @@
 <div class="card uk-card border-0 mb-4">
     <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div class="d-flex align-items-center gap-3">
-            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 58px; height: 58px; background-color: var(--uk-dark); color: #FFFAFB;">
+            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 58px; height: 58px; background-color: var(--uk-dark); color: #FFFFFF;">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
             <div>
@@ -216,9 +216,9 @@
             icon: 'error',
             title: 'Gagal Memperbarui',
             text: '{{ $errors->first() }}',
-            confirmButtonColor: '#339989',
+            confirmButtonColor: '#0E4749',
             confirmButtonText: 'Tutup',
-            background: '#FFFAFB'
+            background: '#FFFFFF'
         });
     @endif
 </script>
