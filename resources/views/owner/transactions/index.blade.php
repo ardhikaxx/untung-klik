@@ -73,7 +73,7 @@
         @if($transactions->isEmpty())
             <div class="text-center py-5">
                 <div class="mb-3">
-                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: rgba(14, 71, 73, 0.1); color: var(--uk-primary);">
                         <i class="fas fa-wallet fa-2x"></i>
                     </div>
                 </div>
@@ -210,8 +210,8 @@
                 text: 'Transaksi yang dihapus akan dikeluarkan dari buku kas dan tidak dapat dikembalikan.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#2B2C28',
-                cancelButtonColor: '#131515',
+                confirmButtonColor: '#E55812',
+                cancelButtonColor: '#002626',
                 confirmButtonText: 'Ya, Hapus',
                 cancelButtonText: 'Batal'
             }).then(function(result) {
