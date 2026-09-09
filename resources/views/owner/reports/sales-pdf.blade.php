@@ -14,8 +14,8 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 11px;
-            color: #131515;
-            background-color: #FFFAFB;
+            color: #002626;
+            background-color: #FFFFFF;
             line-height: 1.4;
             padding: 24px;
         }
@@ -24,13 +24,13 @@
             text-align: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2.5px solid #339989;
+            border-bottom: 2.5px solid #0E4749;
         }
 
         .header h1 {
             font-size: 18px;
             font-weight: bold;
-            color: #131515;
+            color: #002626;
             margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -38,19 +38,19 @@
 
         .header .subtitle {
             font-size: 13px;
-            color: #2B2C28;
+            color: #0E4749;
             font-weight: 600;
             margin-bottom: 6px;
         }
 
         .header .period {
             font-size: 11px;
-            color: #131515;
-            background-color: rgba(125, 226, 209, 0.2);
+            color: #002626;
+            background-color: rgba(14, 71, 73, 0.08);
             display: inline-block;
             padding: 4px 14px;
             border-radius: 4px;
-            border: 1px solid #7DE2D1;
+            border: 1px solid rgba(14, 71, 73, 0.25);
             font-weight: 600;
         }
 
@@ -62,7 +62,8 @@
 
         .meta-table td {
             font-size: 10.5px;
-            color: #2B2C28;
+            color: #002626;
+            opacity: 0.85;
             border: none;
             padding: 2px 0;
         }
@@ -70,10 +71,10 @@
         .section-title {
             font-size: 12.5px;
             font-weight: bold;
-            color: #131515;
+            color: #002626;
             margin-bottom: 8px;
             padding-bottom: 4px;
-            border-bottom: 1px solid rgba(43, 44, 40, 0.12);
+            border-bottom: 1px solid rgba(0, 38, 38, 0.12);
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
@@ -86,8 +87,8 @@
         }
 
         .kpi-box {
-            background-color: #FFFAFB;
-            border: 1px solid rgba(43, 44, 40, 0.12);
+            background-color: #F4F7F6;
+            border: 1px solid rgba(0, 38, 38, 0.1);
             border-radius: 5px;
             padding: 8px 10px;
             text-align: center;
@@ -95,8 +96,8 @@
 
         .kpi-box .label {
             font-size: 9px;
-            color: #2B2C28;
-            opacity: 0.8;
+            color: #002626;
+            opacity: 0.75;
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 3px;
@@ -115,37 +116,37 @@
         }
 
         table.data-table thead {
-            background-color: rgba(125, 226, 209, 0.15);
+            background-color: rgba(14, 71, 73, 0.08);
         }
 
         table.data-table th {
             padding: 6px 8px;
             text-align: left;
             font-weight: bold;
-            color: #131515;
-            border-top: 1px solid rgba(43, 44, 40, 0.15);
-            border-bottom: 1.5px solid rgba(43, 44, 40, 0.2);
+            color: #002626;
+            border-top: 1px solid rgba(0, 38, 38, 0.12);
+            border-bottom: 1.5px solid rgba(0, 38, 38, 0.2);
             font-size: 9.5px;
             text-transform: uppercase;
         }
 
         table.data-table td {
             padding: 6px 8px;
-            border-bottom: 1px solid rgba(43, 44, 40, 0.08);
+            border-bottom: 1px solid rgba(0, 38, 38, 0.08);
             vertical-align: middle;
         }
 
         table.data-table tr:nth-child(even) td {
-            background-color: rgba(125, 226, 209, 0.04);
+            background-color: rgba(14, 71, 73, 0.02);
         }
 
         .text-end { text-align: right; }
         .text-center { text-align: center; }
 
-        .text-success { color: #339989; }
-        .text-danger { color: #2B2C28; }
-        .text-primary { color: #339989; }
-        .text-muted { color: #2B2C28; opacity: 0.75; }
+        .text-success { color: #95C623; }
+        .text-danger { color: #E55812; }
+        .text-primary { color: #0E4749; }
+        .text-muted { color: #002626; opacity: 0.65; }
 
         .badge {
             display: inline-block;
@@ -156,27 +157,27 @@
         }
 
         .badge-success {
-            background-color: rgba(51, 153, 137, 0.15);
-            color: #339989;
-            border: 1px solid rgba(51, 153, 137, 0.3);
+            background-color: rgba(149, 198, 35, 0.15);
+            color: #0E4749;
+            border: 1px solid rgba(149, 198, 35, 0.4);
         }
         .badge-info {
-            background-color: rgba(125, 226, 209, 0.25);
-            color: #131515;
-            border: 1px solid #7DE2D1;
+            background-color: rgba(14, 71, 73, 0.1);
+            color: #0E4749;
+            border: 1px solid rgba(14, 71, 73, 0.25);
         }
         .badge-secondary {
-            background-color: rgba(43, 44, 40, 0.1);
-            color: #2B2C28;
-            border: 1px solid rgba(43, 44, 40, 0.2);
+            background-color: rgba(0, 38, 38, 0.08);
+            color: #002626;
+            border: 1px solid rgba(0, 38, 38, 0.15);
         }
 
         .footer {
             margin-top: 25px;
             padding-top: 10px;
-            border-top: 1px solid rgba(43, 44, 40, 0.12);
+            border-top: 1px solid rgba(0, 38, 38, 0.12);
             font-size: 9.5px;
-            color: #2B2C28;
+            color: #002626;
             opacity: 0.7;
             text-align: center;
         }
@@ -306,7 +307,7 @@
         </tbody>
         @if($sales->isNotEmpty())
         <tfoot>
-            <tr style="background-color: rgba(125, 226, 209, 0.15); font-weight: bold;">
+            <tr style="background-color: rgba(14, 71, 73, 0.08); font-weight: bold;">
                 <td colspan="5" class="text-end">TOTAL KESELURUHAN:</td>
                 <td class="text-end text-muted">{{ format_rupiah($totalHpp) }}</td>
                 <td class="text-end text-muted">{{ format_rupiah($totalDiscount) }}</td>
