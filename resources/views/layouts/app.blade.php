@@ -169,7 +169,7 @@
                 <div class="uk-user-meta">
                     <div class="uk-user-name" title="{{ auth()->user()->name }}">{{ auth()->user()->name }}</div>
                     <div class="uk-user-role">
-                        <span class="badge" style="background-color: {{ auth()->user()->isOwner() ? 'var(--uk-primary)' : 'var(--uk-accent)' }}; color: {{ auth()->user()->isOwner() ? '#FFFAFB' : 'var(--uk-dark)' }}; font-size: 0.65rem; padding: 2px 6px;">
+                        <span class="badge" style="background-color: {{ auth()->user()->isOwner() ? 'var(--uk-primary)' : 'var(--uk-accent)' }}; color: {{ auth()->user()->isOwner() ? '#FFFFFF' : 'var(--uk-dark)' }}; font-size: 0.65rem; padding: 2px 6px;">
                             {{ ucfirst(auth()->user()->role) }}
                         </span>
                     </div>
@@ -247,8 +247,8 @@
             <main class="uk-content-body content-area">
                 {{-- Flash Notifications (Dismissible) --}}
                 @if(session('success') && !request()->routeIs('*.dashboard'))
-                    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); border-left: 4px solid var(--uk-primary) !important; border-radius: var(--uk-radius-sm);">
-                        <i class="fas fa-check-circle fs-5 me-3" style="color: var(--uk-primary);"></i>
+                    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(149, 198, 35, 0.15); color: #2e4206; border-left: 4px solid var(--uk-accent) !important; border-radius: var(--uk-radius-sm);">
+                        <i class="fas fa-check-circle fs-5 me-3" style="color: var(--uk-accent);"></i>
                         <div class="flex-grow-1">
                             <strong class="d-block mb-0.5" style="font-size: 0.85rem;">Berhasil!</strong>
                             <span style="font-size: 0.85rem;">{{ session('success') }}</span>
@@ -258,8 +258,8 @@
                 @endif
 
                 @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); border-left: 4px solid var(--uk-dark-secondary) !important; border-radius: var(--uk-radius-sm);">
-                        <i class="fas fa-exclamation-circle fs-5 me-3" style="color: var(--uk-dark-secondary);"></i>
+                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); border-left: 4px solid var(--uk-orange) !important; border-radius: var(--uk-radius-sm);">
+                        <i class="fas fa-exclamation-circle fs-5 me-3" style="color: var(--uk-orange);"></i>
                         <div class="flex-grow-1">
                             <strong class="d-block mb-0.5" style="font-size: 0.85rem;">Gagal Memproses Permintaan:</strong>
                             <span style="font-size: 0.85rem;">{{ session('error') }}</span>
@@ -269,8 +269,8 @@
                 @endif
 
                 @if(session('warning'))
-                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(125, 226, 209, 0.2); color: var(--uk-dark); border-left: 4px solid var(--uk-accent) !important; border-radius: var(--uk-radius-sm);">
-                        <i class="fas fa-exclamation-triangle fs-5 me-3" style="color: var(--uk-dark);"></i>
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); border-left: 4px solid var(--uk-orange) !important; border-radius: var(--uk-radius-sm);">
+                        <i class="fas fa-exclamation-triangle fs-5 me-3" style="color: var(--uk-orange);"></i>
                         <div class="flex-grow-1">
                             <strong class="d-block mb-0.5" style="font-size: 0.85rem;">Perhatian:</strong>
                             <span style="font-size: 0.85rem;">{{ session('warning') }}</span>
@@ -280,7 +280,7 @@
                 @endif
 
                 @if(session('info'))
-                    <div class="alert alert-info alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(125, 226, 209, 0.2); color: var(--uk-dark); border-left: 4px solid var(--uk-primary) !important; border-radius: var(--uk-radius-sm);">
+                    <div class="alert alert-info alert-dismissible fade show d-flex align-items-center mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(14, 71, 73, 0.12); color: var(--uk-primary); border-left: 4px solid var(--uk-primary) !important; border-radius: var(--uk-radius-sm);">
                         <i class="fas fa-info-circle fs-5 me-3" style="color: var(--uk-primary);"></i>
                         <div class="flex-grow-1">
                             <strong class="d-block mb-0.5" style="font-size: 0.85rem;">Informasi:</strong>
@@ -291,9 +291,9 @@
                 @endif
 
                 @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); border-left: 4px solid var(--uk-dark-secondary) !important; border-radius: var(--uk-radius-sm);">
+                    <div class="alert alert-danger alert-dismissible fade show mb-4 border-0 shadow-xs" role="alert" style="background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); border-left: 4px solid var(--uk-orange) !important; border-radius: var(--uk-radius-sm);">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-times-circle fs-5 me-2" style="color: var(--uk-dark-secondary);"></i>
+                            <i class="fas fa-times-circle fs-5 me-2" style="color: var(--uk-orange);"></i>
                             <strong style="font-size: 0.875rem;">Terdapat beberapa data yang perlu diperiksa:</strong>
                         </div>
                         <ul class="mb-0 ps-4 small">
@@ -353,12 +353,12 @@
                 text: 'Apakah Anda yakin ingin keluar dari sistem Untung Klik?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#339989',
-                cancelButtonColor: '#2B2C28',
+                confirmButtonColor: '#0E4749',
+                cancelButtonColor: '#002626',
                 confirmButtonText: 'Ya, Keluar',
                 cancelButtonText: 'Batal',
                 reverseButtons: true,
-                background: '#FFFAFB'
+                background: '#FFFFFF'
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();
@@ -375,12 +375,12 @@
                 text: message,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#2B2C28',
-                cancelButtonColor: '#131515',
+                confirmButtonColor: '#E55812',
+                cancelButtonColor: '#002626',
                 confirmButtonText: 'Ya, Hapus Data',
                 cancelButtonText: 'Batal',
                 reverseButtons: true,
-                background: '#FFFAFB'
+                background: '#FFFFFF'
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();
@@ -398,8 +398,9 @@
             text: {!! json_encode(session('success')) !!},
             timer: 3000,
             timerProgressBar: true,
-            confirmButtonColor: '#339989',
-            confirmButtonText: 'Tutup'
+            confirmButtonColor: '#0E4749',
+            confirmButtonText: 'Tutup',
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -410,8 +411,9 @@
             icon: 'error',
             title: 'Gagal Memproses',
             text: {!! json_encode(session('error')) !!},
-            confirmButtonColor: '#339989',
-            confirmButtonText: 'Mengerti'
+            confirmButtonColor: '#0E4749',
+            confirmButtonText: 'Mengerti',
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -422,8 +424,9 @@
             icon: 'warning',
             title: 'Perhatian',
             text: {!! json_encode(session('warning')) !!},
-            confirmButtonColor: '#339989',
-            confirmButtonText: 'Mengerti'
+            confirmButtonColor: '#0E4749',
+            confirmButtonText: 'Mengerti',
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -434,8 +437,9 @@
             icon: 'info',
             title: 'Informasi',
             text: {!! json_encode(session('info')) !!},
-            confirmButtonColor: '#339989',
-            confirmButtonText: 'OK'
+            confirmButtonColor: '#0E4749',
+            confirmButtonText: 'OK',
+            background: '#FFFFFF'
         });
     </script>
     @endif
@@ -446,8 +450,9 @@
             icon: 'error',
             title: 'Data Belum Lengkap / Tidak Sesuai',
             html: '<div class="text-start small mt-2"><ul class="mb-0 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul></div>',
-            confirmButtonColor: '#339989',
-            confirmButtonText: 'Periksa Kembali'
+            confirmButtonColor: '#0E4749',
+            confirmButtonText: 'Periksa Kembali',
+            background: '#FFFFFF'
         });
     </script>
     @endif
