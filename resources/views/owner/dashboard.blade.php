@@ -72,31 +72,31 @@
 </div>
 
 <div class="row g-3 mb-4">
-    <!-- 1. Laba Bersih Usaha (HERO DARK CARD #131515) -->
+    <!-- 1. Laba Bersih Usaha (HERO DARK CARD #002626) -->
     <div class="col-12 col-md-4">
         <div class="uk-stat-card-dark h-100 d-flex flex-column justify-content-between">
             <div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 250, 251, 0.7);">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 255, 255, 0.75);">
                         Laba Bersih Usaha
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.2); color: var(--uk-accent); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(149, 198, 35, 0.2); color: var(--uk-accent); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-chart-pie"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline gap-2 mb-1 flex-wrap">
-                    <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: #FFFAFB;">
+                    <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: #FFFFFF;">
                         {{ format_rupiah($netProfit) }}
                     </h3>
                 </div>
             </div>
-            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.12); font-size: 0.78rem;">
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.78rem;">
                 @if($netProfit >= 0)
-                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(125, 226, 209, 0.2); color: var(--uk-accent); font-weight: 600;">
+                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(149, 198, 35, 0.2); color: var(--uk-accent); font-weight: 600;">
                         <i class="fas fa-arrow-trend-up me-1"></i>Surplus Positif
                     </span>
                 @else
-                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(43, 44, 40, 0.45); color: #FFFAFB; font-weight: 600; border: 1px solid rgba(255, 250, 251, 0.2);">
+                    <span class="badge px-2 py-1 rounded-pill" style="background-color: rgba(229, 88, 18, 0.35); color: #FFFFFF; font-weight: 600; border: 1px solid rgba(229, 88, 18, 0.5);">
                         <i class="fas fa-arrow-trend-down me-1"></i>Defisit Arus Kas
                     </span>
                 @endif
@@ -107,15 +107,15 @@
         </div>
     </div>
 
-    <!-- 2. Total Uang Masuk (PRIMARY SOLID CARD #339989) -->
+    <!-- 2. Total Uang Masuk (PRIMARY SOLID CARD #0E4749) -->
     <div class="col-12 col-md-4">
         <div class="uk-stat-card-primary h-100 d-flex flex-column justify-content-between">
             <div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 250, 251, 0.85);">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 255, 255, 0.85);">
                         Total Uang Masuk
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(255, 250, 251, 0.2); color: #FFFAFB; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(255, 255, 255, 0.2); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-arrow-down"></i>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     {{ format_rupiah($totalIncome) }}
                 </h3>
             </div>
-            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.2); font-size: 0.78rem;">
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.78rem;">
                 <span class="text-white opacity-90"><i class="fas fa-check-circle me-1"></i>Kasir & Kas Masuk</span>
                 <a href="{{ route('owner.transactions.index') }}" class="text-white fw-bold">
                     Detail Mutasi <i class="fas fa-arrow-right ms-1"></i>
@@ -140,11 +140,11 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Total Uang Keluar
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-arrow-up"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: var(--uk-danger);">
+                <h3 class="fw-bold mb-0" style="font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.03em; color: var(--uk-orange);">
                     {{ format_rupiah($totalExpense) }}
                 </h3>
             </div>
@@ -168,7 +168,7 @@
 </div>
 
 <div class="row g-3 mb-4">
-    <!-- 1. Penjualan Hari Ini (ACCENT SOLID CARD #7DE2D1) -->
+    <!-- 1. Penjualan Hari Ini (ACCENT SOLID CARD #95C623) -->
     <div class="col-12 col-sm-6 col-lg-3">
         <div class="uk-stat-card-accent h-100 d-flex flex-column justify-content-between">
             <div>
@@ -176,7 +176,7 @@
                     <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: var(--uk-dark);">
                         Penjualan Hari Ini
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(19, 21, 21, 0.1); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(0, 38, 38, 0.12); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-cash-register"></i>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                     {{ format_rupiah($todaySalesTotal) }}
                 </h4>
             </div>
-            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(19, 21, 21, 0.12); font-size: 0.78rem;">
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(0, 38, 38, 0.15); font-size: 0.78rem;">
                 <span class="fw-semibold" style="color: var(--uk-dark);">
                     <i class="fas fa-receipt me-1 opacity-75"></i>{{ $todaySalesCount }} Transaksi
                 </span>
@@ -203,7 +203,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Modal Usaha
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-coins"></i>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Beban Operasional
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.25); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(229, 88, 18, 0.12); color: var(--uk-orange); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-file-invoice"></i>
                     </div>
                 </div>
@@ -253,7 +253,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Total Produk Aktif
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-boxes-stacked"></i>
                     </div>
                 </div>
@@ -302,7 +302,7 @@
             <div class="p-0 flex-grow-1">
                 @if($attentionProducts->isEmpty())
                     <div class="uk-empty-state py-5">
-                        <div class="uk-empty-icon" style="background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                        <div class="uk-empty-icon" style="background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary);">
                             <i class="fas fa-shield-halved"></i>
                         </div>
                         <div class="uk-empty-title">Semua Stok Aman</div>
