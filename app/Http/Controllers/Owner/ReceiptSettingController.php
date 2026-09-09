@@ -24,9 +24,9 @@ class ReceiptSettingController extends Controller
                 ['owner_id' => $user->id],
                 [
                     'name' => config('app.name', 'Untung Klik'),
-                    'type' => 'Sistem Buku Kas Digital & Keuangan Usaha UMKM',
+                    'type' => 'Sistem Kasir & Buku Kas Digital UMKM',
                     'phone' => $user->phone ?: '081234567890',
-                    'address' => 'Jl. Soekarno-Hatta No. 210, Bandung',
+                    'address' => 'Jl. Merdeka No. 123',
                     'receipt_footer' => 'Terima Kasih Atas Kunjungan Anda!',
                     'receipt_note' => 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.',
                     'is_active' => true,
@@ -64,7 +64,7 @@ class ReceiptSettingController extends Controller
         if (! $business) {
             $business = Business::create([
                 'owner_id' => $user->id,
-                'name' => $request->input('name', 'Galeri E-Bike Uwinfly & NUV'),
+                'name' => $request->input('name', config('app.name', 'Untung Klik')),
                 'is_active' => true,
             ]);
             $user->update(['business_id' => $business->id]);

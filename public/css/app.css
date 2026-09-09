@@ -136,8 +136,9 @@ a:hover {
 
 /* Brand Header */
 .uk-sidebar-brand {
-    height: var(--uk-navbar-height);
-    padding: 0 1.25rem;
+    min-height: var(--uk-navbar-height);
+    height: auto;
+    padding: 0.85rem 1.15rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -161,7 +162,7 @@ a:hover {
 .uk-brand-text {
     display: flex;
     flex-direction: column;
-    line-height: 1.15;
+    line-height: 1.2;
 }
 
 .uk-brand-name {
@@ -175,8 +176,9 @@ a:hover {
     font-size: 0.68rem;
     color: var(--uk-accent);
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    white-space: nowrap;
 }
 
 /* Sidebar Navigation */

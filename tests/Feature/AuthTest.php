@@ -32,7 +32,7 @@ test('login succeeds with correct credentials', function () {
 
     Business::create([
         'owner_id' => $user->id,
-        'name' => 'UD Untung Makmur E-Bike',
+        'name' => 'UD Untung Makmur',
         'type' => 'retail',
     ]);
 

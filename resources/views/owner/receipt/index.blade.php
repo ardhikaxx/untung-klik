@@ -51,7 +51,7 @@
                                id="name"
                                name="name"
                                value="{{ old('name', $business->name) }}"
-                               placeholder="Contoh: Galeri E-Bike Uwinfly & NUV"
+                               placeholder="Contoh: Toko Berkah / {{ config('app.name', 'Untung Klik') }}"
                                required
                                oninput="syncPreview()">
                     </div>
@@ -179,9 +179,6 @@
                         <button type="button" class="btn btn-sm btn-uk-outline rounded-pill px-3" onclick="resetToDefaults()">
                             <i class="fas fa-rotate-left me-1.5"></i>Reset Bawaan Aplikasi
                         </button>
-                        <button type="button" class="btn btn-sm btn-uk-secondary rounded-pill px-3" onclick="loadGaleriPreset()">
-                            <i class="fas fa-store me-1.5"></i>Template Galeri E-Bike
-                        </button>
                     </div>
                     <button type="submit" class="btn btn-sm btn-uk-primary rounded-pill px-4 py-2 shadow-xs fw-bold">
                         <i class="fas fa-save me-1.5"></i>Simpan Pengaturan Nota
@@ -258,24 +255,24 @@
                         <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ {{ format_rupiah($prod->selling_price) }}</div>
                     @empty
                         <div class="d-flex justify-content-between fw-bold mb-0.5">
-                            <span class="text-truncate me-2">Sepeda Listrik D7S</span>
-                            <span>Rp 4.250.000</span>
+                            <span class="text-truncate me-2">Beras Premium 5kg</span>
+                            <span>Rp 75.000</span>
                         </div>
-                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 4.250.000</div>
+                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 75.000</div>
                         <div class="d-flex justify-content-between fw-bold mb-0.5">
-                            <span class="text-truncate me-2">Helm Exclusive Uwinfly</span>
-                            <span>Rp 150.000</span>
+                            <span class="text-truncate me-2">Minyak Goreng Pouch 2L</span>
+                            <span>Rp 37.000</span>
                         </div>
-                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 150.000</div>
+                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 37.000</div>
                     @endforelse
                 </div>
 
                 @php
                     $displayItems = $previewProducts->take(2);
-                    $mockSubtotal = $displayItems->isNotEmpty() ? (float) $displayItems->sum('selling_price') : 4400000;
-                    $mockDiscount = $mockSubtotal >= 500000 ? 50000 : 0;
+                    $mockSubtotal = $displayItems->isNotEmpty() ? (float) $displayItems->sum('selling_price') : 112000;
+                    $mockDiscount = $mockSubtotal >= 100000 ? 5000 : 0;
                     $mockTotal = $mockSubtotal - $mockDiscount;
-                    $mockCash = ceil($mockTotal / 100000) * 100000;
+                    $mockCash = ceil($mockTotal / 50000) * 50000;
                     if ($mockCash <= $mockTotal) {
                         $mockCash += 50000;
                     }
@@ -393,18 +390,8 @@
 
     function resetToDefaults() {
         document.getElementById('name').value = '{{ config('app.name', 'Untung Klik') }}';
-        document.getElementById('type').value = 'Sistem Buku Kas Digital & Keuangan Usaha UMKM';
-        document.getElementById('address').value = 'Jl. Soekarno-Hatta No. 210, Bandung';
-        document.getElementById('phone').value = '081234567890';
-        document.getElementById('receipt_footer').value = 'Terima Kasih Atas Kunjungan Anda!';
-        document.getElementById('receipt_note').value = 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.';
-        syncPreview();
-    }
-
-    function loadGaleriPreset() {
-        document.getElementById('name').value = 'Galeri E-Bike Uwinfly & NUV';
-        document.getElementById('type').value = 'Dealer Resmi Sepeda & Motor Listrik';
-        document.getElementById('address').value = 'Jl. Soekarno-Hatta No. 210, Bandung';
+        document.getElementById('type').value = 'Sistem Kasir & Buku Kas Digital UMKM';
+        document.getElementById('address').value = 'Jl. Merdeka No. 123';
         document.getElementById('phone').value = '081234567890';
         document.getElementById('receipt_footer').value = 'Terima Kasih Atas Kunjungan Anda!';
         document.getElementById('receipt_note').value = 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.';

@@ -34,7 +34,7 @@
                 </div>
                 <div class="uk-brand-text">
                     <span class="uk-brand-name">Untung Klik</span>
-                    <span class="uk-brand-tagline">Buku Kas UMKM</span>
+                    <span class="uk-brand-tagline">Kasir &amp; Buku Kas</span>
                 </div>
             </div>
 
