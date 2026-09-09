@@ -18,12 +18,12 @@
     <div class="col-md-5 col-xl-4">
         <div class="card uk-stat-card border-0">
             <div class="card-body p-4 d-flex align-items-center">
-                <div class="uk-stat-icon me-3" style="background: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary);">
+                <div class="uk-stat-icon me-3" style="background: rgba(229, 88, 18, 0.12); color: var(--uk-orange);">
                     <i class="fas fa-arrow-up fa-lg"></i>
                 </div>
                 <div>
                     <div class="uk-stat-label">Total Beban Pengeluaran</div>
-                    <div class="uk-stat-value" style="font-size: 1.5rem; color: var(--uk-dark-secondary);">Rp {{ number_format($totalExpenses, 0, ',', '.') }}</div>
+                    <div class="uk-stat-value" style="font-size: 1.5rem; color: var(--uk-orange);">Rp {{ number_format($totalExpenses, 0, ',', '.') }}</div>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@
                     <tr>
                         <td colspan="7" class="text-center py-5">
                             <div class="mb-3">
-                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary);">
+                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(229, 88, 18, 0.12); color: var(--uk-orange);">
                                     <i class="fas fa-arrow-up fa-lg"></i>
                                 </div>
                             </div>
@@ -162,8 +162,8 @@ document.querySelectorAll('.btn-delete').forEach(function(btn) {
             text: 'Data pengeluaran yang dihapus tidak dapat dikembalikan.',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#2B2C28',
-            cancelButtonColor: '#131515',
+            confirmButtonColor: '#E55812',
+            cancelButtonColor: '#002626',
             confirmButtonText: 'Ya, Hapus',
             cancelButtonText: 'Batal'
         }).then(function(result) {
