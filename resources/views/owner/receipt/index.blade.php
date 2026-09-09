@@ -199,122 +199,192 @@
                 <span class="badge badge-uk-primary" style="font-size: 0.68rem;">Format 80mm & 58mm</span>
             </div>
 
-            <!-- Kartu Mockup Struk Fisik -->
-            <div class="uk-card p-4 shadow-sm border" style="background-color: #ffffff; border-radius: 12px; font-family: 'Courier New', Courier, monospace;">
-                <!-- Header Nota Mockup -->
-                <div class="text-center border-bottom pb-3 mb-3">
-                    <div class="d-flex justify-content-center align-items-center gap-2 mb-1">
-                        <div style="width: 32px; height: 32px; border-radius: 8px; background-color: var(--uk-primary); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark mb-0 font-sans-serif" id="previewName" style="letter-spacing: -0.02em; font-family: system-ui, sans-serif;">
+            <!-- Kartu Mockup Struk Fisik Thermal -->
+            <div class="thermal-receipt-stage p-2 p-sm-3">
+                <div class="thermal-receipt-paper">
+                    <!-- Header Nota Mockup -->
+                    <div class="thermal-header">
+                        <div class="thermal-store-name" id="previewName">
                             {{ $business->name ?: config('app.name', 'Untung Klik') }}
-                        </h5>
-                    </div>
-                    <div class="text-muted small mb-1" id="previewType" style="font-size: 0.75rem; {{ $business->type ? '' : 'display: none;' }}">
-                        {{ $business->type }}
-                    </div>
-                    <div class="text-muted small mb-0.5" id="previewAddress" style="font-size: 0.72rem; line-height: 1.4; {{ $business->address ? '' : 'display: none;' }}">
-                        {{ $business->address }}
-                    </div>
-                    <div class="text-muted small mb-0" id="previewPhoneWrap" style="font-size: 0.72rem; {{ $business->phone ? '' : 'display: none;' }}">
-                        <i class="fas fa-phone-alt me-1 text-primary"></i><span id="previewPhone">{{ $business->phone }}</span>
-                    </div>
-                </div>
-
-                <!-- Meta Transaksi Mockup -->
-                <div class="small mb-3" style="font-size: 0.72rem; line-height: 1.5; color: var(--uk-dark-secondary);">
-                    <div class="d-flex justify-content-between">
-                        <span>No. Faktur:</span>
-                        <span class="fw-bold text-dark font-monospace">INV-{{ date('Ymd') }}-0042</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>Tanggal:</span>
-                        <span>{{ date('d F Y H:i') }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>Kasir:</span>
-                        <span>{{ auth()->user()->name }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>Pelanggan:</span>
-                        <span>Pelanggan Umum</span>
-                    </div>
-                </div>
-
-                <!-- Garis Pemisah Titik-titik -->
-                <div class="border-top border-dashed my-2" style="border-top-style: dashed !important;"></div>
-
-                <!-- Rincian Item Mockup -->
-                <div class="small mb-2" style="font-size: 0.72rem;">
-                    @forelse($previewProducts->take(2) as $prod)
-                        <div class="d-flex justify-content-between fw-bold mb-0.5">
-                            <span class="text-truncate me-2" style="max-width: 180px;">{{ $prod->name }}</span>
-                            <span>{{ format_rupiah($prod->selling_price) }}</span>
                         </div>
-                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ {{ format_rupiah($prod->selling_price) }}</div>
-                    @empty
-                        <div class="d-flex justify-content-between fw-bold mb-0.5">
-                            <span class="text-truncate me-2">Beras Premium 5kg</span>
-                            <span>Rp 75.000</span>
+                        <div class="thermal-store-desc" id="previewType" style="{{ $business->type ? '' : 'display: none;' }}">
+                            {{ $business->type }}
                         </div>
-                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 75.000</div>
-                        <div class="d-flex justify-content-between fw-bold mb-0.5">
-                            <span class="text-truncate me-2">Minyak Goreng Pouch 2L</span>
-                            <span>Rp 37.000</span>
+                        <div class="thermal-store-contact" id="previewAddress" style="{{ $business->address ? '' : 'display: none;' }}">
+                            {{ $business->address }}
                         </div>
-                        <div class="text-muted ps-2 mb-1.5" style="font-size: 0.68rem;">1 x @ Rp 37.000</div>
-                    @endforelse
-                </div>
+                        <div class="thermal-store-contact" id="previewPhoneWrap" style="{{ $business->phone ? '' : 'display: none;' }}">
+                            Telp/WA: <span id="previewPhone">{{ $business->phone }}</span>
+                        </div>
+                    </div>
 
-                @php
-                    $displayItems = $previewProducts->take(2);
-                    $mockSubtotal = $displayItems->isNotEmpty() ? (float) $displayItems->sum('selling_price') : 112000;
-                    $mockDiscount = $mockSubtotal >= 100000 ? 5000 : 0;
-                    $mockTotal = $mockSubtotal - $mockDiscount;
-                    $mockCash = ceil($mockTotal / 50000) * 50000;
-                    if ($mockCash <= $mockTotal) {
-                        $mockCash += 50000;
-                    }
-                    $mockChange = $mockCash - $mockTotal;
-                @endphp
+                    <div class="thermal-divider"></div>
 
-                <!-- Total Kalkulasi Mockup -->
-                <div class="border-top border-dashed pt-2 mb-3" style="border-top-style: dashed !important; font-size: 0.75rem;">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>Subtotal:</span>
-                        <span>{{ format_rupiah($mockSubtotal) }}</span>
+                    <!-- Meta Transaksi Mockup -->
+                    <div class="thermal-meta-list">
+                        <div class="thermal-meta-item">
+                            <span class="thermal-meta-label">No. Faktur</span>
+                            <span class="thermal-meta-val font-monospace">INV-{{ date('Ymd') }}-0042</span>
+                        </div>
+                        <div class="thermal-meta-item">
+                            <span class="thermal-meta-label">Waktu</span>
+                            <span class="thermal-meta-val">{{ date('d/m/Y H:i') }}</span>
+                        </div>
+                        <div class="thermal-meta-item">
+                            <span class="thermal-meta-label">Kasir</span>
+                            <span class="thermal-meta-val">{{ auth()->user()->name }}</span>
+                        </div>
+                        <div class="thermal-meta-item">
+                            <span class="thermal-meta-label">Pelanggan</span>
+                            <span class="thermal-meta-val">Pelanggan Umum</span>
+                        </div>
                     </div>
-                    @if($mockDiscount > 0)
-                    <div class="d-flex justify-content-between mb-1 text-muted">
-                        <span>Diskon:</span>
-                        <span>- {{ format_rupiah($mockDiscount) }}</span>
-                    </div>
-                    @endif
-                    <div class="d-flex justify-content-between fw-bold text-dark fs-6 pt-1 border-top" style="border-color: var(--uk-border) !important;">
-                        <span>TOTAL:</span>
-                        <span>{{ format_rupiah($mockTotal) }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between pt-1 text-muted">
-                        <span>Tunai:</span>
-                        <span>{{ format_rupiah($mockCash) }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between text-muted">
-                        <span>Kembalian:</span>
-                        <span>{{ format_rupiah($mockChange) }}</span>
-                    </div>
-                </div>
 
-                <!-- Footer Nota Mockup -->
-                <div class="text-center border-top border-dashed pt-3" style="border-top-style: dashed !important;">
-                    <p class="fw-bold text-dark mb-1 font-sans-serif" id="previewFooter" style="font-size: 0.78rem; font-family: system-ui, sans-serif;">
-                        {{ $business->receipt_footer ?: 'Terima Kasih Atas Kunjungan Anda!' }}
-                    </p>
-                    <p class="text-muted mb-2" id="previewNote" style="font-size: 0.68rem; line-height: 1.4; {{ $business->receipt_note ? '' : 'display: none;' }}">
-                        {{ $business->receipt_note ?: 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.' }}
-                    </p>
-                    <div class="text-secondary" style="font-size: 0.62rem; opacity: 0.75;">
-                        Untung Klik - Sistem Kasir & Buku Kas Digital
+                    <div class="thermal-divider"></div>
+
+                    <!-- Rincian Item Mockup Thermal -->
+                    <div class="thermal-items-list">
+                        @forelse($previewProducts->take(2) as $prod)
+                            <div class="thermal-item-entry">
+                                <div class="thermal-item-name">{{ $prod->name }}</div>
+                                <div class="thermal-item-sub">
+                                    <span>1 x {{ format_rupiah($prod->selling_price) }}</span>
+                                    <span class="fw-bold">{{ format_rupiah($prod->selling_price) }}</span>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="thermal-item-entry">
+                                <div class="thermal-item-name">Beras Premium 5kg</div>
+                                <div class="thermal-item-sub">
+                                    <span>1 x Rp 75.000</span>
+                                    <span class="fw-bold">Rp 75.000</span>
+                                </div>
+                            </div>
+                            <div class="thermal-item-entry">
+                                <div class="thermal-item-name">Minyak Goreng Pouch 2L</div>
+                                <div class="thermal-item-sub">
+                                    <span>1 x Rp 37.000</span>
+                                    <span class="fw-bold">Rp 37.000</span>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    @php
+                        $displayItems = $previewProducts->take(2);
+                        $mockSubtotal = $displayItems->isNotEmpty() ? (float) $displayItems->sum('selling_price') : 112000;
+                        $mockDiscount = $mockSubtotal >= 100000 ? 5000 : 0;
+                        $mockTotal = $mockSubtotal - $mockDiscount;
+                        $mockCash = ceil($mockTotal / 50000) * 50000;
+                        if ($mockCash <= $mockTotal) {
+                            $mockCash += 50000;
+                        }
+                        $mockChange = $mockCash - $mockTotal;
+                    @endphp
+
+                    <div class="thermal-divider"></div>
+
+                    <!-- Total Kalkulasi Mockup -->
+                    <div class="thermal-calc-container">
+                        <div class="thermal-calc-row">
+                            <span>Subtotal</span>
+                            <span>{{ format_rupiah($mockSubtotal) }}</span>
+                        </div>
+                        @if($mockDiscount > 0)
+                        <div class="thermal-calc-row text-danger">
+                            <span>Potongan / Diskon</span>
+                            <span>- {{ format_rupiah($mockDiscount) }}</span>
+                        </div>
+                        @endif
+                        <div class="thermal-divider-thick"></div>
+                        <div class="thermal-grand-total">
+                            <span>TOTAL AKHIR</span>
+                            <span>{{ format_rupiah($mockTotal) }}</span>
+                        </div>
+                        <div class="thermal-divider-thick"></div>
+                        <div class="thermal-calc-row">
+                            <span>Metode Bayar</span>
+                            <span class="fw-bold">Tunai</span>
+                        </div>
+                        <div class="thermal-calc-row">
+                            <span>Uang Diterima</span>
+                            <span>{{ format_rupiah($mockCash) }}</span>
+                        </div>
+                        <div class="thermal-calc-row fw-bold text-dark">
+                            <span>Kembalian</span>
+                            <span>{{ format_rupiah($mockChange) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="thermal-divider"></div>
+
+                    <!-- Footer & Barcode Mockup -->
+                    <div class="thermal-footer">
+                        <div class="thermal-footer-msg" id="previewFooter">
+                            {{ $business->receipt_footer ?: 'Terima Kasih Atas Kunjungan Anda!' }}
+                        </div>
+                        <div class="thermal-footer-terms" id="previewNote" style="{{ $business->receipt_note ? '' : 'display: none;' }}">
+                            {{ $business->receipt_note ?: 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.' }}
+                        </div>
+
+                        <!-- Barcode Thermal Visual -->
+                        <div class="thermal-barcode-wrapper">
+                            <svg width="220" height="38" viewBox="0 0 220 38" xmlns="http://www.w3.org/2000/svg" class="thermal-barcode-img">
+                                <rect x="0" y="0" width="220" height="38" fill="#ffffff" />
+                                <g fill="#111827">
+                                    <rect x="10" y="2" width="3" height="34"/>
+                                    <rect x="15" y="2" width="1" height="34"/>
+                                    <rect x="18" y="2" width="4" height="34"/>
+                                    <rect x="24" y="2" width="2" height="34"/>
+                                    <rect x="28" y="2" width="1" height="34"/>
+                                    <rect x="31" y="2" width="3" height="34"/>
+                                    <rect x="36" y="2" width="2" height="34"/>
+                                    <rect x="40" y="2" width="4" height="34"/>
+                                    <rect x="46" y="2" width="1" height="34"/>
+                                    <rect x="49" y="2" width="3" height="34"/>
+                                    <rect x="54" y="2" width="2" height="34"/>
+                                    <rect x="58" y="2" width="1" height="34"/>
+                                    <rect x="61" y="2" width="4" height="34"/>
+                                    <rect x="67" y="2" width="2" height="34"/>
+                                    <rect x="71" y="2" width="3" height="34"/>
+                                    <rect x="76" y="2" width="1" height="34"/>
+                                    <rect x="79" y="2" width="3" height="34"/>
+                                    <rect x="84" y="2" width="4" height="34"/>
+                                    <rect x="90" y="2" width="2" height="34"/>
+                                    <rect x="94" y="2" width="1" height="34"/>
+                                    <rect x="97" y="2" width="3" height="34"/>
+                                    <rect x="102" y="2" width="2" height="34"/>
+                                    <rect x="106" y="2" width="4" height="34"/>
+                                    <rect x="112" y="2" width="1" height="34"/>
+                                    <rect x="115" y="2" width="3" height="34"/>
+                                    <rect x="120" y="2" width="2" height="34"/>
+                                    <rect x="124" y="2" width="4" height="34"/>
+                                    <rect x="130" y="2" width="1" height="34"/>
+                                    <rect x="133" y="2" width="3" height="34"/>
+                                    <rect x="138" y="2" width="2" height="34"/>
+                                    <rect x="142" y="2" width="4" height="34"/>
+                                    <rect x="148" y="2" width="1" height="34"/>
+                                    <rect x="151" y="2" width="3" height="34"/>
+                                    <rect x="156" y="2" width="2" height="34"/>
+                                    <rect x="160" y="2" width="3" height="34"/>
+                                    <rect x="165" y="2" width="1" height="34"/>
+                                    <rect x="168" y="2" width="4" height="34"/>
+                                    <rect x="174" y="2" width="2" height="34"/>
+                                    <rect x="178" y="2" width="1" height="34"/>
+                                    <rect x="181" y="2" width="3" height="34"/>
+                                    <rect x="186" y="2" width="2" height="34"/>
+                                    <rect x="190" y="2" width="4" height="34"/>
+                                    <rect x="196" y="2" width="1" height="34"/>
+                                    <rect x="199" y="2" width="3" height="34"/>
+                                    <rect x="204" y="2" width="2" height="34"/>
+                                </g>
+                            </svg>
+                            <div class="thermal-barcode-caption font-monospace">INV-{{ date('Ymd') }}-0042</div>
+                        </div>
+
+                        <div class="thermal-watermark">
+                            Untung Klik &bull; Kasir &amp; Buku Kas Digital
+                        </div>
                     </div>
                 </div>
             </div>

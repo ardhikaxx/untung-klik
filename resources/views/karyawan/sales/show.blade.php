@@ -25,183 +25,197 @@
     </div>
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-lg-7 col-md-9">
-        <div class="uk-card print-area p-4 p-sm-5">
-            <!-- Header Toko / Struk -->
-            <div class="text-center border-bottom pb-4 mb-4">
-                <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                    <div style="width: 40px; height: 40px; border-radius: 10px; background-color: var(--uk-primary); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-0" style="letter-spacing: -0.02em;">
-                        {{ $sale->business ? $sale->business->name : (auth()->user()->business ? auth()->user()->business->name : 'Untung Klik') }}
-                    </h4>
-                </div>
-                @php
-                    $bizType = $sale->business ? $sale->business->type : (auth()->user()->business ? auth()->user()->business->type : null);
-                    $bizAddr = $sale->business ? $sale->business->address : (auth()->user()->business ? auth()->user()->business->address : null);
-                    $bizPhone = $sale->business ? $sale->business->phone : (auth()->user()->business ? auth()->user()->business->phone : null);
-                @endphp
-                @if($bizType)
-                    <p class="text-muted small mb-1" style="font-size: 0.78rem;">{{ $bizType }}</p>
-                @endif
-                @if($bizAddr)
-                    <p class="text-muted small mb-1">{{ $bizAddr }}</p>
-                @endif
-                @if($bizPhone)
-                    <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-1 text-primary"></i>{{ $bizPhone }}</p>
-                @endif
+<div class="thermal-receipt-stage">
+    <div class="thermal-receipt-paper print-area">
+        <!-- Header Toko / Struk Thermal -->
+        <div class="thermal-header">
+            <div class="thermal-store-name">
+                {{ $sale->business ? $sale->business->name : (auth()->user()->business ? auth()->user()->business->name : 'Untung Klik') }}
             </div>
+            @php
+                $bizType = $sale->business ? $sale->business->type : (auth()->user()->business ? auth()->user()->business->type : null);
+                $bizAddr = $sale->business ? $sale->business->address : (auth()->user()->business ? auth()->user()->business->address : null);
+                $bizPhone = $sale->business ? $sale->business->phone : (auth()->user()->business ? auth()->user()->business->phone : null);
+            @endphp
+            @if($bizType)
+                <div class="thermal-store-desc">{{ $bizType }}</div>
+            @endif
+            @if($bizAddr)
+                <div class="thermal-store-contact">{{ $bizAddr }}</div>
+            @endif
+            @if($bizPhone)
+                <div class="thermal-store-contact">Telp/WA: {{ $bizPhone }}</div>
+            @endif
+        </div>
 
-            <!-- Informasi Nota -->
-            <div class="row g-2 mb-4 small">
-                <div class="col-sm-6">
-                    <div class="text-muted" style="font-size: 0.75rem;">No. Faktur:</div>
-                    <div class="fw-bold text-dark fs-6">{{ $sale->formatted_invoice_number }}</div>
-                </div>
-                <div class="col-sm-6 text-sm-end">
-                    <div class="text-muted" style="font-size: 0.75rem;">Tanggal & Jam:</div>
-                    <div class="fw-semibold text-dark">
-                        {{ $sale->transaction_date->format('d F Y') }} {{ $sale->created_at ? $sale->created_at->format('H:i') : '' }}
+        <div class="thermal-divider"></div>
+
+        <!-- Informasi Transaksi Kasir -->
+        <div class="thermal-meta-list">
+            <div class="thermal-meta-item">
+                <span class="thermal-meta-label">No. Faktur</span>
+                <span class="thermal-meta-val font-monospace">{{ $sale->formatted_invoice_number }}</span>
+            </div>
+            <div class="thermal-meta-item">
+                <span class="thermal-meta-label">Waktu</span>
+                <span class="thermal-meta-val">{{ $sale->transaction_date->format('d/m/Y') }} {{ $sale->created_at ? $sale->created_at->format('H:i') : '' }}</span>
+            </div>
+            <div class="thermal-meta-item">
+                <span class="thermal-meta-label">Kasir</span>
+                <span class="thermal-meta-val">{{ $sale->user ? $sale->user->name : '-' }}</span>
+            </div>
+            <div class="thermal-meta-item">
+                <span class="thermal-meta-label">Pelanggan</span>
+                <span class="thermal-meta-val">{{ $sale->customer_name ?: 'Pelanggan Umum' }}</span>
+            </div>
+            @if($sale->customer_phone)
+            <div class="thermal-meta-item">
+                <span class="thermal-meta-label">Kontak</span>
+                <span class="thermal-meta-val">{{ $sale->customer_phone }}</span>
+            </div>
+            @endif
+        </div>
+
+        <div class="thermal-divider"></div>
+
+        <!-- Rincian Item Belanjaan Kasir -->
+        <div class="thermal-items-list">
+            @forelse($sale->items as $item)
+                <div class="thermal-item-entry">
+                    <div class="thermal-item-name">{{ $item->product_name }}</div>
+                    <div class="thermal-item-sub">
+                        <span>{{ $item->quantity }} x {{ format_rupiah($item->unit_price) }}</span>
+                        <span class="fw-bold">{{ format_rupiah($item->subtotal) }}</span>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="text-muted" style="font-size: 0.75rem;">Pelanggan:</div>
-                    <div class="fw-semibold text-dark">
-                        {{ $sale->customer_name ?: 'Pelanggan Umum' }}
-                        @if($sale->customer_phone)
-                            <span class="text-muted small">({{ $sale->customer_phone }})</span>
-                        @endif
+            @empty
+                <div class="thermal-item-entry">
+                    <div class="thermal-item-name">{{ $sale->description ?: 'Penjualan Produk' }}</div>
+                    <div class="thermal-item-sub">
+                        <span>1 x {{ format_rupiah($sale->amount) }}</span>
+                        <span class="fw-bold">{{ format_rupiah($sale->amount) }}</span>
                     </div>
                 </div>
-                <div class="col-sm-6 text-sm-end">
-                    <div class="text-muted" style="font-size: 0.75rem;">Kasir / Petugas:</div>
-                    <div class="fw-semibold text-dark">{{ $sale->user ? $sale->user->name : '-' }}</div>
-                </div>
-            </div>
+            @endforelse
+        </div>
 
-            <!-- Tabel Item -->
-            <div class="table-responsive mb-4">
-                <table class="table align-middle mb-0">
-                    <thead class="table-light small">
-                        <tr>
-                            <th class="ps-2">Item Produk</th>
-                            <th class="text-center" style="width: 80px;">Qty</th>
-                            <th class="text-end" style="width: 120px;">Harga</th>
-                            <th class="text-end pe-2" style="width: 130px;">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($sale->items as $item)
-                            <tr>
-                                <td class="ps-2">
-                                    <div class="fw-semibold text-dark" style="font-size: 0.85rem;">{{ $item->product_name }}</div>
-                                    @if($item->product && $item->product->sku)
-                                        <div class="text-muted" style="font-size: 0.72rem;">SKU: {{ $item->product->sku }}</div>
-                                    @endif
-                                </td>
-                                <td class="text-center small">{{ $item->quantity }}</td>
-                                <td class="text-end small">{{ format_rupiah($item->unit_price) }}</td>
-                                <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($item->subtotal) }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center py-3 text-muted">
-                                    {{ $sale->description ?: 'Penjualan Produk' }}
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                    <tfoot class="border-top">
-                        @if($sale->discount > 0)
-                        <tr>
-                            <td colspan="3" class="text-end text-muted small pt-3">Subtotal:</td>
-                            <td class="text-end pe-2 fw-semibold text-dark pt-3">{{ format_rupiah($sale->subtotal) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-end text-danger small">Potongan / Diskon:</td>
-                            <td class="text-end pe-2 fw-semibold text-danger">- {{ format_rupiah($sale->discount) }}</td>
-                        </tr>
-                        @endif
-                        <tr>
-                            <td colspan="3" class="text-end fw-bold fs-6 pt-2 text-dark">TOTAL AKHIR:</td>
-                            <td class="text-end pe-2 fw-bold fs-5 text-success pt-2">{{ format_rupiah($sale->amount) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-end text-muted small">Metode Pembayaran:</td>
-                            <td class="text-end pe-2 fw-semibold text-dark">{{ $sale->payment_method ?: 'Tunai' }}</td>
-                        </tr>
-                        @if($sale->cash_received !== null)
-                        <tr>
-                            <td colspan="3" class="text-end text-muted small">Uang Diterima:</td>
-                            <td class="text-end pe-2 fw-semibold text-dark">{{ format_rupiah($sale->cash_received) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-end text-muted small">Kembalian:</td>
-                            <td class="text-end pe-2 fw-bold text-success">{{ format_rupiah($sale->cash_change ?: 0) }}</td>
-                        </tr>
-                        @endif
-                    </tfoot>
-                </table>
-            </div>
+        <div class="thermal-divider"></div>
 
-            @if($sale->description)
-                <div class="p-3 bg-light rounded-3 mb-4 small text-muted border">
-                    <strong>Catatan:</strong> {{ $sale->description }}
-                </div>
+        <!-- Perhitungan & Pembayaran -->
+        <div class="thermal-calc-container">
+            <div class="thermal-calc-row">
+                <span>Total Item ({{ $sale->items->sum('quantity') ?: 1 }})</span>
+                <span>{{ format_rupiah($sale->subtotal) }}</span>
+            </div>
+            @if($sale->discount > 0)
+            <div class="thermal-calc-row text-danger">
+                <span>Potongan / Diskon</span>
+                <span>- {{ format_rupiah($sale->discount) }}</span>
+            </div>
+            @endif
+            <div class="thermal-divider-thick"></div>
+            <div class="thermal-grand-total">
+                <span>TOTAL AKHIR</span>
+                <span>{{ format_rupiah($sale->amount) }}</span>
+            </div>
+            <div class="thermal-divider-thick"></div>
+            <div class="thermal-calc-row">
+                <span>Metode Bayar</span>
+                <span class="fw-bold">{{ $sale->payment_method ?: 'Tunai' }}</span>
+            </div>
+            @if($sale->cash_received !== null)
+            <div class="thermal-calc-row">
+                <span>Uang Diterima</span>
+                <span>{{ format_rupiah($sale->cash_received) }}</span>
+            </div>
+            <div class="thermal-calc-row fw-bold text-dark">
+                <span>Kembalian</span>
+                <span>{{ format_rupiah($sale->cash_change ?: 0) }}</span>
+            </div>
+            @endif
+        </div>
+
+        @if($sale->description)
+            <div class="thermal-divider"></div>
+            <div class="text-muted" style="font-size: 0.72rem; line-height: 1.35;">
+                <strong>Catatan:</strong> {{ $sale->description }}
+            </div>
+        @endif
+
+        <div class="thermal-divider"></div>
+
+        <!-- Pesan Penutup Struk & Kebijakan Toko -->
+        <div class="thermal-footer">
+            @php
+                $bizFooter = ($sale->business && $sale->business->receipt_footer) ? $sale->business->receipt_footer : (auth()->user()->business && auth()->user()->business->receipt_footer ? auth()->user()->business->receipt_footer : 'Terima Kasih Atas Kunjungan Anda!');
+                $bizNote = ($sale->business && $sale->business->receipt_note) ? $sale->business->receipt_note : (auth()->user()->business && auth()->user()->business->receipt_note ? auth()->user()->business->receipt_note : 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.');
+            @endphp
+            <div class="thermal-footer-msg">{{ $bizFooter }}</div>
+            @if($bizNote)
+                <div class="thermal-footer-terms">{{ $bizNote }}</div>
             @endif
 
-            <!-- Pesan Penutup Struk -->
-            <div class="text-center border-top pt-4 text-muted small">
-                @php
-                    $bizFooter = ($sale->business && $sale->business->receipt_footer) ? $sale->business->receipt_footer : (auth()->user()->business && auth()->user()->business->receipt_footer ? auth()->user()->business->receipt_footer : 'Terima Kasih Atas Kunjungan Anda!');
-                    $bizNote = ($sale->business && $sale->business->receipt_note) ? $sale->business->receipt_note : (auth()->user()->business && auth()->user()->business->receipt_note ? auth()->user()->business->receipt_note : 'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan tanpa bukti nota ini.');
-                @endphp
-                <p class="mb-1 fw-bold text-dark">{{ $bizFooter }}</p>
-                @if($bizNote)
-                    <p class="mb-0 text-muted" style="font-size: 0.75rem;">{{ $bizNote }}</p>
-                @endif
-                <p class="mb-0 mt-2 text-secondary" style="font-size: 0.7rem;">Untung Klik - Sistem Buku Kas Digital & Kasir UMKM</p>
+            <!-- Barcode Thermal Visual -->
+            <div class="thermal-barcode-wrapper">
+                <svg width="220" height="38" viewBox="0 0 220 38" xmlns="http://www.w3.org/2000/svg" class="thermal-barcode-img">
+                    <rect x="0" y="0" width="220" height="38" fill="#ffffff" />
+                    <g fill="#111827">
+                        <rect x="10" y="2" width="3" height="34"/>
+                        <rect x="15" y="2" width="1" height="34"/>
+                        <rect x="18" y="2" width="4" height="34"/>
+                        <rect x="24" y="2" width="2" height="34"/>
+                        <rect x="28" y="2" width="1" height="34"/>
+                        <rect x="31" y="2" width="3" height="34"/>
+                        <rect x="36" y="2" width="2" height="34"/>
+                        <rect x="40" y="2" width="4" height="34"/>
+                        <rect x="46" y="2" width="1" height="34"/>
+                        <rect x="49" y="2" width="3" height="34"/>
+                        <rect x="54" y="2" width="2" height="34"/>
+                        <rect x="58" y="2" width="1" height="34"/>
+                        <rect x="61" y="2" width="4" height="34"/>
+                        <rect x="67" y="2" width="2" height="34"/>
+                        <rect x="71" y="2" width="3" height="34"/>
+                        <rect x="76" y="2" width="1" height="34"/>
+                        <rect x="79" y="2" width="3" height="34"/>
+                        <rect x="84" y="2" width="4" height="34"/>
+                        <rect x="90" y="2" width="2" height="34"/>
+                        <rect x="94" y="2" width="1" height="34"/>
+                        <rect x="97" y="2" width="3" height="34"/>
+                        <rect x="102" y="2" width="2" height="34"/>
+                        <rect x="106" y="2" width="4" height="34"/>
+                        <rect x="112" y="2" width="1" height="34"/>
+                        <rect x="115" y="2" width="3" height="34"/>
+                        <rect x="120" y="2" width="2" height="34"/>
+                        <rect x="124" y="2" width="4" height="34"/>
+                        <rect x="130" y="2" width="1" height="34"/>
+                        <rect x="133" y="2" width="3" height="34"/>
+                        <rect x="138" y="2" width="2" height="34"/>
+                        <rect x="142" y="2" width="4" height="34"/>
+                        <rect x="148" y="2" width="1" height="34"/>
+                        <rect x="151" y="2" width="3" height="34"/>
+                        <rect x="156" y="2" width="2" height="34"/>
+                        <rect x="160" y="2" width="3" height="34"/>
+                        <rect x="165" y="2" width="1" height="34"/>
+                        <rect x="168" y="2" width="4" height="34"/>
+                        <rect x="174" y="2" width="2" height="34"/>
+                        <rect x="178" y="2" width="1" height="34"/>
+                        <rect x="181" y="2" width="3" height="34"/>
+                        <rect x="186" y="2" width="2" height="34"/>
+                        <rect x="190" y="2" width="4" height="34"/>
+                        <rect x="196" y="2" width="1" height="34"/>
+                        <rect x="199" y="2" width="3" height="34"/>
+                        <rect x="204" y="2" width="2" height="34"/>
+                    </g>
+                </svg>
+                <div class="thermal-barcode-caption font-monospace">{{ $sale->formatted_invoice_number }}</div>
+            </div>
+
+            <div class="thermal-watermark">
+                Untung Klik &bull; Kasir &amp; Buku Kas Digital
             </div>
         </div>
     </div>
 </div>
-
-@push('styles')
-<style>
-    @media print {
-        @page {
-            margin: 4mm;
-            size: auto;
-        }
-        body {
-            background: #FFFFFF !important;
-            color: #002626 !important;
-        }
-        body * {
-            visibility: hidden;
-        }
-        .print-area, .print-area * {
-            visibility: visible;
-        }
-        .print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100% !important;
-            max-width: 480px;
-            margin: 0 auto;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
-        .d-print-none {
-            display: none !important;
-        }
-    }
-</style>
-@endpush
 
 @push('scripts')
 <script>

@@ -1640,4 +1640,251 @@ a:hover {
 .mb-0\.5 { margin-bottom: 0.15rem !important; }
 .mb-1\.5 { margin-bottom: 0.4rem !important; }
 
+/* ==========================================================================
+   THERMAL POS RECEIPT SYSTEM (Struk Kasir Kertas Thermal)
+   ========================================================================== */
+.thermal-receipt-stage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem 1rem;
+    background: #eef2f6;
+    border-radius: var(--uk-radius);
+    overflow: hidden;
+}
+
+.thermal-receipt-paper {
+    position: relative;
+    width: 100%;
+    max-width: 375px;
+    margin: 12px auto;
+    background: #ffffff;
+    color: #111827;
+    padding: 24px 18px 26px 18px;
+    font-family: 'Courier New', Courier, 'Lucida Console', Monaco, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    box-shadow: 0 10px 25px -4px rgba(0, 38, 38, 0.12), 0 4px 6px -2px rgba(0, 38, 38, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+/* Authentic Jagged / Sawtooth Thermal Paper Cut (Gerigi Kertas Kasir) */
+.thermal-receipt-paper::before,
+.thermal-receipt-paper::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-size: 14px 8px;
+    background-repeat: repeat-x;
+    z-index: 3;
+}
+
+.thermal-receipt-paper::before {
+    top: -8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 8' fill='%23ffffff'%3E%3Cpolygon points='0,8 7,0 14,8'/%3E%3C/svg%3E");
+    filter: drop-shadow(0 -1px 0 #e2e8f0);
+}
+
+.thermal-receipt-paper::after {
+    bottom: -8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 8' fill='%23ffffff'%3E%3Cpolygon points='0,0 7,8 14,0'/%3E%3C/svg%3E");
+    filter: drop-shadow(0 1px 0 #e2e8f0);
+}
+
+/* Thermal Dividers */
+.thermal-divider {
+    border-top: 1px dashed #6b7280;
+    margin: 10px 0;
+}
+
+.thermal-divider-thick {
+    border-top: 2px dashed #111827;
+    margin: 10px 0;
+}
+
+/* Header */
+.thermal-header {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.thermal-store-name {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    color: #111827;
+    margin-bottom: 2px;
+}
+
+.thermal-store-desc {
+    font-size: 0.72rem;
+    color: #4b5563;
+    line-height: 1.3;
+}
+
+.thermal-store-contact {
+    font-size: 0.72rem;
+    color: #4b5563;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+
+/* Transaction Info */
+.thermal-meta-list {
+    font-size: 0.73rem;
+    line-height: 1.45;
+    color: #374151;
+}
+
+.thermal-meta-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.thermal-meta-label {
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.thermal-meta-val {
+    font-weight: 600;
+    color: #111827;
+    text-align: right;
+    word-break: break-word;
+}
+
+/* Items List */
+.thermal-item-entry {
+    margin-bottom: 8px;
+}
+
+.thermal-item-name {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: #111827;
+    line-height: 1.25;
+}
+
+.thermal-item-sub {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #374151;
+    margin-top: 2px;
+    padding-left: 6px;
+}
+
+/* Calculation Table */
+.thermal-calc-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.77rem;
+    color: #374151;
+    margin-bottom: 3px;
+}
+
+.thermal-grand-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #111827;
+    padding: 3px 0;
+}
+
+/* Barcode */
+.thermal-barcode-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 12px 0 6px 0;
+}
+
+.thermal-barcode-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.thermal-barcode-caption {
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #374151;
+    margin-top: 4px;
+}
+
+/* Footer & Watermark */
+.thermal-footer-msg {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #111827;
+    text-align: center;
+    margin-bottom: 3px;
+    line-height: 1.3;
+}
+
+.thermal-footer-terms {
+    font-size: 0.68rem;
+    color: #6b7280;
+    text-align: center;
+    line-height: 1.35;
+    margin-bottom: 8px;
+}
+
+.thermal-watermark {
+    font-size: 0.62rem;
+    color: #9ca3af;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Thermal Print Styles */
+@media print {
+    @page {
+        margin: 0;
+        size: 80mm auto;
+    }
+    body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #000000 !important;
+    }
+    .uk-sidebar, .uk-top-navbar, .uk-footer, .d-print-none, .uk-page-header, .uk-sidebar-backdrop {
+        display: none !important;
+    }
+    .app-wrapper, .uk-main, .uk-content, .container-fluid, .row, [class*="col-"] {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+    .thermal-receipt-stage {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+    .thermal-receipt-paper {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 4mm 2mm !important;
+        margin: 0 !important;
+    }
+    .thermal-receipt-paper::before,
+    .thermal-receipt-paper::after {
+        display: none !important;
+    }
+}
+
+
 

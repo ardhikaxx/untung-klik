@@ -4,6 +4,15 @@ Aplikasi kasir (**Point of Sale**) dan manajemen keuangan usaha UMKM berbasis **
 
 ---
 
+## Preview Tampilan Antarmuka
+
+| 👑 Panel Owner (Pemilik Usaha) | 🧑‍💼 Panel Karyawan (Kasir POS) |
+| :---: | :---: |
+| <img src="./gambar-owner.jpeg" alt="Tampilan Panel Owner" width="100%"/> | <img src="./gambar-karyawan.jpeg" alt="Tampilan Panel Karyawan" width="100%"/> |
+| *Dashboard analitik keuangan, grafik laba/rugi, manajemen stok & produk, beban operasional, dan pengaturan nota toko.* | *Antarmuka operasional kasir (Point of Sale), pencatatan kas masuk cepat, riwayat penjualan, dan cetak struk kasir thermal.* |
+
+---
+
 ## Fitur Utama
 
 - **Point of Sale (POS) & Kasir Cepat** — Transaksi penjualan multi-item, pencarian produk instan/barcode, kalkulasi diskon, perhitungan kembalian otomatis, dan cetak struk nota kasir thermal (58mm/80mm).
