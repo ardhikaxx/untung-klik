@@ -61,9 +61,9 @@
                             </td>
                             <td class="text-center">
                                 @if($category->is_active)
-                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(51, 153, 137, 0.15); color: var(--uk-primary); font-size: 0.7rem;">Aktif</span>
+                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(14, 71, 73, 0.12); color: var(--uk-primary); font-size: 0.7rem;">Aktif</span>
                                 @else
-                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(43, 44, 40, 0.1); color: var(--uk-dark-secondary); font-size: 0.7rem;">Nonaktif</span>
+                                    <span class="badge px-2 py-0.5 rounded-pill" style="background-color: rgba(0, 38, 38, 0.08); color: var(--uk-dark); font-size: 0.7rem;">Nonaktif</span>
                                 @endif
                             </td>
                             <td class="text-center pe-4">
