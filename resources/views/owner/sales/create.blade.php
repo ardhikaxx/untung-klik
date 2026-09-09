@@ -207,7 +207,7 @@
                 </div>
 
                 <!-- Grand Total Banner (Clean styled with brand primary) -->
-                <div class="p-3 rounded-3 mb-3 text-center" style="background-color: rgba(51, 153, 137, 0.08); border: 1px solid rgba(51, 153, 137, 0.25);">
+                <div class="p-3 rounded-3 mb-3 text-center" style="background-color: rgba(14, 71, 73, 0.08); border: 1px solid rgba(14, 71, 73, 0.25);">
                     <span class="small fw-semibold text-uppercase d-block mb-1" style="color: var(--uk-primary); font-size: 0.72rem; letter-spacing: 0.04em;">
                         Total Tagihan Akhir
                     </span>
@@ -246,7 +246,7 @@
                     </div>
 
                     <!-- Kembalian Display -->
-                    <div class="p-3 rounded-3 mb-3 d-flex justify-content-between align-items-center" id="changeBox" style="background-color: #FFFAFB; border: 1px dashed rgba(43, 44, 40, 0.2);">
+                    <div class="p-3 rounded-3 mb-3 d-flex justify-content-between align-items-center" id="changeBox" style="background-color: #F4F7F6; border: 1px dashed rgba(0, 38, 38, 0.15);">
                         <span class="small fw-semibold text-muted">Uang Kembalian:</span>
                         <span class="fw-bold fs-6 text-dark" id="cashChangeDisplay">Rp 0</span>
                     </div>
@@ -345,7 +345,7 @@
                         icon: 'error',
                         title: 'Stok Habis',
                         text: `Produk ${matchedProduct.name} sedang habis (0 ${matchedProduct.unit}).`,
-                        confirmButtonColor: '#339989'
+                        confirmButtonColor: '#0E4749'
                     });
                 }
             } else {
@@ -391,7 +391,7 @@
                     icon: 'warning',
                     title: 'Batas Stok Tercapai',
                     text: `Stok ${product.name} hanya tersedia ${product.stock} ${product.unit}.`,
-                    confirmButtonColor: '#339989'
+                    confirmButtonColor: '#0E4749'
                 });
             }
         } else {
@@ -427,7 +427,7 @@
                 icon: 'warning',
                 title: 'Stok Terbatas',
                 text: `Stok hanya tersedia ${product.stock} ${product.unit}.`,
-                confirmButtonColor: '#339989'
+                confirmButtonColor: '#0E4749'
             });
             newQty = product.stock;
         }
@@ -446,7 +446,7 @@
                 icon: 'info',
                 title: 'Produk Sudah Ada di Keranjang',
                 text: 'Jumlah produk disatukan di baris yang sudah ada.',
-                confirmButtonColor: '#339989'
+                confirmButtonColor: '#0E4749'
             });
             const existing = cart.find(c => c.productId === newProductId);
             existing.qty += cart[index].qty;
@@ -471,7 +471,7 @@
                 icon: 'warning',
                 title: 'Stok Terbatas',
                 text: `Stok hanya tersedia ${product.stock} ${product.unit}.`,
-                confirmButtonColor: '#339989'
+                confirmButtonColor: '#0E4749'
             });
             val = product.stock;
             inputElem.value = val;
@@ -610,8 +610,8 @@
 
         if (!cashInput.value) {
             changeDisplay.textContent = 'Rp 0';
-            changeBox.style.backgroundColor = '#FFFAFB';
-            changeBox.style.borderColor = 'rgba(43, 44, 40, 0.2)';
+            changeBox.style.backgroundColor = '#F4F7F6';
+            changeBox.style.borderColor = 'rgba(0, 38, 38, 0.15)';
             return;
         }
 
@@ -621,13 +621,13 @@
         if (diff >= 0) {
             changeDisplay.textContent = formatRp(diff);
             changeDisplay.className = 'fw-bold fs-6 text-success';
-            changeBox.style.backgroundColor = 'rgba(51, 153, 137, 0.1)';
-            changeBox.style.borderColor = '#339989';
+            changeBox.style.backgroundColor = 'rgba(149, 198, 35, 0.12)';
+            changeBox.style.borderColor = '#95C623';
         } else {
             changeDisplay.textContent = 'Kurang ' + formatRp(Math.abs(diff));
             changeDisplay.className = 'fw-bold fs-6 text-danger';
-            changeBox.style.backgroundColor = 'rgba(43, 44, 40, 0.08)';
-            changeBox.style.borderColor = '#2B2C28';
+            changeBox.style.backgroundColor = 'rgba(229, 88, 18, 0.08)';
+            changeBox.style.borderColor = '#E55812';
         }
     }
 
@@ -650,7 +650,7 @@
                 icon: 'warning',
                 title: 'Keranjang Kosong',
                 text: 'Pilih minimal satu produk untuk dicatat penjualannya.',
-                confirmButtonColor: '#339989'
+                confirmButtonColor: '#0E4749'
             });
             return false;
         }
@@ -665,7 +665,7 @@
                     icon: 'warning',
                     title: 'Uang Diterima Kurang',
                     text: `Total belanja adalah ${formatRp(rawGrandTotal)}, sedangkan uang yang dimasukkan hanya ${formatRp(received)}.`,
-                    confirmButtonColor: '#339989'
+                    confirmButtonColor: '#0E4749'
                 });
                 cashInput.focus();
                 return false;
