@@ -86,7 +86,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.12); color: #339989;">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(149, 198, 35, 0.18); color: #95C623;">
                         <i class="fas fa-arrow-down"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total Pemasukan</div>
@@ -99,7 +99,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(43, 44, 40, 0.1); color: #2B2C28;">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(229, 88, 18, 0.12); color: #E55812;">
                         <i class="fas fa-arrow-up"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total Pengeluaran</div>
@@ -112,7 +112,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                         <i class="fas fa-coins"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Total Modal</div>
@@ -125,7 +125,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(125, 226, 209, 0.25); color: #131515;">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(229, 88, 18, 0.12); color: #E55812;">
                         <i class="fas fa-receipt"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Beban Operasional</div>
@@ -138,7 +138,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: {{ $netProfit >= 0 ? 'rgba(51, 153, 137, 0.15)' : 'rgba(43, 44, 40, 0.1)' }}; color: {{ $netProfit >= 0 ? '#339989' : '#2B2C28' }};">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: {{ $netProfit >= 0 ? 'rgba(149, 198, 35, 0.18)' : 'rgba(229, 88, 18, 0.12)' }}; color: {{ $netProfit >= 0 ? '#95C623' : '#E55812' }};">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Laba Bersih</div>
@@ -153,7 +153,7 @@
         <div class="card uk-stat-card border-0 h-100">
             <div class="card-body text-center p-3 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(19, 21, 21, 0.1); color: var(--uk-dark);">
+                    <div class="uk-stat-icon mx-auto mb-2" style="background: rgba(0, 38, 38, 0.08); color: var(--uk-dark);">
                         <i class="fas fa-list-ol"></i>
                     </div>
                     <div class="uk-stat-label mb-1" style="font-size: 0.72rem;">Jumlah Transaksi</div>
@@ -223,7 +223,7 @@
                         <tr>
                             <td colspan="7" class="text-center py-5">
                                 <div class="mb-3">
-                                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(14, 71, 73, 0.1); color: var(--uk-primary);">
                                         <i class="fas fa-inbox fa-lg"></i>
                                     </div>
                                 </div>
