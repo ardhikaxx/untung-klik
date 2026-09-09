@@ -24,7 +24,7 @@
     <div class="col-12 col-lg-7">
         <div class="uk-card p-3 p-md-4">
             <div class="d-flex align-items-center gap-2 pb-3 mb-4 border-bottom">
-                <div style="width: 36px; height: 36px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.12); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 1rem;">
+                <div style="width: 36px; height: 36px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.12); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 1rem;">
                     <i class="fas fa-sliders"></i>
                 </div>
                 <div>
@@ -207,7 +207,7 @@
                 <!-- Header Nota Mockup -->
                 <div class="text-center border-bottom pb-3 mb-3">
                     <div class="d-flex justify-content-center align-items-center gap-2 mb-1">
-                        <div style="width: 32px; height: 32px; border-radius: 8px; background-color: var(--uk-primary); color: #FFFAFB; display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background-color: var(--uk-primary); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
                             <i class="fas fa-store"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-0 font-sans-serif" id="previewName" style="letter-spacing: -0.02em; font-family: system-ui, sans-serif;">
