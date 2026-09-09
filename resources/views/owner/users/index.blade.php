@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Manajemen Pengguna')
 
@@ -35,7 +35,7 @@
                             <td class="ps-4 text-muted small">{{ ($users->currentPage() - 1) * $users->perPage() + $index + 1 }}</td>
                             <td>
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-6" style="width: 38px; height: 38px; background-color: var(--uk-dark); color: #FFFAFB;">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-6" style="width: 38px; height: 38px; background-color: var(--uk-dark); color: #FFFFFF;">
                                         {{ strtoupper(substr($item->name, 0, 1)) }}
                                     </div>
                                     <div>
@@ -131,11 +131,11 @@
                 html: 'Akun <strong>' + userName + '</strong> tidak akan dapat melakukan login ke sistem kasir.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#2B2C28',
-                cancelButtonColor: '#131515',
+                confirmButtonColor: '#E55812',
+                cancelButtonColor: '#002626',
                 confirmButtonText: 'Ya, Nonaktifkan',
                 cancelButtonText: 'Batal',
-                background: '#FFFAFB'
+                background: '#FFFFFF'
             }).then((result) => {
                 if (result.isConfirmed) {
                     const form = document.createElement('form');
