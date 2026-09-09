@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Detail Kas Masuk')
 
@@ -19,7 +19,7 @@
         <div class="card uk-card border-0">
             <div class="card-body p-4">
                 @if($transaction->is_sale)
-                <div class="card uk-card border-0 mb-4" style="background: rgba(125, 226, 209, 0.15); border-left: 4px solid var(--uk-primary) !important;">
+                <div class="card uk-card border-0 mb-4" style="background: rgba(14, 71, 73, 0.08); border-left: 4px solid var(--uk-primary) !important;">
                     <div class="card-body p-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div>
                             <span class="fw-bold text-dark"><i class="fas fa-receipt me-1 text-primary"></i>Struk Penjualan Kasir #{{ $transaction->invoice_number ?? $transaction->id }}</span>
@@ -34,7 +34,7 @@
 
                 <!-- Amount Voucher Pod -->
                 <div class="text-center p-4 rounded-3 mb-4" style="background: var(--uk-surface); border: 1px solid var(--uk-border);">
-                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 52px; height: 52px; background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 52px; height: 52px; background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                         <i class="fas fa-arrow-down fa-lg"></i>
                     </div>
                     <small class="text-muted d-block text-uppercase fw-semibold" style="font-size: 0.72rem; letter-spacing: 0.05em;">Nominal Kas Masuk</small>
