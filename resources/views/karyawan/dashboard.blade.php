@@ -21,7 +21,7 @@
 
 <!-- Stat Cards: Karyawan Shift Summary (3 Grid Columns) -->
 <div class="row g-3 mb-4">
-    <!-- 1. Penjualan Hari Ini (ACCENT SOLID #7DE2D1) -->
+    <!-- 1. Penjualan Hari Ini (ACCENT SOLID #95C623) -->
     <div class="col-12 col-md-4">
         <div class="uk-stat-card-accent h-100 d-flex flex-column justify-content-between">
             <div>
@@ -29,7 +29,7 @@
                     <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: var(--uk-dark);">
                         Penjualan Hari Ini
                     </span>
-                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(19, 21, 21, 0.1); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(0, 38, 38, 0.1); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
                         <i class="fas fa-cash-register"></i>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     {{ format_rupiah($todaySales) }}
                 </h3>
             </div>
-            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(19, 21, 21, 0.12); font-size: 0.78rem;">
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(0, 38, 38, 0.12); font-size: 0.78rem;">
                 <span class="fw-semibold" style="color: var(--uk-dark);"><i class="fas fa-calendar-day me-1 opacity-75"></i>Shift Aktif Hari Ini</span>
                 <a href="{{ route('karyawan.sales.create') }}" class="fw-bold" style="color: var(--uk-dark);">
                     Buka Kasir <i class="fas fa-arrow-right ms-1"></i>
@@ -54,7 +54,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Transaksi Hari Ini
                     </span>
-                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
                         <i class="fas fa-receipt"></i>
                     </div>
                 </div>
@@ -74,15 +74,15 @@
         </div>
     </div>
 
-    <!-- 3. Total Transaksi Saya (DARK HERO CARD #131515) -->
+    <!-- 3. Total Transaksi Saya (DARK HERO CARD #002626) -->
     <div class="col-12 col-md-4">
         <div class="uk-stat-card-dark h-100 d-flex flex-column justify-content-between">
             <div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 250, 251, 0.7);">
+                    <span class="text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255, 255, 255, 0.7);">
                         Total Transaksi Saya
                     </span>
-                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.2); color: var(--uk-accent); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                    <div style="width: 34px; height: 34px; border-radius: 8px; background-color: rgba(149, 198, 35, 0.2); color: var(--uk-accent); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
                         <i class="fas fa-user-check"></i>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <span class="small" style="color: var(--uk-accent);">Aktivitas</span>
                 </div>
             </div>
-            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 250, 251, 0.12); font-size: 0.78rem;">
+            <div class="pt-2 mt-2 d-flex align-items-center justify-content-between" style="border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.78rem;">
                 <span class="text-white-50"><i class="fas fa-shield-alt me-1"></i>Akumulasi catatan Anda</span>
                 <a href="{{ route('karyawan.reports.index') }}" style="color: var(--uk-accent); font-weight: 600;">
                     Riwayat Shift <i class="fas fa-arrow-right ms-1"></i>
@@ -105,7 +105,7 @@
 
 <!-- Warning Peringatan Stok Toko Menipis / Habis -->
 @if($lowStockProducts->isNotEmpty())
-<div class="uk-card p-3 p-md-4 mb-4 border-warning-subtle" style="background-color: rgba(125, 226, 209, 0.12); border-left: 4px solid var(--uk-accent) !important;">
+<div class="uk-card p-3 p-md-4 mb-4 border-warning-subtle" style="background-color: rgba(229, 88, 18, 0.08); border-left: 4px solid var(--uk-orange) !important;">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
         <div class="d-flex align-items-center gap-2">
             <i class="fas fa-triangle-exclamation text-warning fs-5"></i>
