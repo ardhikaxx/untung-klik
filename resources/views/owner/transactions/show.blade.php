@@ -14,7 +14,7 @@
 </div>
 
 @if($transaction->is_sale)
-<div class="card uk-card border-0 mb-4" style="background: rgba(125, 226, 209, 0.15); border-left: 4px solid var(--uk-primary) !important;">
+<div class="card uk-card border-0 mb-4" style="background: rgba(14, 71, 73, 0.08); border-left: 4px solid var(--uk-primary) !important;">
     <div class="card-body p-3 p-md-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div>
             <h6 class="fw-bold mb-1" style="color: var(--uk-dark);">
@@ -167,8 +167,8 @@
             text: 'Transaksi yang dihapus akan dikeluarkan dari buku kas dan tidak dapat dikembalikan.',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#2B2C28',
-            cancelButtonColor: '#131515',
+            confirmButtonColor: '#E55812',
+            cancelButtonColor: '#002626',
             confirmButtonText: 'Ya, Hapus',
             cancelButtonText: 'Batal'
         }).then(function(result) {
