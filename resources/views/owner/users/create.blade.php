@@ -103,7 +103,7 @@
                     </div>
 
                     <!-- Info PIN Default -->
-                    <div class="p-3 rounded-3 mb-4" style="background: rgba(125, 226, 209, 0.15); border: 1px solid rgba(51, 153, 137, 0.3);">
+                    <div class="p-3 rounded-3 mb-4" style="background: rgba(14, 71, 73, 0.08); border: 1px solid rgba(14, 71, 73, 0.2);">
                         <div class="d-flex align-items-center gap-2">
                             <i class="fas fa-key text-primary"></i>
                             <div class="small text-dark">
