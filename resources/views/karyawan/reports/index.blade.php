@@ -40,7 +40,7 @@
             <div class="card-body p-3">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <div class="uk-stat-icon" style="background: rgba(51, 153, 137, 0.12); color: #339989;">
+                        <div class="uk-stat-icon" style="background: rgba(149, 198, 35, 0.18); color: #95C623;">
                             <i class="fas fa-cash-register fa-lg"></i>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
             <div class="card-body p-3">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <div class="uk-stat-icon" style="background: rgba(125, 226, 209, 0.25); color: #131515;">
+                        <div class="uk-stat-icon" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                             <i class="fas fa-hand-holding-usd fa-lg"></i>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
             <div class="card-body p-3">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <div class="uk-stat-icon" style="background: rgba(51, 153, 137, 0.15); color: var(--uk-primary);">
+                        <div class="uk-stat-icon" style="background: rgba(14, 71, 73, 0.12); color: var(--uk-primary);">
                             <i class="fas fa-money-bill-wave fa-lg"></i>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
             <div class="card-body p-3">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <div class="uk-stat-icon" style="background: rgba(19, 21, 21, 0.1); color: var(--uk-dark);">
+                        <div class="uk-stat-icon" style="background: rgba(0, 38, 38, 0.08); color: var(--uk-dark);">
                             <i class="fas fa-receipt fa-lg"></i>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                     <tr>
                         <td colspan="6" class="text-center py-5">
                             <div class="mb-3">
-                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(51, 153, 137, 0.1); color: var(--uk-primary);">
+                                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: rgba(14, 71, 73, 0.1); color: var(--uk-primary);">
                                     <i class="fas fa-inbox fa-lg"></i>
                                 </div>
                             </div>
