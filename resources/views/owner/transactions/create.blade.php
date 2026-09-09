@@ -167,7 +167,7 @@
                     </p>
                 </div>
 
-                <div class="p-3 rounded-3" style="background: rgba(125, 226, 209, 0.15); border: 1px dashed var(--uk-primary);">
+                <div class="p-3 rounded-3" style="background: rgba(14, 71, 73, 0.08); border: 1px dashed var(--uk-primary);">
                     <h6 class="fw-bold small mb-1" style="color: var(--uk-dark);"><i class="fas fa-info-circle me-1 text-primary"></i> Otomatisasi Kasir</h6>
                     <p class="text-muted small mb-0" style="font-size: 0.8rem;">
                         Penjualan kasir yang berhasil otomatis dicatat ke dalam buku kas sebagai <strong>Uang Masuk</strong> dan stok barang langsung terpotong.
@@ -195,13 +195,13 @@
         var labelKeluar = document.getElementById('labelTypeKeluar');
         
         if (isMasuk) {
-            labelMasuk.style.borderColor = '#339989';
-            labelMasuk.style.backgroundColor = 'rgba(51, 153, 137, 0.1)';
+            labelMasuk.style.borderColor = '#95C623';
+            labelMasuk.style.backgroundColor = 'rgba(149, 198, 35, 0.12)';
             labelKeluar.style.borderColor = 'var(--uk-border)';
             labelKeluar.style.backgroundColor = 'transparent';
         } else {
-            labelKeluar.style.borderColor = '#2B2C28';
-            labelKeluar.style.backgroundColor = 'rgba(43, 44, 40, 0.08)';
+            labelKeluar.style.borderColor = '#E55812';
+            labelKeluar.style.backgroundColor = 'rgba(229, 88, 18, 0.08)';
             labelMasuk.style.borderColor = 'var(--uk-border)';
             labelMasuk.style.backgroundColor = 'transparent';
         }
