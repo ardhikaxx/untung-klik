@@ -193,13 +193,13 @@
         var labelKeluar = document.getElementById('labelTypeKeluar');
         
         if (isMasuk) {
-            labelMasuk.style.borderColor = '#339989';
-            labelMasuk.style.backgroundColor = 'rgba(51, 153, 137, 0.1)';
+            labelMasuk.style.borderColor = '#95C623';
+            labelMasuk.style.backgroundColor = 'rgba(149, 198, 35, 0.12)';
             labelKeluar.style.borderColor = 'var(--uk-border)';
             labelKeluar.style.backgroundColor = 'transparent';
         } else {
-            labelKeluar.style.borderColor = '#2B2C28';
-            labelKeluar.style.backgroundColor = 'rgba(43, 44, 40, 0.08)';
+            labelKeluar.style.borderColor = '#E55812';
+            labelKeluar.style.backgroundColor = 'rgba(229, 88, 18, 0.08)';
             labelMasuk.style.borderColor = 'var(--uk-border)';
             labelMasuk.style.backgroundColor = 'transparent';
         }
