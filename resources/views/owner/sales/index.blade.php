@@ -28,7 +28,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Total Omset Penjualan
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(51, 153, 137, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-cash-register"></i>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Jumlah Transaksi
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(43, 44, 40, 0.08); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(0, 38, 38, 0.08); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-receipt"></i>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Item Terjual
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.25); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(149, 198, 35, 0.2); color: var(--uk-dark); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-box-open"></i>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <span class="text-uppercase fw-bold text-muted" style="font-size: 0.72rem; letter-spacing: 0.06em;">
                         Estimasi Laba Kotor
                     </span>
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(125, 226, 209, 0.2); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: rgba(14, 71, 73, 0.1); color: var(--uk-primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
                         <i class="fas fa-coins"></i>
                     </div>
                 </div>
